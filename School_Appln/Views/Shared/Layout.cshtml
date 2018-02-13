@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	
+	<!-- BOOTSTRAP CORE STYLE CSS -->
+	<link href="~/Content/assets/css/bootstrap.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3mobile.css">
+	<!-- FONT AWESOME CSS -->
+	<link href="~/Content/assets/css/font-awesome.min.css" rel="stylesheet" />
+	<!-- FLEXSLIDER CSS -->
+	<link href="~/Content/assets/css/flexslider.css" rel="stylesheet" />
+	<!-- CUSTOM STYLE CSS -->
+	<link href="~/Content/assets/css/style.css" rel="stylesheet" />
+	<!-- Google	Fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css' />
+
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+	@*<link rel="stylesheet" href="../../media/css/jquery.dataTables_themeroller.css" />*@
+	@*<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.jqueryui.min.css" />*@
+	@*<link rel="stylesheet" href="https//cdn.datatables.net/responsive/2.2.1/css/responsive.jqueryui.min.css" />*@
+	@*<link rel="stylesheet"
+		  href="https://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">*@
+
+	@*<link rel="stylesheet"
+		  href="https://cdn.datatables.net/plug-ins/9dcbecd42ad/integration/jqueryui/dataTables.jqueryui.css">*@
+	@*<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.jqueryui.min.css" />*@
+	
+
+	
+</head>
+<body style="background-color:#f5f5f5;">
+
+	<div class="navbar navbar-inverse navbar-fixed-top " id="menu" style="height:5%;">
+		<div class="container">
+			<div class="navbar-header">
+				
+				<a class="navbar-brand" href="#"><img class="logo-custom" src="~/Content/assets/img/logo180-50.png" alt="" /></a>
+			</div>
+			<div class="navbar-collapse collapse move-me" style="z-index:10000;">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#home">HOME</a></li>
+					<li><a href="#features-sec">FEATURES</a></li>
+					<li><a href="#faculty-sec">FACULTY</a></li>
+					<li><a href="#course-sec">COURSES</a></li>
+					<li><a href="#contact-sec">CONTACT</a></li>
+				</ul>
+			</div>
+
+		</div>
+	</div>
+	
+
+	
+		<div class="row container-fluid" style="background-color:#f5f5f5; " >
+			@*<div class="col-xs-2"  style="background-color: black; margin-top:10%; min-height:1000px; " >*@
+				@*@Html.Partial("SideNavigationBar");*@
+				@*@Html.Partial("Side_MenuBar");*@
+				
+				@*@Html.Partial("Responsive_SideBar")*@
+				@Html.Partial("View")
+			@*</div>*@
+			
+			<div class="col-xs-10" style="margin-top:5%; margin-left:2% ">
+				@RenderBody();
+			</div>
+		</div>
+
+
+
+		@*<div class="container" style="background-color:#f5f5f5; ">
+			<div class="row set-row-pad">
+				<div class="col-lg-4 col-md-4 col-sm-4   col-lg-offset-1 col-md-offset-1 col-sm-offset-1 " data-scroll-reveal="enter from the bottom after 0.4s">
+
+					<h2><strong>Our Location </strong></h2>
+					<hr />
+					<div ">
+						<h4>234/80 -UFG , New Street,</h4>
+						<h4>Switzerland.</h4>
+						<h4><strong>Call:</strong>  + 67-098-907-1269 / 70 / 71 </h4>
+						<h4><strong>Email: </strong>info@yourdomain.com</h4>
+					</div>
+
+
+				</div>
+				<div class="col-lg-4 col-md-4 col-sm-4   col-lg-offset-1 col-md-offset-1 col-sm-offset-1" data-scroll-reveal="enter from the bottom after 0.4s">
+
+					<h2><strong>Social Conectivity </strong></h2>
+					<hr />
+					<div>
+						<a href="#">  <img src="~/Content/assets/img/Social/facebook.png" alt="" /> </a>
+						<a href="#"> <img src="~/Content/assets/img/Social/google-plus.png" alt="" /></a>
+						<a href="#"> <img src="~/Content/assets/img/Social/twitter.png" alt="" /></a>
+					</div>
+				</div>
+
+
+			</div>
+		</div>*@
+		<!-- CONTACT SECTION END-->
+		<div id="footer">
+			&copy 2014 yourdomain.com | All Rights Reserved |  <a href="http://binarytheme.com" style="color: #fff" target="_blank">Design by : binarytheme.com</a>
+		</div>
+		<!-- FOOTER SECTION END-->
+		<!--  Jquery Core Script -->
+		<script src="~/Content/assets/js/jquery-1.10.2.js"></script>
+		<!--  Core Bootstrap Script -->
+		<script src="~/Content/assets/js/bootstrap.js"></script>
+		<!--  Flexslider Scripts -->
+		<script src="~/Content/assets/js/jquery.flexslider.js"></script>
+		<!--  Scrolling Reveal Script -->
+		<script src="~/Content/assets/js/scrollReveal.js"></script>
+		<!--  Scroll Scripts -->
+		<script src="~/Content/assets/js/jquery.easing.min.js"></script>
+		<!--  Custom Scripts -->
+		<script src="~/Content/assets/js/custom.js"></script>
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	@*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet"></script>*@
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
+
+	
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://cdn.datatables.net/1.10.5/js/jquery.dataTables.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+	<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.flash.min.js"></script>
+	
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+	
+
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.1.2/js/dataTables.buttons.min.js"></script>
+	<script type="text/javascript" language="javascript" src="//cdn.datatables.net/buttons/1.1.2/js/buttons.flash.min.js"></script>
+
+</body>
+</html>
+

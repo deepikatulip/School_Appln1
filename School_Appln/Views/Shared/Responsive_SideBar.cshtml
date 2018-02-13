@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<title>Free Education Template</title>
+	<!-- BOOTSTRAP CORE STYLE CSS -->
+	<link href="~/Content/assets/css/bootstrap.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3mobile.css">
+	<!-- FONT AWESOME CSS -->
+	<link href="~/Content/assets/css/font-awesome.min.css" rel="stylesheet" />
+	<!-- FLEXSLIDER CSS -->
+	<link href="~/Content/assets/css/flexslider.css" rel="stylesheet" />
+	<!-- CUSTOM STYLE CSS -->
+	<link href="~/Content/assets/css/style.css" rel="stylesheet" />
+	<!-- Google	Fonts -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css' />
+
+	<script src="~/Content/assets/js/jquery-1.10.2.js"></script>
+	<!--  Core Bootstrap Script -->
+	<script src="~/Content/assets/js/bootstrap.js"></script>
+
+	
+
+	<script type="text/javascript">
+		
+		$(document).ready(function () {
+			$('label.tree-toggler').click(function () {
+				$(this).parent().children('ul.tree').toggle(300);
+			});
+		});
+	</script>
+	</head>
+<body>
+	<div class="container" style="width:80%">
+		<div class="row">
+			<div class="well" style="width:300px; padding: 8px 0;">
+				<div style="overflow-y: scroll; overflow-x: hidden; height: 500px;">
+					<ul class="nav nav-list">
+						<li>
+							<label class="tree-toggler nav-header">Header 1</label>
+							<ul class="nav nav-list tree">
+								<li><a href="#">Link</a></li>
+								<li><a href="#">Link</a></li>
+								<li>
+									<label class="tree-toggler nav-header">Header 1.1</label>
+									<ul class="nav nav-list tree">
+										<li><a href="#">Link</a></li>
+										<li><a href="#">Link</a></li>
+										<li>
+											<label class="tree-toggler nav-header">Header 1.1.1</label>
+											<ul class="nav nav-list tree">
+												<li><a href="#">Link</a></li>
+												<li><a href="#">Link</a></li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<label class="tree-toggler nav-header">Header 2</label>
+							<ul class="nav nav-list tree">
+								<li><a href="#">Link</a></li>
+								<li><a href="#">Link</a></li>
+								<li>
+									<label class="tree-toggler nav-header">Header 2.1</label>
+									<ul class="nav nav-list tree">
+										<li><a href="#">Link</a></li>
+										<li><a href="#">Link</a></li>
+										<li>
+											<label class="tree-toggler nav-header">Header 2.1.1</label>
+											<ul class="nav nav-list tree">
+												<li><a href="#">Link</a></li>
+												<li><a href="#">Link</a></li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<label class="tree-toggler nav-header">Header 2.2</label>
+									<ul class="nav nav-list tree">
+										<li><a href="#">Link</a></li>
+										<li><a href="#">Link</a></li>
+										<li>
+											<label class="tree-toggler nav-header">Header 2.2.1</label>
+											<ul class="nav nav-list tree">
+												<li><a href="#">Link</a></li>
+												<li><a href="#">Link</a></li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>
