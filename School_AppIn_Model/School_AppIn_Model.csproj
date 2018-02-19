@@ -31,18 +31,50 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Microsoft.Owin.Security.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web.Helpers">
+      <HintPath>..\School_Appln\bin\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\School_Appln\bin\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages">
+      <HintPath>..\School_Appln\bin\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment">
+      <HintPath>..\School_Appln\bin\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor">
+      <HintPath>..\School_Appln\bin\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,33 +83,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Blood_Group.cs" />
-    <Compile Include="Model\Class.cs" />
-    <Compile Include="Model\Designation.cs" />
-    <Compile Include="Model\FeePayment_Detail.cs" />
-    <Compile Include="Model\Fees_Component.cs" />
-    <Compile Include="Model\Fee_Detail.cs" />
-    <Compile Include="Model\Institution.cs" />
-    <Compile Include="Model\Payment_Mode.cs" />
-    <Compile Include="Model\School.cs" />
-    <Compile Include="Model\Section.cs" />
-    <Compile Include="Model\Staff.cs" />
-    <Compile Include="Model\Staff_Educational_Details.cs" />
-    <Compile Include="Model\Staff_Exp_Details.cs" />
-    <Compile Include="Model\Staff_Type.cs" />
-    <Compile Include="Model\Student.cs" />
+    <Compile Include="Common\Constants.cs" />
+    <Compile Include="DataAccessLayer\Blood_Group.cs" />
+    <Compile Include="DataAccessLayer\Class.cs" />
+    <Compile Include="DataAccessLayer\Designation.cs" />
+    <Compile Include="DataAccessLayer\FeePayment_Detail.cs" />
+    <Compile Include="DataAccessLayer\Fees_Component.cs" />
+    <Compile Include="DataAccessLayer\Fee_Detail.cs" />
+    <Compile Include="DataAccessLayer\Institution.cs" />
+    <Compile Include="DataAccessLayer\Payment_Mode.cs" />
+    <Compile Include="DataAccessLayer\Role.cs" />
+    <Compile Include="DataAccessLayer\School.cs" />
+    <Compile Include="DataAccessLayer\Section.cs" />
+    <Compile Include="DataAccessLayer\Staff.cs" />
+    <Compile Include="DataAccessLayer\Staff_Educational_Details.cs" />
+    <Compile Include="DataAccessLayer\Staff_Exp_Details.cs" />
+    <Compile Include="DataAccessLayer\Staff_Type.cs" />
+    <Compile Include="DataAccessLayer\Student.cs" />
     <Compile Include="DataAccessLayer\StudentDbContext.cs" />
-    <Compile Include="Model\Student_Other_Details.cs" />
-    <Compile Include="Model\Student_Prev_School_Details.cs" />
-    <Compile Include="Model\Student_Sibling_Details.cs" />
+    <Compile Include="DataAccessLayer\Student_Other_Details.cs" />
+    <Compile Include="DataAccessLayer\Student_Prev_School_Details.cs" />
+    <Compile Include="DataAccessLayer\Student_Sibling_Details.cs" />
+    <Compile Include="DataAccessLayer\User.cs" />
+    <Compile Include="DataAccessLayer\UserClaim.cs" />
+    <Compile Include="DataAccessLayer\UserLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\AccountViewModels.cs" />
+    <Compile Include="ViewModel\Class1.cs" />
+    <Compile Include="ViewModel\IdentityModels.cs" />
+    <Compile Include="ViewModel\ManageViewModels.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ViewModel\" />
+    <Folder Include="Model\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

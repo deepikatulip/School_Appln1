@@ -1,3 +1,28 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.Owin;
+@using School_AppIn_Models;
+@using School_AppIn;
+
+@{
+    if (Request.IsAuthenticated && User.IsInRole(School_AppIn_Model.Common.Constants.ROLE_SUPERADMIN))
+    {
+        Layout = "~/Views/Shared/_LayoutSuperAdmin.cshtml";
+    }
+    else if (Request.IsAuthenticated && User.IsInRole(School_AppIn_Model.Common.Constants.ROLE_ADMIN))
+    {
+        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    }
+    else if (Request.IsAuthenticated && User.IsInRole(School_AppIn_Model.Common.Constants.ROLE_PARENT))
+    {
+    }
+    else if (Request.IsAuthenticated && User.IsInRole(School_AppIn_Model.Common.Constants.ROLE_STAFF))
+    {
+    }
+    else if (Request.IsAuthenticated)
+    {
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
 }

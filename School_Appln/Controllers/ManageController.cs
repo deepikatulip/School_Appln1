@@ -6,52 +6,23 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using School_Appln.Models;
+using System.IO;
+using Microsoft.Owin.Security;
+using School_AppIn_Model;
+using System.IO;
+using School_AppIn.Helpers;
 
-namespace School_Appln.Controllers
+namespace School_AppIn.Controllers
 {
-    [Authorize]
-    public class ManageController : Controller
+
+    public class ManageController : BaseController
     {
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
 
-        public ManageController()
-        {
-        }
-
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
-
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set 
-            { 
-                _signInManager = value; 
-            }
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
+        private School_AppIn_Model.DataAccessLayer.StudentDbContext db = new School_AppIn_Model.DataAccessLayer.StudentDbContext();
 
         //
         // GET: /Manage/Index
+        [Authorize]
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -61,16 +32,23 @@ namespace School_Appln.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                : message == ManageMessageId.PhotoUpload ? "Your photo has been changed."
                 : "";
 
             var userId = User.Identity.GetUserId();
+            var user = await UserManager.FindByIdAsync(userId);
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                NickName = user.NickName,
+                Email = user.Email,
+                Gender = user.Sex,
+                UserId = user.Id
+
             };
             return View(model);
         }
@@ -103,6 +81,7 @@ namespace School_Appln.Controllers
         // GET: /Manage/AddPhoneNumber
         public ActionResult AddPhoneNumber()
         {
+            var userId = User.Identity.GetUserId();
             return View();
         }
 
@@ -195,9 +174,7 @@ namespace School_Appln.Controllers
         }
 
         //
-        // POST: /Manage/RemovePhoneNumber
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        // GET: /Manage/RemovePhoneNumber
         public async Task<ActionResult> RemovePhoneNumber()
         {
             var result = await UserManager.SetPhoneNumberAsync(User.Identity.GetUserId(), null);
@@ -217,6 +194,7 @@ namespace School_Appln.Controllers
         // GET: /Manage/ChangePassword
         public ActionResult ChangePassword()
         {
+            var userId = User.Identity.GetUserId();
             return View();
         }
 
@@ -244,6 +222,27 @@ namespace School_Appln.Controllers
             return View(model);
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(User model)
+        {
+            if (ModelState.IsValid)
+            {
+                User u = UserManager.FindById(model.Id);
+                u.NickName = model.NickName;
+                u.Sex = model.Sex;
+                UserManager.Update(u);
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+
+        public ActionResult Edit()
+        {
+            User u = UserManager.FindById(User.Identity.GetUserId());
+            return View(u);
+        }
         //
         // GET: /Manage/SetPassword
         public ActionResult SetPassword()
@@ -251,7 +250,15 @@ namespace School_Appln.Controllers
             return View();
         }
 
-        //
+        public JsonResult EncryptedQueryString(string queryString)
+        {
+
+            JsonResult result = new JsonResult();
+            result.Data = queryString.EncryptQueryString();
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+
+        }
         // POST: /Manage/SetPassword
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -299,17 +306,7 @@ namespace School_Appln.Controllers
             });
         }
 
-        //
-        // POST: /Manage/LinkLogin
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult LinkLogin(string provider)
-        {
-            // Request a redirect to the external login provider to link a login for the current user
-            return new AccountController.ChallengeResult(provider, Url.Action("LinkLoginCallback", "Manage"), User.Identity.GetUserId());
-        }
-
-        //
+       
         // GET: /Manage/LinkLoginCallback
         public async Task<ActionResult> LinkLoginCallback()
         {
@@ -322,18 +319,8 @@ namespace School_Appln.Controllers
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && _userManager != null)
-            {
-                _userManager.Dispose();
-                _userManager = null;
-            }
 
-            base.Dispose(disposing);
-        }
-
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -381,9 +368,10 @@ namespace School_Appln.Controllers
             SetPasswordSuccess,
             RemoveLoginSuccess,
             RemovePhoneSuccess,
-            Error
+            Error,
+            PhotoUpload
         }
 
-#endregion
+        #endregion
     }
 }

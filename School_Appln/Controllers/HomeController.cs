@@ -14,7 +14,6 @@ namespace School_Appln.Controllers
        
         public ActionResult Index()
         {
-            var List = db.Classes.ToList();
             return View();
         }
 

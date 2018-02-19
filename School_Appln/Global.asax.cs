@@ -12,6 +12,9 @@ namespace School_Appln
     {
         protected void Application_Start()
         {
+            ViewEngines.Engines.Clear();
+            IViewEngine razorEngine = new RazorViewEngine() { FileExtensions = new string[] { "cshtml" } };
+            ViewEngines.Engines.Add(razorEngine);
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

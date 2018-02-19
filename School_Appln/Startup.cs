@@ -1,8 +1,9 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(School_Appln.Startup))]
-namespace School_Appln
+[assembly: OwinStartupAttribute(typeof(School_AppIn.Startup))]
+[assembly: log4net.Config.XmlConfigurator(ConfigFile = "Web.config", Watch = true)]
+namespace School_AppIn
 {
     public partial class Startup
     {
@@ -11,4 +12,7 @@ namespace School_Appln
             ConfigureAuth(app);
         }
     }
+
+
+
 }

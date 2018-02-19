@@ -13,7 +13,11 @@ namespace School_AppIn_Model.DataAccessLayer
         }
 
         public virtual DbSet<Class> Classes { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Section> Sections { get; set; }
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserClaim> UserClaims { get; set; }
+        public virtual DbSet<UserLogin> UserLogins { get; set; }
         public virtual DbSet<Blood_Group> Blood_Group { get; set; }
         public virtual DbSet<Designation> Designations { get; set; }
         public virtual DbSet<Fee_Detail> Fee_Detail { get; set; }
@@ -33,6 +37,11 @@ namespace School_AppIn_Model.DataAccessLayer
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Role>()
+                .HasMany(e => e.Users)
+                .WithMany(e => e.Roles)
+                .Map(m => m.ToTable("UserRole").MapLeftKey("RoleId").MapRightKey("UserId"));
+
             modelBuilder.Entity<Section>()
                 .Property(e => e.Section_Name)
                 .IsUnicode(false);

@@ -1,0 +1,35 @@
+﻿@using MvcSiteMapProvider.Web.Html;
+@using School_AppIn.Helpers;
+@model Microsoft.AspNet.Identity.EntityFramework.IdentityRole
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutSuperAdmin.cshtml";
+}
+
+<section class="content-header">
+    <h1>
+        Role
+        <small>Edit</small>
+    </h1>
+</section>
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            @Html.ActionLink("List Roles", "Index") | @Html.ActionLink("Manage User Role", "ManageUserRoles")
+            <hr />
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(model => model.Id)
+                <div>
+                    Role name
+                </div>
+                <p>
+                    <div class="form-group">@Html.TextBox("UserName", null, new { @class = "form-control" })</div>
+                </p>
+                <button type="submit" class="btn btn-primary" >Save</button>
+            }
+            </div>
+        </div>
+        </section>

@@ -1,0 +1,66 @@
+﻿@using School_AppIn.Helpers;
+@using MvcSiteMapProvider.Web.Html;
+@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutSuperAdmin.cshtml";
+}
+<section class="content-header">
+    <h1>Roles Listing</h1>
+    @*<ol class="breadcrumb">
+        <i class="fa fa-dashboard"></i>  @Html.MvcSiteMap().SiteMapPath()
+    </ol>*@
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">@Html.ActionLink("Create New Role", "Create") | @Html.ActionLink("Manage User Role", "ManageUserRoles")</h3>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <table id="example2">
+                        <thead>
+                            <tr>
+                                <th>Role Name</th>
+                                <th>Remove Role</th>
+                                <th>Change Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var role in Model)
+                            {
+
+                                <tr>
+                                    <td>@role.Name</td>
+                                    <td><span onclick="return confirm('Are you sure to delete?')"><a href="/Roles/Delete?RoleName=@role.Name" class="delLink" style="color:red;">Delete</a></span></td>
+                                    <td>@Html.ActionLink("Edit", "Edit", new { roleName = @role.Name })</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</section><!-- /.content -->
+@section Scripts{
+<script src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+<link href="~/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+    <script type="text/javascript" class="initialism">
+
+        $(document).ready(function () {
+            $('#example2').DataTable();
+
+        });
+    </script>
+}

@@ -1,61 +1,56 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using School_Appln.Models;
+using School_AppIn_Model;
+using School_AppIn.Controllers;
+using System.Collections.Generic;
+using System.IO;
+using School_AppIn_Models;
 
-namespace School_Appln.Controllers
+namespace School_AppIn.Controllers
 {
-    [Authorize]
-    public class AccountController : Controller
+
+    public class AccountController : BaseController
+
     {
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
+        ApplicationDbContext appDbContext = new ApplicationDbContext();
 
-        public AccountController()
-        {
-        }
-
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
-
-        public ApplicationSignInManager SignInManager
-        {
-            get
-            {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            }
-            private set 
-            { 
-                _signInManager = value; 
-            }
-        }
-
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
-
-        //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login(string returnUrl, string role)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            switch (role)
+            {
+                case "SuperAdmin":
+                    return RedirectToAction("SuperAdminLogin", returnUrl);
+                case "Parent":
+                    return RedirectToAction("ParentStaffLogin", returnUrl);
+                case "Staff":
+                    return RedirectToAction("ParentStaffLogin", returnUrl);
+                default:
+                    return new RedirectResult("~/Home/Index");
+            }
+
+        }
+
+        [AllowAnonymous]
+        public ActionResult ParentStaffLogin(string returnUrl)
+        {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+         
+
+
+        //Demo Login
+        [AllowAnonymous]
+        public ActionResult SuperAdminLogin(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
@@ -66,20 +61,41 @@ namespace School_Appln.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+
+        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl, string command)
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View(loginView(command), model);
+            }
+
+            var user = UserManager.FindByName(model.Email);
+
+            if (user != null && user.Disabled)
+            {
+                ModelState.AddModelError("", "Your account is disabled!");
+                return View(loginView(command), model);
+            }
+
+            if (user != null && !user.TermsAgreed && !model.TermsAgreed)
+            {
+                ModelState.AddModelError("", "Terms must be agreed before signing in");
+                return View(loginView(command), model);
+            }
+            if (user != null && !user.TermsAgreed && model.TermsAgreed)
+            {
+                user.TermsAgreed = model.TermsAgreed;
+                UserManager.Update(user);
             }
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password.Trim(), model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    // var user = UserManager.FindByName(model.Email);
+                    return RedirectToLocal(returnUrl, user.Id.ToString());
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -87,8 +103,21 @@ namespace School_Appln.Controllers
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                    return View(loginView(command), model);
             }
+        }
+        private string loginView(string command)
+        {
+
+            if (string.IsNullOrEmpty(command))
+            {
+                return "Login";
+            }
+            else
+            {
+                return command;
+            }
+
         }
 
         //
@@ -120,11 +149,11 @@ namespace School_Appln.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(model.ReturnUrl);
+                   // return RedirectToLocal(model.ReturnUrl, null);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.Failure:
@@ -134,36 +163,26 @@ namespace School_Appln.Controllers
             }
         }
 
-        //
-        // GET: /Account/Register
-        [AllowAnonymous]
-        public ActionResult Register()
+
+        [Authorize]
+        public ActionResult SiteAdmin()
         {
             return View();
         }
 
-        //
-        // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> SiteAdmin(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var user = new User { UserName = model.Email, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password.Trim());
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Index", "Home");
+                    UserManager.AddToRole(user.Id, School_AppIn_Model.Common.Constants.ROLE_ADMIN);
+                    return RedirectToLocal("", user.Id);
                 }
                 AddErrors(result);
             }
@@ -171,6 +190,18 @@ namespace School_Appln.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+        
+        //
+        // GET: /Account/Register
+        [AllowAnonymous]
+        public ActionResult Register()
+        {
+            return View();
+
+        }
+
+     
 
         //
         // GET: /Account/ConfirmEmail
@@ -184,8 +215,7 @@ namespace School_Appln.Controllers
             var result = await UserManager.ConfirmEmailAsync(userId, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
-
-        //
+       
         // GET: /Account/ForgotPassword
         [AllowAnonymous]
         public ActionResult ForgotPassword()
@@ -193,33 +223,7 @@ namespace School_Appln.Controllers
             return View();
         }
 
-        //
-        // POST: /Account/ForgotPassword
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
-                {
-                    // Don't reveal that the user does not exist or is not confirmed
-                    return View("ForgotPasswordConfirmation");
-                }
-
-                // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
-            }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
+        
 
         //
         // GET: /Account/ForgotPasswordConfirmation
@@ -333,7 +337,7 @@ namespace School_Appln.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                  //  return RedirectToLocal(returnUrl, AuthenticationManager.AuthenticationResponseGrant.Identity.GetUserId());
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -367,7 +371,7 @@ namespace School_Appln.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new User { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
@@ -375,7 +379,7 @@ namespace School_Appln.Controllers
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return RedirectToLocal(returnUrl);
+                        //return RedirectToLocal(returnUrl, null);
                     }
                 }
                 AddErrors(result);
@@ -403,25 +407,7 @@ namespace School_Appln.Controllers
             return View();
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (_userManager != null)
-                {
-                    _userManager.Dispose();
-                    _userManager = null;
-                }
 
-                if (_signInManager != null)
-                {
-                    _signInManager.Dispose();
-                    _signInManager = null;
-                }
-            }
-
-            base.Dispose(disposing);
-        }
 
         #region Helpers
         // Used for XSRF protection when adding external logins
@@ -443,13 +429,32 @@ namespace School_Appln.Controllers
             }
         }
 
-        private ActionResult RedirectToLocal(string returnUrl)
+        
+
+        public ActionResult RedirectToLocal(string returnUrl, string userId)
         {
-            if (Url.IsLocalUrl(returnUrl))
+
+
+            if (UserManager.IsInRole(userId, School_AppIn_Model.Common.Constants.ROLE_SUPERADMIN))
             {
-                return Redirect(returnUrl);
+                return RedirectToAction("SuperAdminHome", "Protected");
             }
-            return RedirectToAction("Index", "Home");
+            if (UserManager.IsInRole(userId, School_AppIn_Model.Common.Constants.ROLE_ADMIN))
+            {
+                return RedirectToAction("AdminHome", "Protected");
+            }
+            if (UserManager.IsInRole(userId, School_AppIn_Model.Common.Constants.ROLE_PARENT))
+            {
+                return RedirectToAction("ParentHome", "Protected");
+            }
+            if (UserManager.IsInRole(userId, School_AppIn_Model.Common.Constants.ROLE_STAFF))
+            {
+                return RedirectToAction("StaffHome", "Protected");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult
