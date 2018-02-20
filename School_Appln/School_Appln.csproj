@@ -1212,6 +1212,7 @@
     <Content Include="Views\Account\SuperAdminLogin.cshtml" />
     <Content Include="Views\Protected\SuperAdminHome.cshtml" />
     <Content Include="Views\Account\ParentStaffLogin.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

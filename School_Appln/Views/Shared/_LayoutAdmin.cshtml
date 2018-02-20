@@ -8,34 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>EDCATIONAL ERP SYSTEM</title>
-    <!-- Global stylesheets -->
-    <link href="~/Content/css/icons/icomoon/styles.css" rel="stylesheet" />
-    <link href="~/Content/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/css/core.css" rel="stylesheet" />
-    <link href="~/Content/css/components.css" rel="stylesheet" />
-    <link href="~/Content/css/colors.css" rel="stylesheet" />
-    <!-- /global stylesheets -->
-    <!-- Core JS files -->
-    <script src="~/Scripts/js/plugins/loaders/pace.min.js"></script>
-    <script src="~/Scripts/js/core/libraries/jquery.min.js"></script>
-    <script src="~/Scripts/js/core/libraries/bootstrap.min.js"></script>
-    <script src="~/Scripts/js/plugins/loaders/blockui.min.js"></script>
-    <!-- /core JS files -->
-    <!-- Theme JS files -->
-    <script src="~/Scripts/js/plugins/visualization/d3/d3.min.js"></script>
-    <script src="~/Scripts/js/plugins/visualization/d3/d3_tooltip.js"></script>
-    <script src="~/Scripts/js/plugins/forms/styling/switchery.min.js"></script>
-    <script src="~/Scripts/js/plugins/forms/styling/uniform.min.js"></script>
-    <script src="~/Scripts/js/plugins/forms/selects/bootstrap_multiselect.js"></script>
-    <script src="~/Scripts/js/plugins/ui/moment/moment.min.js"></script>
-    <script src="~/Scripts/js/plugins/pickers/daterangepicker.js"></script>
-    <script src="~/Scripts/js/core/app.js"></script>
-    @*<script src="~/Scripts/js/pages/dashboard.js"></script>*@
-    <!-- /theme JS files -->
-
-    <script src="~/Scripts/js/plugins/tables/datatables/datatables.min.js"></script>
-    <script src="~/Scripts/js/plugins/tables/datatables/extensions/responsive.min.js"></script>
-    <script src="~/Scripts/js/plugins/forms/selects/select2.min.js"></script>
+    @Styles.Render("~/Content/ThemesCSS")
+    @Scripts.Render("~/bundles/ThemesJS")
 </head>
 <body>
     <!-- Main navbar -->
@@ -241,7 +215,7 @@
             </ul>
         </div>
     </div>
-  
+
     <!-- Page container -->
     <div class="page-container">
         <!-- Page content -->
@@ -997,13 +971,12 @@
                         @RenderBody()
                         @RenderSection("scripts", false)
                     </div>
-                    
+
                 </div>
                 <!-- /page header -->
                 <!-- Content area -->
                 <div class="content">
                     <!-- Main charts -->
-                 
                     <!-- /main charts -->
                     <!-- Footer -->
                     <div class="footer text-muted">

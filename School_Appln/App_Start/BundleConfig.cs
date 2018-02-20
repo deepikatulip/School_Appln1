@@ -8,6 +8,32 @@ namespace School_Appln
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new ScriptBundle("~/bundles/ThemesJS").Include(
+                    "~/Scripts/js/plugins/loaders/pace.min.js",
+                    "~/Scripts/js/core/libraries/jquery.min.js",
+                    "~/Scripts/js/core/libraries/bootstrap.min.js",
+                    "~/Scripts/js/plugins/loaders/blockui.min.js",
+                    "~/Scripts/js/plugins/visualization/d3/d3.min.js",
+                    "~/Scripts/js/plugins/visualization/d3/d3_tooltip.js",
+                    "~/Scripts/js/plugins/forms/styling/switchery.min.js",
+                    "~/Scripts/js/plugins/forms/styling/uniform.min.js",
+                    "~/Scripts/js/plugins/forms/selects/bootstrap_multiselect.js",
+                    "~/Scripts/js/plugins/ui/moment/moment.min.js",
+                    "~/Scripts/js/plugins/pickers/daterangepicker.js",
+                    "~/Scripts/js/core/app.js"
+            ));
+
+            bundles.Add(new StyleBundle("~/Content/ThemesCSS").Include(
+                    "~/Content/css/icons/icomoon/styles.css",
+                    "~/Content/css/bootstrap.css",
+                    "~/Content/css/core.css",
+                    "~/Content/css/components.css",
+                    "~/Content/css/colors.css"
+                ));
+
+
+
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 

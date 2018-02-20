@@ -10,7 +10,7 @@
     }
     else if (Request.IsAuthenticated && User.IsInRole(School_AppIn_Model.Common.Constants.ROLE_ADMIN))
     {
-        Layout = "~/Views/Shared/_AdminLayout.cshtml";
+        Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
     }
     else if (Request.IsAuthenticated && User.IsInRole(School_AppIn_Model.Common.Constants.ROLE_PARENT))
     {
