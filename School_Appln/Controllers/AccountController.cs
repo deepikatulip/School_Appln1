@@ -22,6 +22,7 @@ namespace School_AppIn.Controllers
         ApplicationDbContext appDbContext = new ApplicationDbContext();
 
         // GET: /Account/Login
+		//
         [AllowAnonymous]
         public ActionResult Login(string returnUrl, string role)
         {
