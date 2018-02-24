@@ -11,5 +11,6 @@ namespace School_AppIn_Model.Common
         public const string ROLE_ADMIN = "Admin";
         public const string ROLE_PARENT = "Parent";
         public const string ROLE_STAFF = "Staff";
+        public const string ROLE_STUDENT = "Student";
     }
 }

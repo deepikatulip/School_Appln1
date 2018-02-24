@@ -1,0 +1,55 @@
+﻿@model School_AppIn_Model.UserRegisterViewModel
+
+@{
+    ViewBag.Title = "All User";
+}
+
+<section class="content-header">
+    <h1>
+        Add User
+        <small>Create</small>
+    </h1>
+</section>
+<section class="content">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+
+            @using (Html.BeginForm("CreateUser", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group has-feedback has-feedback-left">
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @type = "Name", @placeholder = "Name" })
+                        <div class="form-control-feedback">
+                            <i class="icon-user-check text-muted"></i>
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                    <div class="form-group has-feedback has-feedback-left">
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @type = "email", @placeholder = "Email" })
+                            <i class="icon-mention text-muted"></i>
+                        </div>
+                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group has-feedback has-feedback-left">
+                        <div class="col-md-4">
+                            @Html.DropDownList("RolesId", (IEnumerable<SelectListItem>)ViewBag.RolesId, "Select Role ...", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group has-feedback has-feedback-left">
+                        <div class="col-md-4">
+                            <button type="submit" class="btn bg-teal btn-block btn-lg">Create</button>
+                        </div>
+                    </div>
+
+            }
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @* @Scripts.Render("~/bundles/jqueryval")*@
+}

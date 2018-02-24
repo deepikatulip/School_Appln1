@@ -10,7 +10,8 @@ using School_AppIn_Model;
 using School_AppIn.Controllers;
 using System.Collections.Generic;
 using System.IO;
-using School_AppIn_Models;
+using School_AppIn_Model;
+using School_AppIn_Utils;
 
 namespace School_AppIn.Controllers
 {
@@ -119,6 +120,102 @@ namespace School_AppIn.Controllers
             }
 
         }
+
+
+
+        #region Create User
+        [Authorize]
+        public ActionResult CreateUser()
+        {
+            var RoleList = appDbContext.Roles.Where(a=>a.Name != "SuperAdmin").ToList();
+            ViewBag.RolesId = new SelectList(RoleList, "Id", "Name");
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateUser(UserRegisterViewModel model, FormCollection frmFields)
+        {
+
+
+            if (string.IsNullOrEmpty(Request.Form["RolesId"]))
+            {
+                goto Fail;
+            }
+            var RoleId = Request.Form["RolesId"]; 
+
+            if (ModelState.IsValid)
+            {
+                string bodyHtml = string.Empty;
+                using (StreamReader reader = new StreamReader(Server.MapPath("~/Content/EmailTemplates/WelcomeEmailTemplate.html")))
+                {
+                    bodyHtml = reader.ReadToEnd();
+                }
+                var user = new User { NickName = model.Name, UserName = model.Email, Email = model.Email, TermsAgreed = trues };
+                var pwd = PasswordGenerator.GeneratePWD();
+                var result = await UserManager.CreateAsync(user, pwd);
+                var UserRole = appDbContext.Roles.Where(rl => rl.Id == RoleId).Single().Name;
+                if (result.Succeeded)
+                {
+                    switch (UserRole)
+                    {
+                        case "Admin":
+                            UserManager.AddToRole(user.Id, School_AppIn_Model.Common.Constants.ROLE_ADMIN);
+                            break;
+                        case "Staff":
+                            UserManager.AddToRole(user.Id, School_AppIn_Model.Common.Constants.ROLE_STAFF);
+                            break;
+                        case "Student":
+                            UserManager.AddToRole(user.Id, School_AppIn_Model.Common.Constants.ROLE_STUDENT);
+                            break;
+                        case "Parent":
+                            UserManager.AddToRole(user.Id, School_AppIn_Model.Common.Constants.ROLE_PARENT);
+                            break;
+                    }
+                    appDbContext.SaveChanges();
+                    var userMail = LoggedInUser;
+                    var welcomeBodyHtml = PopoulateWelcomeEmailTemplate(bodyHtml, userMail, user.UserName, pwd.Trim());
+                    School_AppIn_Utils.Utility.ApiTypes.EmailSend emailSend = Utility.Send(
+                         apiKey: "41750a2d-38ba-4f35-a616-f0f776cc107e",
+                         subject: string.Format("Welcome to {0} School ERP Portal", userMail.UserName),
+                         from: LoggedInUser.UserName,
+                         fromName: userMail.Email,
+                         to: new List<string> { user.Email },
+                         bodyText: "You can login to using the following credentials. Username :" + user.UserName + ", Password :" + pwd,
+                         bodyHtml: welcomeBodyHtml);
+                    return RedirectToLocal("", user.Id);
+                }
+                AddErrors(result);
+            }
+            Fail:
+            return View(model);
+        }
+
+        public string PopoulateWelcomeEmailTemplate(string bodyHtml, User user, string username, string pw)
+        {
+
+
+            var wBodyHtml = bodyHtml.Replace("{{USER-NAME}}", user.NickName)
+            .Replace("{{USER-ADDRESS}}", (user.Email ?? String.Empty))
+            .Replace("{{USERNAME}}", username)
+            .Replace("{{PASSWORD}}", pw);
+
+            return wBodyHtml;
+        }
+
+
+
+
+
+
+        #endregion
+
+
+
+
+
+
 
         //
         // GET: /Account/VerifyCode
