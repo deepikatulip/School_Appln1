@@ -10,17 +10,12 @@ namespace School_AppIn_Model.DataAccessLayer
     public partial class Student
     {
         [Key]
-        [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Student_Id { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
         [StringLength(20)]
         public string Roll_No { get; set; }
 
-        [Key]
-        [Column(Order = 2)]
         [StringLength(50)]
         public string First_Name { get; set; }
 
@@ -30,16 +25,11 @@ namespace School_AppIn_Model.DataAccessLayer
         [StringLength(50)]
         public string Last_Name { get; set; }
 
-        [Key]
-        [Column(Order = 3)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Gender { get; set; }
+        public int Gender_Id { get; set; }
 
-        [Key]
-        [Column(Order = 4)]
         public DateTime DOB { get; set; }
 
-        public DateTime? Enrollment_Date { get; set; }
+        public DateTime Enrollment_Date { get; set; }
 
         [StringLength(50)]
         public string Father_Name { get; set; }
@@ -47,7 +37,7 @@ namespace School_AppIn_Model.DataAccessLayer
         [StringLength(50)]
         public string Mother_Name { get; set; }
 
-        public int? Blood_Group_Id { get; set; }
+        public int Blood_Group_Id { get; set; }
 
         [StringLength(500)]
         public string Address_Line1 { get; set; }
@@ -55,11 +45,11 @@ namespace School_AppIn_Model.DataAccessLayer
         [StringLength(500)]
         public string Address_Line2 { get; set; }
 
-        public int? City_Id { get; set; }
+        public int City_Id { get; set; }
 
-        public int? State_Id { get; set; }
+        public int State_Id { get; set; }
 
-        public int? Country_Id { get; set; }
+        public int Country_Id { get; set; }
 
         [StringLength(10)]
         public string Phone_No1 { get; set; }
@@ -73,29 +63,59 @@ namespace School_AppIn_Model.DataAccessLayer
         [StringLength(30)]
         public string Email_Id { get; set; }
 
-        public long? Academic_Year { get; set; }
+        public long Academic_Year { get; set; }
 
-        public int? Created_By { get; set; }
+        public int Created_By { get; set; }
 
-        public DateTime? Created_On { get; set; }
+        public DateTime Created_On { get; set; }
 
-        public DateTime? Updated_On { get; set; }
+        public DateTime Updated_On { get; set; }
 
-        public int? Updated_By { get; set; }
+        public int Updated_By { get; set; }
 
-        public bool? Is_Active { get; set; }
+        public bool Is_Active { get; set; }
 
-        public bool? Is_Deleted { get; set; }
+        public bool Is_Deleted { get; set; }
 
         [StringLength(10)]
         public string Pincode { get; set; }
 
         public byte[] Photo { get; set; }
 
-        public bool? Is_HostelStudent { get; set; }
 
-        public bool? Is_FeesDueRemaining { get; set; }
+        public long Aadhar_No { get; set; }
 
-        public decimal? Fees_Due_Amount { get; set; }
+        public int Class_Id { get; set; }
+
+        public int Section_Id { get; set; }
+
+        public bool Is_HostelStudent { get; set; }
+
+        public bool Is_FeesDueRemaining { get; set; }
+
+        public decimal Fees_Due_Amount { get; set; }
+
+
+        [ForeignKey("Section_Id")]
+        public virtual Section FSection { get; set; }
+
+        [ForeignKey("Class_Id")]
+        public virtual Class FClass { get; set; }
+
+
+        [ForeignKey("Gender_Id")]
+        public virtual Gender Gender { get; set; }
+
+        [ForeignKey("Blood_Group_Id")]
+        public virtual Blood_Group BloodGroup { get; set; }
+
+
+        //[ForeignKey("Created_By")]
+        //public virtual User Created { get; set; }
+
+        //[ForeignKey("Updated_By")]
+        //public virtual User Updated { get; set; }
+
+
     }
 }

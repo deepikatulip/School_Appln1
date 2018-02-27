@@ -6,22 +6,29 @@ namespace School_AppIn_Model.DataAccessLayer
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Role")]
-    public partial class Role
+    [Table("emp")]
+    public partial class emp
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Role()
+        public emp()
         {
-            Users = new HashSet<User>();
+            emp1 = new HashSet<emp>();
         }
 
-        public string Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int id { get; set; }
 
-        [Required]
-        [StringLength(256)]
-        public string Name { get; set; }
+        [StringLength(100)]
+        public string name { get; set; }
+
+        [StringLength(50)]
+        public string designation { get; set; }
+
+        public int? supid { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<emp> emp1 { get; set; }
+
+        public virtual emp emp2 { get; set; }
     }
 }

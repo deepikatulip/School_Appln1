@@ -12,7 +12,4 @@ namespace School_AppIn
             ConfigureAuth(app);
         }
     }
-
-
-
 }

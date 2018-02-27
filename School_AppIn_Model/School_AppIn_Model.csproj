@@ -84,17 +84,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Constants.cs" />
+    <Compile Include="DataAccessLayer\Gender.cs" />
     <Compile Include="DataAccessLayer\Blood_Group.cs" />
+    <Compile Include="DataAccessLayer\Category.cs" />
     <Compile Include="DataAccessLayer\Class.cs" />
+    <Compile Include="DataAccessLayer\Customer.cs" />
+    <Compile Include="DataAccessLayer\DeletedCustomer.cs" />
     <Compile Include="DataAccessLayer\Designation.cs" />
+    <Compile Include="DataAccessLayer\emp.cs" />
+    <Compile Include="DataAccessLayer\empinfo.cs" />
     <Compile Include="DataAccessLayer\FeePayment_Detail.cs" />
     <Compile Include="DataAccessLayer\Fees_Component.cs" />
     <Compile Include="DataAccessLayer\Fee_Detail.cs" />
     <Compile Include="DataAccessLayer\Institution.cs" />
+    <Compile Include="DataAccessLayer\MSreplication_options.cs" />
     <Compile Include="DataAccessLayer\Payment_Mode.cs" />
-    <Compile Include="DataAccessLayer\Role.cs" />
+    <Compile Include="DataAccessLayer\Product.cs" />
     <Compile Include="DataAccessLayer\School.cs" />
     <Compile Include="DataAccessLayer\Section.cs" />
+    <Compile Include="DataAccessLayer\spt_fallback_db.cs" />
+    <Compile Include="DataAccessLayer\spt_fallback_dev.cs" />
+    <Compile Include="DataAccessLayer\spt_fallback_usg.cs" />
+    <Compile Include="DataAccessLayer\spt_monitor.cs" />
+    <Compile Include="DataAccessLayer\spt_values.cs" />
     <Compile Include="DataAccessLayer\Staff.cs" />
     <Compile Include="DataAccessLayer\Staff_Educational_Details.cs" />
     <Compile Include="DataAccessLayer\Staff_Exp_Details.cs" />
@@ -104,9 +116,12 @@
     <Compile Include="DataAccessLayer\Student_Other_Details.cs" />
     <Compile Include="DataAccessLayer\Student_Prev_School_Details.cs" />
     <Compile Include="DataAccessLayer\Student_Sibling_Details.cs" />
+    <Compile Include="DataAccessLayer\Subject_Detail.cs" />
+    <Compile Include="DataAccessLayer\TUser.cs" />
     <Compile Include="DataAccessLayer\User.cs" />
     <Compile Include="DataAccessLayer\UserClaim.cs" />
     <Compile Include="DataAccessLayer\UserLogin.cs" />
+    <Compile Include="DataAccessLayer\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\AccountViewModels.cs" />
     <Compile Include="ViewModel\IdentityModels.cs" />
@@ -116,9 +131,7 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

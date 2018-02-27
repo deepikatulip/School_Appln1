@@ -1,0 +1,110 @@
+﻿@model IEnumerable<School_AppIn_Model.DataAccessLayer.Section>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutSuperAdmin.cshtml";
+}
+<br />
+<!-- Basic datatable -->
+<div class="panel panel-flat">
+    <div class="panel-heading">
+        @*<h2>Index</h2><br />*@
+        <h5 class="panel-title">Section Details</h5>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+                <li><a data-action="reload"></a></li>
+                @*<li><a data-action="close"></a></li>*@
+            </ul>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <a href="@Url.Action("Create")" class="btn btn-primary">
+            <span class="glyphicon"></span>
+            Create Section
+        </a>
+    </div>
+    <br />
+    <table id="tblSection" class="table datatable-show-all">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Class.Class_Name)
+                </th>
+             
+                <th>
+                    @Html.DisplayNameFor(model => model.Section_Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Academic_Year)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Is_Active)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Created_By)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Created_On)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Updated_By)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Updated_On)
+                </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Class.Class_Name)
+                    </td>
+                 
+                 
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Section_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Academic_Year)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Is_Active)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Created.NickName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Created_On)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Updated.NickName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Updated_On)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Section_Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Section_Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Section_Id })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<!-- /basic datatable -->
+
+
+@section Scripts{
+    <script>
+        $('#tblSection').dataTable({
+       });
+    </script>
+
+}

@@ -199,6 +199,12 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Comm\CommAreaRegistration.cs" />
+    <Compile Include="Areas\Comm\Controllers\ClassesController.cs" />
+    <Compile Include="Areas\Comm\Controllers\SectionsController.cs" />
+    <Compile Include="Areas\Core\Controllers\StudentsController.cs" />
+    <Compile Include="Areas\Core\CoreAreaRegistration.cs" />
+    <Compile Include="Areas\Ext\ExtAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -632,6 +638,24 @@
     <Content Include="Content\css\icons\summernote\summernotef534.eot" />
     <Content Include="Content\css\icons\summernote\summernotef534.ttf" />
     <Content Include="Content\css\icons\summernote\summernotef534.woff" />
+    <Content Include="Areas\Comm\Views\web.config" />
+    <Content Include="Areas\Core\Views\web.config" />
+    <Content Include="Areas\Ext\Views\web.config" />
+    <Content Include="Areas\Comm\Views\Classes\Create.cshtml" />
+    <Content Include="Areas\Comm\Views\Classes\Delete.cshtml" />
+    <Content Include="Areas\Comm\Views\Classes\Details.cshtml" />
+    <Content Include="Areas\Comm\Views\Classes\Edit.cshtml" />
+    <Content Include="Areas\Comm\Views\Classes\Index.cshtml" />
+    <Content Include="Areas\Comm\Views\Sections\Create.cshtml" />
+    <Content Include="Areas\Comm\Views\Sections\Delete.cshtml" />
+    <Content Include="Areas\Comm\Views\Sections\Details.cshtml" />
+    <Content Include="Areas\Comm\Views\Sections\Edit.cshtml" />
+    <Content Include="Areas\Comm\Views\Sections\Index.cshtml" />
+    <Content Include="Areas\Core\Views\Students\Create.cshtml" />
+    <Content Include="Areas\Core\Views\Students\Delete.cshtml" />
+    <Content Include="Areas\Core\Views\Students\Details.cshtml" />
+    <Content Include="Areas\Core\Views\Students\Edit.cshtml" />
+    <Content Include="Areas\Core\Views\Students\Index.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1280,6 +1304,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Comm\Models\" />
+    <Folder Include="Areas\Comm\Views\Shared\" />
+    <Folder Include="Areas\Core\Models\" />
+    <Folder Include="Areas\Core\Views\Shared\" />
+    <Folder Include="Areas\Ext\Controllers\" />
+    <Folder Include="Areas\Ext\Models\" />
+    <Folder Include="Areas\Ext\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

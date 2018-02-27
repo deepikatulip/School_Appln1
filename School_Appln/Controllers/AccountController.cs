@@ -153,7 +153,7 @@ namespace School_AppIn.Controllers
                 {
                     bodyHtml = reader.ReadToEnd();
                 }
-                var user = new User { NickName = model.Name, UserName = model.Email, Email = model.Email, TermsAgreed = trues };
+                var user = new User { NickName = model.Name, UserName = model.Email, Email = model.Email, TermsAgreed = true };
                 var pwd = PasswordGenerator.GeneratePWD();
                 var result = await UserManager.CreateAsync(user, pwd);
                 var UserRole = appDbContext.Roles.Where(rl => rl.Id == RoleId).Single().Name;

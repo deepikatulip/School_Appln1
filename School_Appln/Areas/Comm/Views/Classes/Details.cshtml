@@ -1,0 +1,96 @@
+﻿@model School_AppIn_Model.DataAccessLayer.Class
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutSuperAdmin.cshtml";
+}
+<br />
+	<!-- Basic datatable -->
+<div class="panel panel-flat">
+    <div class="panel-heading panel-info">
+        <h5 class="panel-title">Class Details</h5>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+                <li><a data-action="reload"></a></li>
+                @*<li><a data-action="close"></a></li>*@
+            </ul>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div>
+            <h4>Class</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Class_Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Class_Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Academic_Year)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Academic_Year)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Is_Active)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Is_Active)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Created_On)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Created_On)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Created_By)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Created.NickName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Updated_On)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Updated_On)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Updated_By)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Updated.NickName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Is_Deleted)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Is_Deleted)
+                </dd>
+               
+            </dl>
+        </div>
+        <div class="form-actions no-color">
+            @Html.ActionLink("Edit", "Edit", null, new { id = Model.Class_Id, @class = "btn btn-primary" }) |
+            @Html.ActionLink("Back to List", "Index", null, new { @class = " btn btn-danger" })
+            </p>
+        </div>
+</div>

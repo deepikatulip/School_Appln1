@@ -1,0 +1,97 @@
+﻿@model School_AppIn_Model.DataAccessLayer.Section
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutSuperAdmin.cshtml";
+}
+
+<br />
+<!-- Basic datatable -->
+<div class="panel panel-flat">
+    <div class="panel-heading panel-info">
+        <h5 class="panel-title">Section Details</h5>
+        <div class="heading-elements">
+            <ul class="icons-list">
+                <li><a data-action="collapse"></a></li>
+                <li><a data-action="reload"></a></li>
+                @*<li><a data-action="close"></a></li>*@
+            </ul>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div>
+            <h4>Section</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Class.Class_Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Class.Class_Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Created.NickName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Created.NickName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Updated.NickName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Updated.NickName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Section_Name)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Section_Name)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Academic_Year)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Academic_Year)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Is_Active)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Is_Active)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Created_On)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Created_On)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.Updated_On)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.Updated_On)
+                </dd>
+            </dl>
+        </div>
+        <div class="form-actions no-color">
+            @Html.ActionLink("Edit", "Edit", null, new { id = Model.Section_Id, @class = "btn btn-primary" }) |
+            @Html.ActionLink("Back to List", "Index", null, new { @class = " btn btn-danger" })
+            </p>
+        </div>
+    </div>
+</div>

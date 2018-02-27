@@ -12,20 +12,33 @@ namespace School_AppIn_Model.DataAccessLayer
         {
         }
 
+        public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Class> Classes { get; set; }
-        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<DeletedCustomer> DeletedCustomers { get; set; }
+        public virtual DbSet<emp> emps { get; set; }
+        public virtual DbSet<Gender> Genders { get; set; }
+        public virtual DbSet<empinfo> empinfoes { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Section> Sections { get; set; }
+        public virtual DbSet<TUser> TUsers { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserClaim> UserClaims { get; set; }
         public virtual DbSet<UserLogin> UserLogins { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<Blood_Group> Blood_Group { get; set; }
         public virtual DbSet<Designation> Designations { get; set; }
         public virtual DbSet<Fee_Detail> Fee_Detail { get; set; }
         public virtual DbSet<FeePayment_Detail> FeePayment_Detail { get; set; }
         public virtual DbSet<Fees_Component> Fees_Component { get; set; }
         public virtual DbSet<Institution> Institutions { get; set; }
+        public virtual DbSet<MSreplication_options> MSreplication_options { get; set; }
         public virtual DbSet<Payment_Mode> Payment_Mode { get; set; }
         public virtual DbSet<School> Schools { get; set; }
+        public virtual DbSet<spt_fallback_db> spt_fallback_db { get; set; }
+        public virtual DbSet<spt_fallback_dev> spt_fallback_dev { get; set; }
+        public virtual DbSet<spt_fallback_usg> spt_fallback_usg { get; set; }
+        public virtual DbSet<spt_monitor> spt_monitor { get; set; }
         public virtual DbSet<Staff> Staffs { get; set; }
         public virtual DbSet<Staff_Educational_Details> Staff_Educational_Details { get; set; }
         public virtual DbSet<Staff_Exp_Details> Staff_Exp_Details { get; set; }
@@ -34,20 +47,38 @@ namespace School_AppIn_Model.DataAccessLayer
         public virtual DbSet<Student_Other_Details> Student_Other_Details { get; set; }
         public virtual DbSet<Student_Prev_School_Details> Student_Prev_School_Details { get; set; }
         public virtual DbSet<Student_Sibling_Details> Student_Sibling_Details { get; set; }
+        public virtual DbSet<Subject_Detail> Subject_Detail { get; set; }
+        public virtual DbSet<spt_values> spt_values { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Role>()
-                .HasMany(e => e.Users)
-                .WithMany(e => e.Roles)
-                .Map(m => m.ToTable("UserRole").MapLeftKey("RoleId").MapRightKey("UserId"));
+            modelBuilder.Entity<Category>()
+                .Property(e => e.Name)
+                .IsUnicode(false);
+             
+            modelBuilder.Entity<emp>()
+                .Property(e => e.name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<emp>()
+                .Property(e => e.designation)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<emp>()
+                .HasMany(e => e.emp1)
+                .WithOptional(e => e.emp2)
+                .HasForeignKey(e => e.supid);
+
+            modelBuilder.Entity<empinfo>()
+                .Property(e => e.address)
+                .IsUnicode(false);
 
             modelBuilder.Entity<Section>()
                 .Property(e => e.Section_Name)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Blood_Group>()
-                .Property(e => e.Blood_Group_Name)
+                .Property(e => e.Name)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Designation>()
@@ -76,6 +107,35 @@ namespace School_AppIn_Model.DataAccessLayer
 
             modelBuilder.Entity<School>()
                 .Property(e => e.School_Name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<spt_fallback_db>()
+                .Property(e => e.xserver_name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<spt_fallback_db>()
+                .Property(e => e.name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<spt_fallback_dev>()
+                .Property(e => e.xserver_name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<spt_fallback_dev>()
+                .Property(e => e.xfallback_drive)
+                .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<spt_fallback_dev>()
+                .Property(e => e.name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<spt_fallback_dev>()
+                .Property(e => e.phyname)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<spt_fallback_usg>()
+                .Property(e => e.xserver_name)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Staff>()
@@ -237,6 +297,10 @@ namespace School_AppIn_Model.DataAccessLayer
             modelBuilder.Entity<Student_Sibling_Details>()
                 .Property(e => e.Sibling_Name)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<spt_values>()
+                .Property(e => e.type)
+                .IsFixedLength();
         }
     }
 }

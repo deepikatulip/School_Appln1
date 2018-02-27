@@ -6,14 +6,14 @@ namespace School_AppIn_Model.DataAccessLayer
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Blood_Group
+    public partial class Gender
     {
         //[Key]
-        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
-        //public int Blood_Group_Id { get; set; }
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        //public int Id { get; set; }
 
         //[StringLength(50)]
-        //public string Blood_Group_Name { get; set; }
+        //public string Name { get; set; }
 
         //public bool? Is_Active { get; set; }
 
@@ -27,15 +27,12 @@ namespace School_AppIn_Model.DataAccessLayer
 
         //public int? Updated_By { get; set; }
 
-
-      [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
         [StringLength(50)]
         public string Name { get; set; }
-
-
 
     }
 }

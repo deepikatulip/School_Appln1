@@ -6,17 +6,17 @@ namespace School_AppIn_Model.DataAccessLayer
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("UserClaim")]
-    public partial class UserClaim
+    [Table("UserRole")]
+    public partial class UserRole
     {
-        public int Id { get; set; }
-
-        [Required]
-        [StringLength(128)]
+        [Key]
+        [Column(Order = 0)]
         public string UserId { get; set; }
 
-        public string ClaimType { get; set; }
+        [Key]
+        [Column(Order = 1)]
+        public string RoleId { get; set; }
 
-        public string ClaimValue { get; set; }
+        public virtual User User { get; set; }
     }
 }
