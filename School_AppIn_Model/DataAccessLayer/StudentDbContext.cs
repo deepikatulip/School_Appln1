@@ -15,9 +15,14 @@ namespace School_AppIn_Model.DataAccessLayer
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Class> Classes { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Country> Country { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
+
+        public virtual DbSet<State> States { get; set; }
+        
         public virtual DbSet<DeletedCustomer> DeletedCustomers { get; set; }
-        public virtual DbSet<emp> emps { get; set; }
         public virtual DbSet<Gender> Genders { get; set; }
+        public virtual DbSet<emp> emps { get; set; }
         public virtual DbSet<empinfo> empinfoes { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Section> Sections { get; set; }
@@ -62,6 +67,10 @@ namespace School_AppIn_Model.DataAccessLayer
 
             modelBuilder.Entity<emp>()
                 .Property(e => e.designation)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Gender>()
+                .Property(e => e.Name)
                 .IsUnicode(false);
 
             modelBuilder.Entity<emp>()
@@ -145,6 +154,18 @@ namespace School_AppIn_Model.DataAccessLayer
             modelBuilder.Entity<Staff>()
                 .Property(e => e.Middle_Name)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<Country>()
+              .Property(e => e.Name)
+              .IsUnicode(false);
+
+            modelBuilder.Entity<State>()
+              .Property(e => e.Name)
+              .IsUnicode(false);
+
+            modelBuilder.Entity<City>()
+              .Property(e => e.Name)
+              .IsUnicode(false);
 
             modelBuilder.Entity<Staff>()
                 .Property(e => e.Last_Name)

@@ -84,6 +84,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Constants.cs" />
+    <Compile Include="DataAccessLayer\City.cs" />
+    <Compile Include="DataAccessLayer\Country.cs" />
     <Compile Include="DataAccessLayer\Gender.cs" />
     <Compile Include="DataAccessLayer\Blood_Group.cs" />
     <Compile Include="DataAccessLayer\Category.cs" />
@@ -111,6 +113,7 @@
     <Compile Include="DataAccessLayer\Staff_Educational_Details.cs" />
     <Compile Include="DataAccessLayer\Staff_Exp_Details.cs" />
     <Compile Include="DataAccessLayer\Staff_Type.cs" />
+    <Compile Include="DataAccessLayer\State.cs" />
     <Compile Include="DataAccessLayer\Student.cs" />
     <Compile Include="DataAccessLayer\StudentDbContext.cs" />
     <Compile Include="DataAccessLayer\Student_Other_Details.cs" />

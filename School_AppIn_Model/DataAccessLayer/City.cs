@@ -5,14 +5,12 @@ namespace School_AppIn_Model.DataAccessLayer
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-    [Table("Gender")]
-    public partial class Gender
-    {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Id { get; set; }
 
-        [Required]
-        [StringLength(30)]
+    [Table("City")]
+    public partial class City
+    {
+        public int Id { get; set; }
         public string Name { get; set; }
+        public int StateId { get; set; }
     }
 }
