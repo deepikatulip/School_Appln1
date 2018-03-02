@@ -63,8 +63,28 @@ namespace School_Appln.Areas.Core.Controllers
         public async Task<ActionResult> Create([Bind(Include = "Student_Id,Roll_No,First_Name,Middle_Name,Last_Name,Gender_Id,DOB,Enrollment_Date,Father_Name,Mother_Name,Blood_Group_Id,Address_Line1,Address_Line2,City_Id,State_Id,Country_Id,Phone_No1,Phone_No2,LandLine,Email_Id,Academic_Year,Created_By,Created_On,Updated_On,Updated_By,Is_Active,Is_Deleted,Pincode,Photo,Aadhar_No,Class_Id,Section_Id,Is_HostelStudent,Is_FeesDueRemaining,Fees_Due_Amount")] Student student)
         {
             var userId = LoggedInUser.Id;
+
+            if (string.IsNullOrEmpty(Request.Form["Country_Id"]))
+            {
+                goto Fail;
+            }
+            if (string.IsNullOrEmpty(Request.Form["State_Id"]))
+            {
+                goto Fail;
+            }
+            if (string.IsNullOrEmpty(Request.Form["City_Id"]))
+            {
+                goto Fail;
+            }
+
             if (ModelState.IsValid)
             {
+
+                int cityId = int.Parse(Request.Form["City_Id"]);
+                int countryId = int.Parse(Request.Form["Country_Id"]);
+                int stateId = int.Parse(Request.Form["State_Id"]);
+
+
                 string bodyHtml = string.Empty;
                 using (StreamReader reader = new StreamReader(Server.MapPath("~/Content/EmailTemplates/WelcomeEmailTemplate.html")))
                 {
@@ -94,7 +114,9 @@ namespace School_Appln.Areas.Core.Controllers
                          bodyHtml: welcomeBodyHtml);
 
 
-
+                    student.City_Id = cityId;
+                    student.State_Id = stateId;
+                    student.Country_Id = countryId;
                     student.Is_Active = true;
                     student.Created_By = userId;
                     student.Created_On = DateTime.Now;
@@ -103,6 +125,7 @@ namespace School_Appln.Areas.Core.Controllers
                 }
                 return RedirectToAction("Index");
             }
+            Fail:
             ViewBag.Country_Id = new SelectList(db.Country, "Id", "Name");
             ViewBag.Blood_Group_Id = new SelectList(db.Blood_Group, "Id", "Name", student.Blood_Group_Id);
             ViewBag.Class_Id = new SelectList(db.Classes, "Class_Id", "Class_Name", student.Class_Id);
@@ -124,8 +147,8 @@ namespace School_Appln.Areas.Core.Controllers
                 return HttpNotFound();
             }
             ViewBag.Country_Id = new SelectList(db.Country, "Id", "Name", student.Country_Id);
-            ViewBag.State_Id = new SelectList(db.States.Where(s => s.CountryId == student.Country_Id), "Id", "Name", student.State_Id);
-            ViewBag.City_Id = new SelectList(db.Cities.Where(c => c.StateId == student.State_Id), "Id", "Name", student.City_Id);
+            ViewBag.State_Id = new SelectList(db.States.Where(s => s.Country_Id == student.Country_Id), "Id", "Name", student.State_Id);
+            ViewBag.City_Id = new SelectList(db.Cities.Where(c => c.State_Id == student.State_Id), "Id", "Name", student.City_Id);
             ViewBag.Blood_Group_Id = new SelectList(db.Blood_Group, "Id", "Name", student.Blood_Group_Id);
             ViewBag.Class_Id = new SelectList(db.Classes, "Class_Id", "Class_Name", student.Class_Id);
             ViewBag.Section_Id = new SelectList(db.Sections, "Section_Id", "Section_Name", student.Section_Id);
@@ -140,15 +163,27 @@ namespace School_Appln.Areas.Core.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Student_Id,Roll_No,First_Name,Middle_Name,Last_Name,Gender_Id,DOB,Enrollment_Date,Father_Name,Mother_Name,Blood_Group_Id,Address_Line1,Address_Line2,City_Id,State_Id,Country_Id,Phone_No1,Phone_No2,LandLine,Email_Id,Academic_Year,Created_By,Created_On,Updated_On,Updated_By,Is_Active,Is_Deleted,Pincode,Photo,Aadhar_No,Class_Id,Section_Id,Is_HostelStudent,Is_FeesDueRemaining,Fees_Due_Amount")] Student student)
         {
+            var userId = LoggedInUser.Id;
+            int cityId = int.Parse(Request.Form["City_Id"]);
+            int countryId = int.Parse(Request.Form["Country_Id"]);
+            int stateId = int.Parse(Request.Form["State_Id"]);
+            Student existingStudent = db.Students.Find(student.Student_Id);
             if (ModelState.IsValid)
             {
-                db.Entry(student).State = EntityState.Modified;
+
+                existingStudent.City_Id = cityId;
+                existingStudent.State_Id = stateId;
+                existingStudent.Country_Id = countryId;
+                db.Entry(existingStudent).CurrentValues.SetValues(existingStudent);
+                existingStudent.Updated_By = userId;
+                existingStudent.Updated_On = DateTime.Now;
+                db.Entry(existingStudent).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             ViewBag.Country_Id = new SelectList(db.Country, "Id", "Name", student.Country_Id);
-            ViewBag.State_Id = new SelectList(db.States.Where(s => s.CountryId == student.Country_Id), "Id", "Name", student.State_Id);
-            ViewBag.City_Id = new SelectList(db.Cities.Where(c => c.StateId == student.State_Id), "Id", "Name", student.City_Id);
+            ViewBag.State_Id = new SelectList(db.States.Where(s => s.Country_Id == student.Country_Id), "Id", "Name", student.State_Id);
+            ViewBag.City_Id = new SelectList(db.Cities.Where(c => c.State_Id == student.State_Id), "Id", "Name", student.City_Id);
             ViewBag.Blood_Group_Id = new SelectList(db.Blood_Group, "Id", "Name", student.Blood_Group_Id);
             ViewBag.Class_Id = new SelectList(db.Classes, "Class_Id", "Class_Name", student.Class_Id);
             ViewBag.Section_Id = new SelectList(db.Sections, "Section_Id", "Section_Name", student.Section_Id);
@@ -185,7 +220,7 @@ namespace School_Appln.Areas.Core.Controllers
         {
             JsonResult result = new JsonResult();
             var statelist = (from s in db.States
-                             where s.CountryId == id
+                             where s.Country_Id == id
                              select s).ToList();
             var selectlist = new SelectList(statelist, "Id", "Name");
 
@@ -196,7 +231,7 @@ namespace School_Appln.Areas.Core.Controllers
         public JsonResult GetCity(int id)
         {
             JsonResult result = new JsonResult();
-            var dt = db.Cities.Where(y => y.StateId == id);
+            var dt = db.Cities.Where(y => y.State_Id == id);
             List<SelectListItem> mydata = new List<SelectListItem>();
             foreach (var c in dt)
             {

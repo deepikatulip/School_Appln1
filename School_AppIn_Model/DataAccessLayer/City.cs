@@ -11,6 +11,6 @@ namespace School_AppIn_Model.DataAccessLayer
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int StateId { get; set; }
+        public int State_Id { get; set; }
     }
 }
