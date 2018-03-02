@@ -11,6 +11,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using School_AppIn_Model;
+
+
 namespace School_Appln
 {
 
@@ -63,6 +65,7 @@ namespace School_Appln
             
             return manager;
         }
+        
     }
 
     // Configure the application sign-in manager which is used in this application.

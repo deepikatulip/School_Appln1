@@ -64,14 +64,17 @@ namespace School_AppIn_Model.DataAccessLayer
         public string Email_Id { get; set; }
 
         public long Academic_Year { get; set; }
+        [Display(Name = "Created Date")]
+        public DateTime? Created_On { get; set; }
 
-        public int Created_By { get; set; }
+        [Display(Name = "Created By")]
+        public string Created_By { get; set; }
 
-        public DateTime Created_On { get; set; }
+        [Display(Name = "Updated Date")]
+        public DateTime? Updated_On { get; set; }
 
-        public DateTime Updated_On { get; set; }
-
-        public int Updated_By { get; set; }
+        [Display(Name = "Updated By")]
+        public string Updated_By { get; set; }
 
         public bool Is_Active { get; set; }
 

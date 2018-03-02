@@ -13,71 +13,21 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.BloodGroup.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FClass.Class_Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FSection.Section_Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Gender.Name)
+            @Html.DisplayName("Name")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Roll_No)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.First_Name)
+            @Html.DisplayNameFor(model => model.Gender_Id)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Middle_Name)
+            @Html.DisplayNameFor(model => model.Class_Id)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Last_Name)
+            @Html.DisplayNameFor(model => model.Section_Id)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DOB)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Enrollment_Date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Father_Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Mother_Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address_Line1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address_Line2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.City_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.State_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Country_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Phone_No1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Phone_No2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LandLine)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email_Id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Academic_Year)
-        </th>
+     
         <th>
             @Html.DisplayNameFor(model => model.Created_By)
         </th>
@@ -90,100 +40,29 @@
         <th>
             @Html.DisplayNameFor(model => model.Updated_By)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Is_Active)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Is_Deleted)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Pincode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Photo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Aadhar_No)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Is_HostelStudent)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Is_FeesDueRemaining)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fees_Due_Amount)
-        </th>
+        
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.BloodGroup.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FClass.Class_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FSection.Section_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Gender.Name)
+            @Html.DisplayFor(modelItem => item.First_Name)
+            @Html.DisplayFor(modelItem => item.Middle_Name)
+            @Html.DisplayFor(modelItem => item.Last_Name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Roll_No)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.First_Name)
+            @Html.DisplayFor(modelItem => item.Gender.Name)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.FClass.Class_Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Middle_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Last_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DOB)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Enrollment_Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Father_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Mother_Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address_Line1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address_Line2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.City_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.State_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Country_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone_No1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone_No2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LandLine)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email_Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Academic_Year)
+            @Html.DisplayFor(modelItem => item.FSection.Section_Name)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Created_By)
@@ -197,30 +76,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.Updated_By)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Is_Active)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Is_Deleted)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Pincode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Photo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Aadhar_No)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Is_HostelStudent)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Is_FeesDueRemaining)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fees_Due_Amount)
-        </td>
+  
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Student_Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Student_Id }) |

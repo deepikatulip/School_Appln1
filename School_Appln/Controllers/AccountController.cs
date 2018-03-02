@@ -7,10 +7,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using School_AppIn_Model;
-using School_AppIn.Controllers;
 using System.Collections.Generic;
 using System.IO;
-using School_AppIn_Model;
 using School_AppIn_Utils;
 
 namespace School_AppIn.Controllers
