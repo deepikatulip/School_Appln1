@@ -199,9 +199,9 @@ namespace School_AppIn_Model.DataAccessLayer
                 .Property(e => e.PinCode)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Staff>()
-                .Property(e => e.Experience)
-                .IsUnicode(false);
+            //modelBuilder.Entity<Staff>()
+            //    .Property(e => e.Experience_in_Years)
+            //    .IsUnicode(false);
 
             modelBuilder.Entity<Staff_Educational_Details>()
                 .Property(e => e.Institution_Name)

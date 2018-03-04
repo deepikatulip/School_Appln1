@@ -1,0 +1,144 @@
+﻿@model IEnumerable<School_AppIn_Model.DataAccessLayer.Staff>
+
+@{
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_LayoutSuperAdmin.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+	<!-- Global stylesheets -->
+	@*<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+	<link href="~/Content/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+	<link href="~/Content/css/bootstrap.css" rel="stylesheet" type="text/css">
+	<link href="~/Content/css/core.css" rel="stylesheet" type="text/css">
+	<link href="~/Content/css/components.css" rel="stylesheet" type="text/css">
+	<link href="~/Content/css/colors.css" rel="stylesheet" type="text/css">*@
+	<!-- /global stylesheets -->
+	<!-- Core JS files -->
+	@*<script type="text/javascript" src="~/Scripts/js/plugins/loaders/pace.min.js"></script>
+	<script type="text/javascript" src="~/Scripts/js/core/libraries/jquery.min.js"></script>
+	<script type="text/javascript" src="~/Scripts/js/core/libraries/bootstrap.min.js"></script>
+	<script type="text/javascript" src="~/Scripts/js/plugins/loaders/blockui.min.js"></script>*@
+	<!-- /core JS files -->
+	<!-- Theme JS files -->
+		<!--<script type="text/javascript" src="~/Scripts/js/plugins/tables/datatables/datatables.min.js"></script> -->
+	@*<script type="text/javascript" src="~/Scripts/js/plugins/forms/selects/select2.min.js"></script>
+	<script type="text/javascript" src="~/Scripts/js/plugins/tables/datatables/extensions/jszip/jszip.min.js"></script>
+	<script type="text/javascript" src="~/Scripts/js/plugins/tables/datatables/extensions/pdfmake/pdfmake.min.js"></script>
+	<script type="text/javascript" src="~/Scripts/js/plugins/tables/datatables/extensions/pdfmake/vfs_fonts.min.js"></script>
+	<script type="text/javascript" src="~/Scripts/js/plugins/tables/datatables/extensions/buttons.min.js"></script>
+
+
+	<script type="text/javascript" src="~/Scripts/js/pages/datatables_extension_buttons_html5.js"></script>*@
+	@*<script type="text/javascript" src="~/Scripts/js/core/app.js"></script>*@
+	@*<script type="text/javascript" src="~/Scripts/js/plugins/ui/ripple.min.js"></script>*@
+	<!-- /theme JS files -->
+</head>
+<body >
+
+
+
+	@*<div>
+		<h4>Staff</h4>
+		<hr />
+		<dl class="dl-horizontal">
+			<dt>
+				@Html.DisplayNameFor(model => model.First_Name)
+			</dt>
+
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Last_Name)
+			</dt>
+
+
+
+			<dt>
+				@Html.DisplayNameFor(model => model.Gender_Id)
+			</dt>
+
+
+
+
+		</dl>
+	</div>*@
+	<div class="page-container" style="height:100%;">
+		<!-- Page content -->
+		<div class="page-content">
+			@*<div class="content-wrapper">*@
+				<!-- Page header -->
+			
+				<!-- /page header -->
+				<!-- Content area -->
+				<div class="content">
+					<!-- Basic initialization -->
+					@*<div class="panel panel-tab-content">*@
+					
+						<div class="panel panel-primary panel-bordered">
+							<div class="panel-heading">
+								<h6 class="panel-title">STAFF LIST</h6>
+								<div class="heading-elements">
+									<ul class="icons-list">
+										<li><a data-action="collapse"></a></li>
+										<li><a data-action="reload"></a></li>
+										<li><a data-action="close"></a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="panel-body">
+								
+							</div>
+							<div class="text-left">
+								<button type="submit" value="Create" class="btn btn-primary">ADD STAFF </button>
+							</div>
+							<table class="table datatable-button-html5-basic">
+								<thead>
+									<tr>
+										<th>First Name</th>
+										<th>Last Name</th>
+										<th>Job Title</th>
+										<th>DOB</th>
+										<th>Status</th>
+										<th>Salary</th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach (var item in Model)
+									{
+										<tr>
+											<td>@item.First_Name</td>
+											<td>@item.DOB</td>
+											<td>@item.Address_Line1</td>
+											<td>@item.Updated_By</td>
+											<td>@item.Updated_On</td>
+											<td>
+												@Html.ActionLink("Edit", "Edit", new { id = item.Staff_Id }) |
+												@Html.ActionLink("Details", "Details", new { id = item.Staff_Id }) |
+												@Html.ActionLink("Delete", "Delete", new { id = item.Staff_Id })
+											</td>
+										</tr>
+										
+									}
+								</tbody>
+							</table>
+						</div>
+						
+						
+					
+						
+					@*</div>*@
+					
+					<!-- Footer -->
+					<div class="footer text-muted">
+						&copy; 2015. <a href="#">Limitless Web App Kit</a> by <a href="http://themeforest.net/user/Kopyov" target="_blank">Eugene Kopyov</a>
+					</div>
+					<!-- /footer -->
+				</div>
+				<!-- /content area -->
+			@*</div>*@
+			</div>
+		</div>
+</body>
+</html>
