@@ -60,7 +60,7 @@ namespace School_Appln.Areas.Core.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Student_Id,Roll_No,First_Name,Middle_Name,Last_Name,Gender_Id,DOB,Enrollment_Date,Father_Name,Mother_Name,Blood_Group_Id,Address_Line1,Address_Line2,City_Id,State_Id,Country_Id,Phone_No1,Phone_No2,LandLine,Email_Id,Academic_Year,Created_By,Created_On,Updated_On,Updated_By,Is_Active,Is_Deleted,Pincode,Photo,Aadhar_No,Class_Id,Section_Id,Is_HostelStudent,Is_FeesDueRemaining,Fees_Due_Amount")] Student student)
+        public async Task<ActionResult> Create([Bind(Include = "Student_Id,Roll_No,First_Name,Middle_Name,Last_Name,Gender_Id,DOB,Enrollment_Date,Father_Name,Mother_Name,Blood_Group_Id,Address_Line1,Address_Line2,City_Id,State_Id,Country_Id,Phone_No1,Phone_No2,LandLine,Email_Id,Academic_Year,Created_By,Created_On,Updated_On,Updated_By,Is_Active,Is_Deleted,Pincode,Photo,Aadhar_No,Class_Id,Section_Id,Is_HostelStudent,Is_FeesDueRemaining,Fees_Due_Amount")] Student student, string command)
         {
             var userId = LoggedInUser.Id;
 
@@ -102,16 +102,16 @@ namespace School_Appln.Areas.Core.Controllers
                         UserManager.AddToRole(user.Id, School_AppIn_Model.Common.Constants.ROLE_STUDENT);
                     }
                     appDbContext.SaveChanges();
-                        var userMail = LoggedInUser;
-                    var welcomeBodyHtml = PopoulateWelcomeEmailTemplate(bodyHtml, userMail, user.UserName, pwd.Trim());
-                    School_AppIn_Utils.Utility.ApiTypes.EmailSend emailSend = Utility.Send(
-                         apiKey: "41750a2d-38ba-4f35-a616-f0f776cc107e",
-                         subject: string.Format("Welcome to {0} School ERP Portal", userMail.UserName),
-                         from: LoggedInUser.UserName,
-                         fromName: userMail.Email,
-                         to: new List<string> { user.Email },
-                         bodyText: "You can login to using the following credentials. Username :" + user.UserName + ", Password :" + pwd,
-                         bodyHtml: welcomeBodyHtml);
+                    //    var userMail = LoggedInUser;
+                    //var welcomeBodyHtml = PopoulateWelcomeEmailTemplate(bodyHtml, userMail, user.UserName, pwd.Trim());
+                    //School_AppIn_Utils.Utility.ApiTypes.EmailSend emailSend = Utility.Send(
+                    //     apiKey: "41750a2d-38ba-4f35-a616-f0f776cc107e",
+                    //     subject: string.Format("Welcome to {0} School ERP Portal", userMail.UserName),
+                    //     from: LoggedInUser.UserName,
+                    //     fromName: userMail.Email,
+                    //     to: new List<string> { user.Email },
+                    //     bodyText: "You can login to using the following credentials. Username :" + user.UserName + ", Password :" + pwd,
+                    //     bodyHtml: welcomeBodyHtml);
 
 
                     student.City_Id = cityId;
@@ -123,7 +123,17 @@ namespace School_Appln.Areas.Core.Controllers
                     db.Students.Add(student);
                     await db.SaveChangesAsync();
                 }
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                switch (command)
+                {
+                    case "Save & Back To List":
+                        return RedirectToAction("Index");
+                    case "Save & Continue":
+                       TempData["Student_Id"] = student.Student_Id;
+                        return RedirectToAction("SaveAndContiune");
+                    default:
+                        return RedirectToAction("Index");
+                }
             }
             Fail:
             ViewBag.Country_Id = new SelectList(db.Country, "Id", "Name");
@@ -216,6 +226,101 @@ namespace School_Appln.Areas.Core.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
+
+        //Save & Continue
+
+        public ActionResult SaveAndContiune()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public async Task<ActionResult> AddSiblingDetails(string studentId)
+        {
+            var userId = LoggedInUser.Id;
+            JsonResult result = new JsonResult();
+            try
+            {
+                var stduId = Convert.ToInt32(studentId);
+                var student = db.Students.Where(a => a.Student_Id == stduId).FirstOrDefault();
+                Student_Sibling_Details addSibling = new Student_Sibling_Details();
+                addSibling.Student_Id = student.Student_Id;
+                addSibling.Sibling_Name = student.First_Name + ' ' + student.Middle_Name + ' ' + student.Last_Name;
+                addSibling.Class_Id = student.Class_Id;
+                addSibling.Section_Id = student.Section_Id;
+                addSibling.Is_Active = student.Is_Active;
+                addSibling.Is_Deleted = student.Is_Deleted;
+                addSibling.Academic_Year = student.Academic_Year;
+                addSibling.Created_On = DateTime.Now;
+                addSibling.Created_By = userId;
+
+                db.Student_Sibling_Details.Add(addSibling);
+                await db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                result.Data = new { Result = "ERROR", Message = " This property already available in this block " };
+            }
+
+            return result;
+
+        }
+        public ActionResult GetSiblings(string sidx, string sord, int page, int rows, string studentId)
+        {
+            int refStudentId = Convert.ToInt32(studentId);
+            int pageIndex = Convert.ToInt32(page) - 1;
+            int pageSize = rows;
+            var siblingList = db.Student_Sibling_Details.Join(db.Students, st => st.Student_Id, sb=>sb.Student_Id,(st,sb)
+            => new {st.Student_Id, st.Sibling_Name, sb.FClass.Class_Name, st.Academic_Year, sb.FSection.Section_Name, st.Created_By, st.Created_On}
+            
+            )
+                .ToList();
+            int totalRecords = siblingList.Count();
+            var totalPages = (int)Math.Ceiling((float)totalRecords / (float)rows);
+            if (sord.ToUpper() == "DESC")
+            {
+                siblingList = siblingList.OrderByDescending(s => s.Student_Id).ToList();
+                siblingList = siblingList.Skip(pageIndex * pageSize).Take(pageSize).ToList();
+            }
+            else
+            {
+                siblingList = siblingList.OrderBy(s => s.Student_Id).ToList();
+                siblingList = siblingList.Skip(pageIndex * pageSize).Take(pageSize).ToList();
+            }
+            var jsonData = new
+            {
+                total = totalPages,
+                page,
+                records = totalRecords,
+                rows = siblingList
+            };
+
+            return Json(jsonData, JsonRequestBehavior.AllowGet);
+
+        }
+
+
+
+
+        [HttpPost]
+        public JsonResult AutoCompleteStudent(string rollNo)
+        {
+            var studentList = (from student in db.Students
+                             where student.Roll_No.StartsWith(rollNo)
+                             select new
+                             {
+                                 label = student.Roll_No,
+                                 val = student.Student_Id
+                             }).ToList();
+
+            return Json(studentList, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+
         public JsonResult GetState(int id)
         {
             JsonResult result = new JsonResult();

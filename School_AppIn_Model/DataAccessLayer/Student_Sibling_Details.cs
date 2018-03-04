@@ -9,30 +9,30 @@ namespace School_AppIn_Model.DataAccessLayer
     public partial class Student_Sibling_Details
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Sibling_Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long? Sibling_Id { get; set; }
 
         [StringLength(50)]
         public string Sibling_Name { get; set; }
 
         public long? Student_Id { get; set; }
 
-        public int? Class_Id { get; set; }
+        public int Class_Id { get; set; }
 
-        public int? Section_Id { get; set; }
+        public int Section_Id { get; set; }
 
-        public long? Academic_Year { get; set; }
+        public long Academic_Year { get; set; }
 
-        public bool? Is_Active { get; set; }
+        public bool Is_Active { get; set; }
 
-        public bool? Is_Deleted { get; set; }
+        public bool Is_Deleted { get; set; }
 
-        public DateTime? Created_On { get; set; }
+        public DateTime Created_On { get; set; }
 
-        public int? Created_By { get; set; }
+        public string Created_By { get; set; }
 
         public DateTime? Deleted_On { get; set; }
 
-        public int? Deleted_By { get; set; }
+        public string Deleted_By { get; set; }
     }
 }
