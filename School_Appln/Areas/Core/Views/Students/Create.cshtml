@@ -285,17 +285,12 @@
  
 
         $(document).ready(function () {
-            alert();
             $("#Txt_CountryId").change(function () {
-               
-
                 $("#State_Id").empty();
                 $.post("/Core/Students/GetState/", { id: $(this).val() }, function (response) {
                     $("#State_Id").append("<option value=''></option>");
                     $.each(response, function (index, data) {
-
                         $("#State_Id").append("<option value=" + data.Value + ">" + data.Text + "</option>");
-
                     });
                 });
             });
