@@ -21,7 +21,7 @@ namespace School_Appln.Areas.Core.Controllers
         ApplicationDbContext appDbContext = new ApplicationDbContext();
         private StudentDbContext db = new StudentDbContext();
 
-        // GET: Core/Students
+        // GET: Core/Studentsd
         public async Task<ActionResult> Index()
         {
             //var gen = db.Genders.ToList();

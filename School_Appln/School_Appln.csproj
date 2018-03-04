@@ -202,6 +202,7 @@
     <Compile Include="Areas\Comm\CommAreaRegistration.cs" />
     <Compile Include="Areas\Comm\Controllers\ClassesController.cs" />
     <Compile Include="Areas\Comm\Controllers\SectionsController.cs" />
+    <Compile Include="Areas\Core\Controllers\StaffsController.cs" />
     <Compile Include="Areas\Core\Controllers\StudentsController.cs" />
     <Compile Include="Areas\Core\CoreAreaRegistration.cs" />
     <Compile Include="Areas\Ext\ExtAreaRegistration.cs" />
@@ -605,6 +606,7 @@
     <Content Include="Content\Select2\js\select2.full.min.js" />
     <Content Include="Content\Select2\js\select2.js" />
     <Content Include="Content\Select2\js\select2.min.js" />
+    <Content Include="Content\Style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -656,6 +658,10 @@
     <Content Include="Areas\Core\Views\Students\Details.cshtml" />
     <Content Include="Areas\Core\Views\Students\Edit.cshtml" />
     <Content Include="Areas\Core\Views\Students\Index.cshtml" />
+    <Content Include="Areas\Core\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Core\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Core\Views\Staffs\Index.cshtml" />
+    <Content Include="Areas\Core\Views\Staffs\Create.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1307,7 +1313,6 @@
     <Folder Include="Areas\Comm\Models\" />
     <Folder Include="Areas\Comm\Views\Shared\" />
     <Folder Include="Areas\Core\Models\" />
-    <Folder Include="Areas\Core\Views\Shared\" />
     <Folder Include="Areas\Ext\Controllers\" />
     <Folder Include="Areas\Ext\Models\" />
     <Folder Include="Areas\Ext\Views\Shared\" />

@@ -18,7 +18,10 @@ namespace School_AppIn_Model.DataAccessLayer
         [StringLength(50)]
         public string First_Name { get; set; }
 
-        [StringLength(50)]
+		[StringLength(50)]
+		public string Employee_Id { get; set; }
+
+		[StringLength(50)]
         public string Middle_Name { get; set; }
 
         [StringLength(50)]
@@ -56,11 +59,13 @@ namespace School_AppIn_Model.DataAccessLayer
 
         public int? Country_Id { get; set; }
 
-        [StringLength(10)]
+		public int Experience_in_Years { get; set; }
+
+		[StringLength(10)]
         public string PinCode { get; set; }
 
-        [StringLength(50)]
-        public string Experience { get; set; }
+        //[StringLength(50)]
+        //public string Experience { get; set; }
 
         public long? Academic_Year { get; set; }
 
@@ -70,12 +75,26 @@ namespace School_AppIn_Model.DataAccessLayer
 
         public DateTime? Created_On { get; set; }
 
-        public int? Created_By { get; set; }
 
-        public DateTime? Updated_On { get; set; }
+		[Display(Name = "Created By")]
+		public string Created_By { get; set; }
 
-        public int? Updated_By { get; set; }
+		[Display(Name = "Updated Date")]
+		public DateTime? Updated_On { get; set; }
 
-        public byte[] Photo { get; set; }
-    }
+		[Display(Name = "Updated By")]
+		public string Updated_By { get; set; }
+
+		public byte[] Photo { get; set; }
+
+		//[ForeignKey("Staff_Type_Id")]
+		//public virtual Staff_Type FStaff_Type { get; set; }
+
+		[ForeignKey("Gender_Id")]
+		public virtual Gender Gender { get; set; }
+
+		[ForeignKey("Blood_Group_Id")]
+		public virtual Blood_Group BloodGroup { get; set; }
+
+	}
 }
