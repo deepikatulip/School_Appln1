@@ -1,4 +1,4 @@
-﻿@model School_AppIn_Model.DataAccessLayer.Student_Sibling_Details
+﻿
 @{
     ViewBag.Title = "SaveAndContiune";
     Layout = "~/Views/Shared/_LayoutSuperAdmin.cshtml";
@@ -7,6 +7,13 @@
 <h2>SaveAndContiune</h2>
 <section class="content">
     <!-- Basic layout-->
+    @*@{
+        if (TempData["SiblingStudentId"] != null)
+        {
+            var RefSiblingstudentId = TempData["SiblingStudentId"];
+        }
+    }*@
+
 
     <div class="panel panel-primary">
         <div class="panel-heading">
@@ -20,10 +27,7 @@
         </div>
      @using (Html.BeginForm("SaveAndContiune", "Students", FormMethod.Post))
      {
-
-        @Html.HiddenFor(m => m.Student_Id)
-
-            <div class="panel-body">
+                     <div class="panel-body">
                 <fieldset>
                     <legend class="text-semibold">
                         <i class="icon-reading position-left"></i>
@@ -107,8 +111,17 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
+
+            var elementId = '@TempData["SiblingStudentId"]';
+
+            alert(elementId);
+            @*var RefSiblingstudentId = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["SiblingStudentId"]))';
+
+            alert(RefSiblingstudentId);*@
+
+
             $("#jqGrid").jqGrid({
-                url: '/Students/GetSiblings',
+                url: '/Students/GetSiblings?studentId=' + elementId,
                 mtype: "GET",
                 styleUI: 'Bootstrap',
                 datatype: "json",

@@ -129,7 +129,7 @@ namespace School_Appln.Areas.Core.Controllers
                     case "Save & Back To List":
                         return RedirectToAction("Index");
                     case "Save & Continue":
-                       TempData["Student_Id"] = student.Student_Id;
+                       TempData["SiblingStudentId"] = student.Student_Id;
                         return RedirectToAction("SaveAndContiune");
                     default:
                         return RedirectToAction("Index");
@@ -232,6 +232,7 @@ namespace School_Appln.Areas.Core.Controllers
 
         public ActionResult SaveAndContiune()
         {
+            string RefSiblingStudentId = TempData["SiblingStudentId"].ToString();
             return View();
         }
 
@@ -272,10 +273,9 @@ namespace School_Appln.Areas.Core.Controllers
             int refStudentId = Convert.ToInt32(studentId);
             int pageIndex = Convert.ToInt32(page) - 1;
             int pageSize = rows;
-            var siblingList = db.Student_Sibling_Details.Join(db.Students, st => st.Student_Id, sb=>sb.Student_Id,(st,sb)
+            var siblingList = db.Student_Sibling_Details.Join(db.Students, st => st.Student_Id, sb=>sb.Student_Id,(st,sb) 
             => new {st.Student_Id, st.Sibling_Name, sb.FClass.Class_Name, st.Academic_Year, sb.FSection.Section_Name, st.Created_By, st.Created_On}
-            
-            )
+                        ).Where(a=>a.Student_Id ==refStudentId)
                 .ToList();
             int totalRecords = siblingList.Count();
             var totalPages = (int)Math.Ceiling((float)totalRecords / (float)rows);
