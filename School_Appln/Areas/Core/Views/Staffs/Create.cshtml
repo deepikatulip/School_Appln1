@@ -28,7 +28,7 @@
 				<fieldset>
 					<legend class="text-semibold">
 						<i class="icon-reading position-left"></i>
-						Add personal details
+						Staff personal details
 					</legend>
 
 					<div class="row">
@@ -67,36 +67,38 @@
 							</div>
 						</div>
 						<div class="col-md-4">
-							<div class="form-group">
-								@*@Html.LabelFor(model => model.DOB, "DOB",htmlAttributes: new { @class = "control-label" })*@
-								@Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control", @placeholder = "Date of Birth" } })
-								@Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
+							<div class="input-group">							
+								<span class="input-group-addon" style="width:10%; "><i class="icon-calendar22" style="width:10%; "></i></span>
+								@Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control daterange-datemenu", @placeholder = "Date of Birth" } })								
+
 							</div>
 						</div>
-						<div class="col-md-4  img-col">
-							<div class="form-group">
+						<div class="col-md-4  ">
+							<div class="input-group">
+								<span class="input-group-addon" style="width:10%; "><i class="icon-calendar22" style="width:10%; "></i></span>
+								@Html.EditorFor(model => model.Date_Of_Joining, new { htmlAttributes = new { @class = "form-control daterange-datemenu", @placeholder = "Date of Joining" } })
 
-								@*@Html.LabelFor(model => model.Enrollment_Date, "Enrollment_Date", htmlAttributes: new { @class = "control-label" })*@
-								@*@Html.EditorFor(model => model.Enrollment_Date, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enrollment Date" } })
-								@Html.ValidationMessageFor(model => model.Enrollment_Date, "", new { @class = "text-danger" })*@
 							</div>
+							
 						</div>
 					</div>
+
+				
 					<div class="row">
-						<div class="col-md-4 img-margin-top">
+						<div class="col-md-4 ">
 							<div class="form-group">
 								@*@Html.LabelFor(model => model.Father_Name, htmlAttributes: new { @class = "control-label" })*@
 								@Html.EditorFor(model => model.Father_Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Father Name" } })
 								@Html.ValidationMessageFor(model => model.Father_Name, "", new { @class = "text-danger" })
 							</div>
 						</div>
-						<div class="col-md-4 img-margin-top">
+						<div class="col-md-4">
 							<div class="form-group">
-								@* @Html.LabelFor(model => model.Mother_Name, htmlAttributes: new { @class = "control-label" })*@
+								@* @Html.LabelFor(model => model.Aadhar_Number, htmlAttributes: new { @class = "control-label" })*@
 
 
-								@Html.EditorFor(model => model.Academic_Year, new { htmlAttributes = new { @class = "form-control", @placeholder = "Mother Name" } })
-								@Html.ValidationMessageFor(model => model.Academic_Year, "", new { @class = "text-danger" })
+								@Html.EditorFor(model => model.Aadhar_Number, new { htmlAttributes = new { @class = "form-control", @placeholder = "Aadhar No" } })
+								@Html.ValidationMessageFor(model => model.Aadhar_Number, "", new { @class = "text-danger" })
 							</div>
 						</div>
 						<div class="col-md-4">
@@ -130,19 +132,15 @@
 							<div class="form-group">
 								@*@Html.EditorFor(model => model.Pincode, new { htmlAttributes = new { @class = "form-control", @placeholder = "Pincode" } })
 								@Html.ValidationMessageFor(model => model.Pincode, "", new { @class = "text-danger" })*@
+								@*@Html.LabelFor(model => model.Country_Id, htmlAttributes: new { @class = "control-label" })*@
+								@Html.DropDownList("Country_Id", (IEnumerable<SelectListItem>)ViewBag.Country_Id, "Select Country...", new { @class = "form-control select2", @id = "Txt_CountryId" })
+								@Html.ValidationMessageFor(model => model.Country_Id, "", new { @class = "text-danger" })
 
 							</div>
 						</div>
 
 					</div>
 					<div class="row">
-						<div class="col-md-4">
-							<div class="form-group">
-								@*@Html.LabelFor(model => model.Country_Id, htmlAttributes: new { @class = "control-label" })*@
-								@Html.DropDownList("Country_Id", (IEnumerable<SelectListItem>)ViewBag.Country_Id, "Select ...", new { @class = "form-control select2", @id = "Txt_CountryId" })
-								@Html.ValidationMessageFor(model => model.Country_Id, "", new { @class = "text-danger" })
-							</div>
-						</div>
 						<div class="col-md-4">
 							<div class="form-group">
 								@*@Html.LabelFor(model => model.State_Id, htmlAttributes: new { @class = "control-label" })*@
@@ -154,6 +152,12 @@
 							<div class="form-group">
 								<select id="City_Id" name="City_Id" class="form-control"></select>
 								@Html.ValidationMessageFor(model => model.City_Id, "", new { @class = "text-danger" })
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								@Html.EditorFor(model => model.PinCode, new { htmlAttributes = new { @class = "form-control", @placeholder = "Pincode" } })
+								@Html.ValidationMessageFor(model => model.PinCode, "", new { @class = "text-danger" })
 							</div>
 						</div>
 
@@ -235,6 +239,13 @@
 						</div>
 					</div>
 					<div class="row">
+						<label class="col-lg-2 control-label text-semibold">AJAX upload:</label>
+						<div class="col-lg-10">
+							<input type="file" class="file-input-ajax" multiple="multiple">
+							<span class="help-block">This scenario uses asynchronous/parallel uploads. Uploading itself is turned off in live preview.</span>
+						</div>
+					</div>
+					<div class="row">
 						<div class="col-md-4">
 							<div class="form-group">
 								<div class="form-group">
@@ -286,7 +297,7 @@
 
 
         $(document).ready(function () {
-            alert();
+          
             $("#Txt_CountryId").change(function () {
 
 
@@ -295,7 +306,8 @@
                     $("#State_Id").append("<option value=''></option>");
                     $.each(response, function (index, data) {
 
-                        $("#State_Id").append("<option value=" + data.Value + ">" + data.Text + "</option>");
+                    	$("#State_Id").append("<option value=" + data.Value + ">" + data.Text + "</option>");
+
 
                     });
                 });

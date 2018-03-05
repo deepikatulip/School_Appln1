@@ -202,6 +202,7 @@
     <Compile Include="Areas\Comm\CommAreaRegistration.cs" />
     <Compile Include="Areas\Comm\Controllers\ClassesController.cs" />
     <Compile Include="Areas\Comm\Controllers\SectionsController.cs" />
+    <Compile Include="Areas\Core\Controllers\StaffsController.cs" />
     <Compile Include="Areas\Core\Controllers\StudentsController.cs" />
     <Compile Include="Areas\Core\CoreAreaRegistration.cs" />
     <Compile Include="Areas\Ext\ExtAreaRegistration.cs" />
@@ -781,6 +782,8 @@
     <Content Include="Areas\Core\Views\Students\Edit.cshtml" />
     <Content Include="Areas\Core\Views\Students\Index.cshtml" />
     <Content Include="Areas\Core\Views\Students\SaveAndContiune.cshtml" />
+    <Content Include="Areas\Core\Views\Staffs\Create.cshtml" />
+    <Content Include="Areas\Core\Views\Staffs\Index.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1344,6 +1347,7 @@
     <Content Include="Scripts\js\plugins\ui\nicescroll.min.js" />
     <Content Include="Scripts\js\plugins\ui\prism.min.js" />
     <Content Include="Scripts\js\plugins\uploaders\dropzone.min.js" />
+    <Content Include="Scripts\js\plugins\uploaders\fileinput.min.js" />
     <Content Include="Scripts\js\plugins\uploaders\fileinput\fileinput.min.js" />
     <Content Include="Scripts\js\plugins\uploaders\fileinput\plugins\purify.min.js" />
     <Content Include="Scripts\js\plugins\uploaders\fileinput\plugins\sortable.min.js" />

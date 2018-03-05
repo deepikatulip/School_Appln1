@@ -52,6 +52,7 @@ namespace School_Appln.Areas.Core.Controllers
             ViewBag.Class_Id = new SelectList(db.Classes, "Class_Id", "Class_Name");
             ViewBag.Section_Id = new SelectList(db.Sections, "Section_Id", "Section_Name");
             ViewBag.Gender_Id = new SelectList(db.Genders, "Id", "Name");
+			
             return View();
         }
 
