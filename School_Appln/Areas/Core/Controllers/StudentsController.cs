@@ -129,7 +129,7 @@ namespace School_Appln.Areas.Core.Controllers
                     case "Save & Back To List":
                         return RedirectToAction("Index");
                     case "Save & Continue":
-                       TempData["SiblingStudentId"] = student.Student_Id;
+                       TempData["SiblingForStudentId"] = student.Student_Id;
                         return RedirectToAction("SaveAndContiune");
                     default:
                         return RedirectToAction("Index");
@@ -232,22 +232,24 @@ namespace School_Appln.Areas.Core.Controllers
 
         public ActionResult SaveAndContiune()
         {
-            string RefSiblingStudentId = TempData["SiblingStudentId"].ToString();
+            string ForSiblingStudentId = TempData.Peek("SiblingForStudentId").ToString();
             return View();
         }
 
 
         [HttpPost]
-        public async Task<ActionResult> AddSiblingDetails(string studentId)
+        public async Task<ActionResult> AddSiblingDetails(string studentId, string RefSibling_Id)
         {
             var userId = LoggedInUser.Id;
             JsonResult result = new JsonResult();
             try
             {
                 var stduId = Convert.ToInt32(studentId);
+                var SiblingstduId = Convert.ToInt32(RefSibling_Id);
                 var student = db.Students.Where(a => a.Student_Id == stduId).FirstOrDefault();
                 Student_Sibling_Details addSibling = new Student_Sibling_Details();
-                addSibling.Student_Id = student.Student_Id;
+                addSibling.Student_Id = SiblingstduId; 
+                addSibling.Sibling_Id = student.Student_Id;
                 addSibling.Sibling_Name = student.First_Name + ' ' + student.Middle_Name + ' ' + student.Last_Name;
                 addSibling.Class_Id = student.Class_Id;
                 addSibling.Section_Id = student.Section_Id;
@@ -265,18 +267,42 @@ namespace School_Appln.Areas.Core.Controllers
                 result.Data = new { Result = "ERROR", Message = " This property already available in this block " };
             }
 
-            return result;
+            return RedirectToAction("SaveAndContiune");
+
 
         }
-        public ActionResult GetSiblings(string sidx, string sord, int page, int rows, string studentId)
+
+
+      /////  [Authorize]
+        public ActionResult DeleteSiblingDetails(string studentId, string RefSibling_Id)
         {
-            int refStudentId = Convert.ToInt32(studentId);
+
+            var stduId = Convert.ToInt32(studentId);
+            var SiblingstduId = Convert.ToInt32(RefSibling_Id);
+            Student_Sibling_Details deleteSibling = db.Student_Sibling_Details.Where(a => a.Student_Id == stduId && a.Sibling_Id == SiblingstduId).FirstOrDefault();
+            db.Entry(deleteSibling).CurrentValues.SetValues(deleteSibling);
+            deleteSibling.Is_Deleted = true;
+            db.Entry(deleteSibling).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("SaveAndContiune");
+        }
+
+
+
+
+
+        public JsonResult GetSiblings(string sidx, string sord, int page, int rows, string studentId)
+        {
+            var refStudentId = Convert.ToInt64(studentId);
             int pageIndex = Convert.ToInt32(page) - 1;
             int pageSize = rows;
-            var siblingList = db.Student_Sibling_Details.Join(db.Students, st => st.Student_Id, sb=>sb.Student_Id,(st,sb) 
-            => new {st.Student_Id, st.Sibling_Name, sb.FClass.Class_Name, st.Academic_Year, sb.FSection.Section_Name, st.Created_By, st.Created_On}
-                        ).Where(a=>a.Student_Id ==refStudentId)
-                .ToList();
+            var siblingList = (from st in db.Students
+                               join sb in db.Student_Sibling_Details on st.Student_Id equals sb.Student_Id
+                               where sb.Sibling_Id == refStudentId
+                               select new { st.Student_Id, st.FClass.Class_Name, st.Academic_Year, st.FSection.Section_Name, st.Created_By, st.Created_On }
+                               ).ToList();
+
+        
             int totalRecords = siblingList.Count();
             var totalPages = (int)Math.Ceiling((float)totalRecords / (float)rows);
             if (sord.ToUpper() == "DESC")
@@ -318,6 +344,19 @@ namespace School_Appln.Areas.Core.Controllers
             return Json(studentList, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public JsonResult AutoCompleteSchool(string schoolName)
+        {
+
+            var schoolList = (from school in db.Schools
+                              where school.School_Name.StartsWith(schoolName)
+                              select new
+                              {
+                                  label = school.School_Name,
+                                  val = school.School_Id
+                              }).ToList();
+            return Json(schoolList, JsonRequestBehavior.AllowGet);
+        }
 
 
 

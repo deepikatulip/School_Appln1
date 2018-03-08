@@ -10,6 +10,8 @@ namespace School_AppIn_Model.DataAccessLayer
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
+        public long? Sibling_Detail_Id { get; set; }
         public long? Sibling_Id { get; set; }
 
         [StringLength(50)]
@@ -27,10 +29,14 @@ namespace School_AppIn_Model.DataAccessLayer
 
         public bool Is_Deleted { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Created_On { get; set; }
 
         public string Created_By { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? Deleted_On { get; set; }
 
         public string Deleted_By { get; set; }

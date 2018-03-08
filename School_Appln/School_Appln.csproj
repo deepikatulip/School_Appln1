@@ -729,6 +729,10 @@
     <Content Include="Content\Select2\js\select2.full.min.js" />
     <Content Include="Content\Select2\js\select2.js" />
     <Content Include="Content\Select2\js\select2.min.js" />
+    <Content Include="Content\ui1\jquery-ui.min.css" />
+    <Content Include="Content\ui1\jquery-ui.min.js" />
+    <Content Include="Content\ui\jquery-ui.css" />
+    <Content Include="Content\ui\jquery-ui.min.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

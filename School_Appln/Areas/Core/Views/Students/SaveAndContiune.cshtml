@@ -8,11 +8,11 @@
 <section class="content">
     <!-- Basic layout-->
     @*@{
-        if (TempData["SiblingStudentId"] != null)
-        {
-            var RefSiblingstudentId = TempData["SiblingStudentId"];
-        }
-    }*@
+            if (TempData["SiblingStudentId"] != null)
+            {
+                var RefSiblingstudentId = TempData["SiblingStudentId"];
+            }
+        }*@
 
 
     <div class="panel panel-primary">
@@ -25,9 +25,9 @@
                 </ul>
             </div>
         </div>
-     @using (Html.BeginForm("SaveAndContiune", "Students", FormMethod.Post))
-     {
-                     <div class="panel-body">
+        @using (Html.BeginForm("SaveAndContiune", "Students", FormMethod.Post))
+        {
+            <div class="panel-body">
                 <fieldset>
                     <legend class="text-semibold">
                         <i class="icon-reading position-left"></i>
@@ -38,7 +38,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <input type="text" id="txtStudent" name="StudentName" class="form-control"/>
+                                <input type="text" id="txtStudent" name="StudentName" class="form-control" />
                                 <input type="hidden" id="hdnStudentId" name="StudentId" />
                             </div>
                         </div>
@@ -59,148 +59,162 @@
                         <table id="jqGrid"></table>
                         <div id="jqGridPager"></div>
                     </div>
-                    </fieldset>
+                </fieldset>
 
 
 
-                    <div class="text-right">
+                <div class="text-right">
+                </div>
+            </div>
+            @*<div class="panel-body">
+                <fieldset>
+                    <legend class="text-semibold">
+                        <i class="icon-reading position-left"></i>
+                        Previou School Details 
+                    </legend>
+
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input type="text" id="txtStudent" name="StudentName" class="form-control" />
+                                <input type="hidden" id="hdnStudentId" name="StudentId" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <button id="btnAdd" class="btn btn-sm btn-danger btn-flat">Add <i class="icon-arrow-right14 position-right"></i></button>
+                                <button type="submit" value="Save" class="btn btn-primary">Add <i class="icon-arrow-right14 position-right"></i></button>
+                            </div>
+                        </div>
                     </div>
-</div>
+                </fieldset>
+                <fieldset>
+                    <legend class="text-semibold">
+                        <i class="icon-reading position-left"></i>
+                        Previou School Details List
+                    </legend>
+                    <div class="box-body">
+                        <table id="jqGrid"></table>
+                        <div id="jqGridPager"></div>
+                    </div>
+                </fieldset>
 
+
+
+                <div class="text-right">
+                </div>
+            </div>*@
         }
     </div>
-        <!-- /basic layout -->
+    <!-- /basic layout -->
 </section>
-<script type="text/javascript">
-            $(function () {
-                $("#txtStudent").autocomplete({
-                    source: function (request, response) {
-                        $.ajax({
-                            url: '/Core/Students/AutoCompleteStudent/',
-                            data: "{ 'rollNo': '" + request.term + "'}",
-                            dataType: "json",
-                            type: "POST",
-                            contentType: "application/json; charset=utf-8",
-                            success: function (data) {
-                                response($.map(data, function (item) {
-                                    return item;
-                                }))
-                            },
-                            error: function (response) {
-                                alert(response.responseText);
-                            },
-                            failure: function (response) {
-                                alert(response.responseText);
-                            }
-                        });
-                    },
-                    select: function (e, i) {
-                        $("#hdnStudentId").val(i.item.val);
-                    },
-                    minLength: 1
-                });
-            });
-</script>
- 
-
-@section Scripts {
 <link href="~/Content/JqGrid/src/css/ui.jqgrid-bootstrap.css" rel="stylesheet" />
 <script src="~/Content/JqGrid/js/i18n/grid.locale-en.js"></script>
 <script src="~/Content/JqGrid/src/jquery.jqGrid.js"></script>
-@*<script src="~/Content/JqGrid/js/jquery.jqGrid.min.js"></script>*@
-    <script type="text/javascript">
-
-        $(document).ready(function () {
-
-            var elementId = '@TempData["SiblingStudentId"]';
-
-            alert(elementId);
-            @*var RefSiblingstudentId = '@Html.Raw(HttpUtility.JavaScriptStringEncode((string)TempData["SiblingStudentId"]))';
-
-            alert(RefSiblingstudentId);*@
-
-
-            $("#jqGrid").jqGrid({
-                url: '/Students/GetSiblings?studentId=' + elementId,
-                mtype: "GET",
-                styleUI: 'Bootstrap',
-                datatype: "json",
-                colModel: [
-                            { label: '', name: 'Student_Id', hidden: true, search: false, stype: false },
-                            { label: 'Student Name', name: 'Sibling_Name', search: false, stype: false },
-                            { label: 'Class', name: 'Class_Name', search: false, stype: false },
-                            { label: 'Section', name: 'Section_Name', search: false, stype: false },
-                            { label: 'Created_By', name: 'Created_By', search: false, stype: false },
-                            { label: 'Created_On', name: 'Created_On', search: false, stype: false },
-                            { label: 'Acadamic Year', name: 'Academic_Year', search: false, stype: false },
-                            { label: 'Actions',name: '', search: false, formatter: deleteSibling, stype: false }
-                ],
-                page: 1,
-                width: 780,
-                height: 250,
-                rowNum: 20,
-                multiselect: false,
-                scrollPopUp: true,
-                scrollLeftOffset: "83%",
-                viewrecords: true,
-                gridview: true,
-                viewrecords: true,
-                height: '100%',
-                rowNum: 30,
-                rowList: [10, 20, 30, 40],
-                pager: "#jqGridPager",
-                responsive: true,
-                autowidth: true,
-                shrinkToFit: true,
-                loadonce: false,
-                emptyrecords: 'No records to display',
-                jsonReader: {
-                    root: "rows",
-                    page: "page",
-                    total: "total",
-                    records: "records",
-                    repeatitems: false,
-                    InvNo: "0"
-                },
-                //grouping: true,
-                //groupingView: {
-                //    groupField: ["Sibling_Name"],
-                //    groupColumnShow: [false],
-                //    groupText: ["<b>Invoice No : {0} </b>"],
-                //    groupOrder: ["asc"],
-                //    groupSummary: [true],
-                //    showSummaryOnHide: false,
-                //    groupCollapse: false,
-                //    groupDataSorted: true
-
-                //},
-                footerrow: false,
-                userDataOnFooter: true
-
-            });
-
-            function deleteSibling(cell, options, row) {
-                return "<span onclick='deleteSiblingDetails( " + row.Student_Id + ")'><a class='col-md-3 col-sm-4'><i class='icon-database-remove'>Delete</i></a></span>";
-            }
-
-            function deleteSiblingDetails($StudentId)
-            {
-                alert($StudentId);
-            }
-
-
-            $("#btnAdd").click(function (evt) {
-                evt.preventDefault();
-                var $studentId = $("#hdnStudentId").val();
-                $.post(function (response) {
-                    location.href = "/Core/Students/AddSiblingDetails/?" + { studentId: $studentId };
+<script type="text/javascript">
+    $(function () {
+        $("#txtStudent").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/Core/Students/AutoCompleteStudent/',
+                    data: "{ 'rollNo': '" + request.term + "'}",
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return item;
+                        }))
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    }
                 });
-            });
+            },
+            select: function (e, i) {
+                $("#hdnStudentId").val(i.item.val);
+            },
+            minLength: 1
         });
-        $("#jqGrid").css("right", 150);
-
-    </script>
-}
+    });
 
 
+    $("#btnAdd").click(function (evt) {
+        evt.preventDefault();
+
+        var $siblingId = $("#hdnStudentId").val();
+        var $studentId = '@TempData.Peek("SiblingForStudentId")';
+        $.ajax({
+            type: "POST",
+            url: "/Core/Students/AddSiblingDetails",
+            data: "{'studentId':'" + $studentId + "','RefSibling_Id':'" + $siblingId + "'}",
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function (data) {
+                fnBindList();
+            }
+        });
+    });
+    function fnBindList()
+    {
+        var elementId = '@TempData.Peek("SiblingForStudentId")';
+       // alert(elementId);
+        $("#jqGrid").trigger('reloadGrid');
+        $("#jqGrid").jqGrid({
+            url: '/Students/GetSiblings?studentId=' + elementId,
+            mtype: "POST",
+            styleUI: 'Bootstrap',
+            datatype: "json",
+            colModel: [
+                        { label: '', name: 'Student_Id', hidden: true, search: false, stype: false },
+                        { label: 'Student Name', name: 'Sibling_Name', search: false, stype: false },
+                        { label: 'Class', name: 'Class_Name', search: false, stype: false },
+                        { label: 'Section', name: 'Section_Name', search: false, stype: false },
+                        { label: 'Created_By', name: 'Created_By', search: false, stype: false },
+                        { label: 'Created_On', name: 'Created_On', search: false, stype: false, formatter: 'date', formatoptions: { srcformat: 'd/m/Y', newformat: 'd/m/Y' } },
+                        { label: 'Acadamic Year', name: 'Academic_Year', search: false, stype: false },
+                        { label: 'Actions', name: '', search: false, formatter: $deleteSibling, stype: false }
+            ],
+            page: 1,
+            width: 780,
+            height: 250,
+            rowNum: 20,
+            multiselect: false,
+            scrollPopUp: true,
+            scrollLeftOffset: "83%",
+            viewrecords: true,
+            gridview: true,
+            viewrecords: true,
+            height: '100%',
+            rowNum: 30,
+            rowList: [10, 20, 30, 40],
+            pager: "#jqGridPager",
+            responsive: true,
+            autowidth: true,
+            shrinkToFit: true,
+            loadonce: false,
+            emptyrecords: 'No records to display',
+            jsonReader: {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: false
+            },
+            footerrow: false,
+            userDataOnFooter: true
+
+        });
+
+        function $deleteSibling(cellvalue, options, rowObject) {
+            return "<a class='btn btn-danger' href='/Students/DeleteSiblingDetails?studentId=" + rowObject.Student_Id + "&RefSibling_Id=" + elementId + "'>DELETE</a>";
+        }
+    }
+
+    $("#jqGrid").css("right", 150);
+</script>
 
