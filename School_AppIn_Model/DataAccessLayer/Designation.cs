@@ -10,7 +10,7 @@ namespace School_AppIn_Model.DataAccessLayer
     public partial class Designation
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Designation_Id { get; set; }
 
         [StringLength(50)]

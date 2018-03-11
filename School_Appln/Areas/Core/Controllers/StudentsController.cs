@@ -113,10 +113,6 @@ namespace School_Appln.Areas.Core.Controllers
                     //     bodyText: "You can login to using the following credentials. Username :" + user.UserName + ", Password :" + pwd,
                     //     bodyHtml: welcomeBodyHtml);
 
-
-
-
-
                     if (imageUpload != null && imageUpload.ContentLength > 0)
                     {
                         byte[] imageData = null;
@@ -271,7 +267,6 @@ namespace School_Appln.Areas.Core.Controllers
                     addSibling.Academic_Year = student.Academic_Year;
                     addSibling.Created_On = DateTime.Now;
                     addSibling.Created_By = userId;
-
                     db.Student_Sibling_Details.Add(addSibling);
                     await db.SaveChangesAsync();
                 }
@@ -286,7 +281,6 @@ namespace School_Appln.Areas.Core.Controllers
             }
 
             return RedirectToAction("SaveAndContiune");
-
 
         }
 
@@ -511,13 +505,10 @@ namespace School_Appln.Areas.Core.Controllers
         }
         public string PopoulateWelcomeEmailTemplate(string bodyHtml, School_AppIn_Model.User user, string username, string pw)
         {
-
-
             var wBodyHtml = bodyHtml.Replace("{{USER-NAME}}", user.NickName)
             .Replace("{{USER-ADDRESS}}", (user.Email ?? String.Empty))
             .Replace("{{USERNAME}}", username)
             .Replace("{{PASSWORD}}", pw);
-
             return wBodyHtml;
         }
         protected override void Dispose(bool disposing)
