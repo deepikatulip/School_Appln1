@@ -82,6 +82,11 @@ namespace School_AppIn_Model.DataAccessLayer
 		[Display(Name = "Updated Date")]
 		public DateTime? Updated_On { get; set; }
 
+		[Display(Name = "Aadhar No")]
+		public string Aadhar_Number { get; set; }
+
+		
+
 		[Display(Name = "Updated By")]
 		public string Updated_By { get; set; }
 
