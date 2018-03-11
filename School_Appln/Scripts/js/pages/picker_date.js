@@ -9,7 +9,7 @@
 *
 * ---------------------------------------------------------------------------- */
 
-$(function() {
+$(function () {
 
 
     // Date range picker
@@ -57,7 +57,7 @@ $(function() {
 
 
     // Single picker
-    $('.daterange-single').daterangepicker({ 
+    $('.daterange-single').daterangepicker({
         singleDatePicker: true
     });
 
@@ -103,7 +103,7 @@ $(function() {
             startLabel: 'Начальная дата',
             endLabel: 'Конечная дата',
             customRangeLabel: 'Выбрать дату',
-            daysOfWeek: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт','Сб'],
+            daysOfWeek: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
             monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
             firstDay: 1
         }
@@ -134,7 +134,7 @@ $(function() {
             applyClass: 'btn-small bg-slate',
             cancelClass: 'btn-small btn-default'
         },
-        function(start, end) {
+        function (start, end) {
             $('.daterange-predefined span').html(start.format('MMMM D, YYYY') + ' &nbsp; - &nbsp; ' + end.format('MMMM D, YYYY'));
             $.jGrowl('Date range has been changed', { header: 'Update', theme: 'bg-primary', position: 'center', life: 1500 });
         }
@@ -168,7 +168,7 @@ $(function() {
             applyClass: 'btn-small bg-slate-600',
             cancelClass: 'btn-small btn-default'
         },
-        function(start, end) {
+        function (start, end) {
             $('.daterange-ranges span').html(start.format('MMMM D, YYYY') + ' &nbsp; - &nbsp; ' + end.format('MMMM D, YYYY'));
         }
     );
@@ -177,7 +177,7 @@ $(function() {
     $('.daterange-ranges span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' &nbsp; - &nbsp; ' + moment().format('MMMM D, YYYY'));
 
 
-    
+
     // Pick-a-date picker
     // ------------------------------
 
@@ -236,18 +236,18 @@ $(function() {
     // Editable input
     var $input_date = $('.pickadate-editable').pickadate({
         editable: true,
-        onClose: function() {
+        onClose: function () {
             $('.datepicker').focus();
         }
     });
 
     var picker_date = $input_date.pickadate('picker');
-    $input_date.on('click', function(event) { // register events (https://github.com/amsul/pickadate.js/issues/542)
+    $input_date.on('click', function (event) { // register events (https://github.com/amsul/pickadate.js/issues/542)
         if (picker_date.get('open')) {
             picker_date.close();
         } else {
             picker_date.open();
-        }                        
+        }
         event.stopPropagation();
     });
 
@@ -273,17 +273,17 @@ $(function() {
 
     // Date limits
     $('.pickadate-limits').pickadate({
-        min: [2014,3,20],
-        max: [2014,7,14]
+        min: [2014, 3, 20],
+        max: [2014, 7, 14]
     });
 
 
     // Disable certain dates
     $('.pickadate-disable').pickadate({
         disable: [
-            [2015,8,3],
-            [2015,8,12],
-            [2015,8,20]
+            [2015, 8, 3],
+            [2015, 8, 12],
+            [2015, 8, 20]
         ]
     });
 
@@ -302,22 +302,22 @@ $(function() {
 
     // Events
     $('.pickadate-events').pickadate({
-        onStart: function() {
+        onStart: function () {
             console.log('Hello there :)')
         },
-        onRender: function() {
+        onRender: function () {
             console.log('Whoa.. rendered anew')
         },
-        onOpen: function() {
+        onOpen: function () {
             console.log('Opened up')
         },
-        onClose: function() {
+        onClose: function () {
             console.log('Closed now')
         },
-        onStop: function() {
+        onStop: function () {
             console.log('See ya.')
         },
-        onSet: function(context) {
+        onSet: function (context) {
             console.log('Just set stuff:', context)
         }
     });
@@ -358,18 +358,18 @@ $(function() {
     // Editable input
     var $input_time = $('.pickatime-editable').pickatime({
         editable: true,
-        onClose: function() {
+        onClose: function () {
             $('.datepicker').focus();
         }
     });
 
     var picker_time = $input_time.pickatime('picker');
-    $input_time.on('click', function(event) { // register events (https://github.com/amsul/pickadate.js/issues/542)
+    $input_time.on('click', function (event) { // register events (https://github.com/amsul/pickadate.js/issues/542)
         if (picker_time.get('open')) {
             picker_time.close();
         } else {
             picker_time.open();
-        }                        
+        }
         event.stopPropagation();
     });
 
@@ -382,8 +382,8 @@ $(function() {
 
     // Time limits
     $('.pickatime-limits').pickatime({
-        min: [7,30],
-        max: [14,0]
+        min: [7, 30],
+        max: [14, 0]
     });
 
 
@@ -398,10 +398,10 @@ $(function() {
     // Disable times
     $('.pickatime-disabled').pickatime({
         disable: [
-            [0,30],
-            [2,0],
-            [8,30],
-            [9,0]
+            [0, 30],
+            [2, 0],
+            [8, 30],
+            [9, 0]
         ]
     });
 
@@ -423,32 +423,32 @@ $(function() {
         disable: [
             true,
             3, 5, 7,
-            [0,30],
-            [2,0],
-            [8,30],
-            [9,0]
+            [0, 30],
+            [2, 0],
+            [8, 30],
+            [9, 0]
         ]
     });
 
 
     // Events
     $('.pickatime-events').pickatime({
-        onStart: function() {
+        onStart: function () {
             console.log('Hello there :)')
         },
-        onRender: function() {
+        onRender: function () {
             console.log('Whoa.. rendered anew')
         },
-        onOpen: function() {
+        onOpen: function () {
             console.log('Opened up')
         },
-        onClose: function() {
+        onClose: function () {
             console.log('Closed now')
         },
-        onStop: function() {
+        onStop: function () {
             console.log('See ya.')
         },
-        onSet: function(context) {
+        onSet: function (context) {
             console.log('Just set stuff:', context)
         }
     });
@@ -513,17 +513,17 @@ $(function() {
     //
 
     // Options
-    var oneDay = 24*60*60*1000;
+    var oneDay = 24 * 60 * 60 * 1000;
     var rangeDemoFormat = "%e-%b-%Y";
-    var rangeDemoConv = new AnyTime.Converter({format:rangeDemoFormat});
+    var rangeDemoConv = new AnyTime.Converter({ format: rangeDemoFormat });
 
     // Set today's date
-    $("#rangeDemoToday").click( function (e) {
+    $("#rangeDemoToday").click(function (e) {
         $("#rangeDemoStart").val(rangeDemoConv.format(new Date())).change();
     });
 
     // Clear dates
-    $("#rangeDemoClear").click( function (e) {
+    $("#rangeDemoClear").click(function (e) {
         $("#rangeDemoStart").val("").change();
     });
 
@@ -533,15 +533,15 @@ $(function() {
     });
 
     // On value change
-    $("#rangeDemoStart").change(function(e) {
+    $("#rangeDemoStart").change(function (e) {
         try {
             var fromDay = rangeDemoConv.parse($("#rangeDemoStart").val()).getTime();
 
-            var dayLater = new Date(fromDay+oneDay);
-                dayLater.setHours(0,0,0,0);
+            var dayLater = new Date(fromDay + oneDay);
+            dayLater.setHours(0, 0, 0, 0);
 
-            var ninetyDaysLater = new Date(fromDay+(90*oneDay));
-                ninetyDaysLater.setHours(23,59,59,999);
+            var ninetyDaysLater = new Date(fromDay + (90 * oneDay));
+            ninetyDaysLater.setHours(23, 59, 59, 999);
 
             // End date
             $("#rangeDemoFinish")
@@ -555,11 +555,11 @@ $(function() {
             });
         }
 
-        catch(e) {
+        catch (e) {
 
             // Disable End date field
-            $("#rangeDemoFinish").val("").attr("disabled","disabled");
+            $("#rangeDemoFinish").val("").attr("disabled", "disabled");
         }
     });
-    
+
 });

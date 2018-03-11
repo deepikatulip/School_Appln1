@@ -22,7 +22,7 @@
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-
+            <input type="text" class="form-control daterange-single" value="03/18/2013">
 
             <div class="panel-body">
                 <fieldset>
@@ -69,14 +69,14 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 @*@Html.LabelFor(model => model.DOB, "DOB",htmlAttributes: new { @class = "control-label" })*@
-                                @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control", @placeholder = "Date of Birth" } })
+                                @Html.EditorFor(model => model.DOB, new { htmlAttributes = new { @class = "form-control pickadate-editable picker__input", @placeholder = "Date of Birth" } })
                                 @Html.ValidationMessageFor(model => model.DOB, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 @*@Html.LabelFor(model => model.Enrollment_Date, "Enrollment_Date", htmlAttributes: new { @class = "control-label" })*@
-                                @Html.EditorFor(model => model.Enrollment_Date, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enrollment Date" } })
+                                @Html.EditorFor(model => model.Enrollment_Date, new { htmlAttributes = new { @class = "form-control pickadate-editable picker__input", @placeholder = "Enrollment Date" } })
                                 @Html.ValidationMessageFor(model => model.Enrollment_Date, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -264,6 +264,16 @@
                                 </div>
                             </div>
                         </div>
+                     
+                        </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input type="file" id="Photo" class="form-control file-input" name="imageUpload"  >
+                                <span class="help-block">Upload Image</span>
+                            </div>
+                        </div>
                     </div>
                 </fieldset>
                 <div class="text-right">
@@ -285,6 +295,29 @@
 
     <script>
  
+
+        //$(function () {
+
+        //    $("#Enroll").datepicker({
+        //        autoclose: true,
+        //        dateFormat: 'dd/mm/yy'
+        //    });
+
+        //    //$("#ToDate").datepicker({
+
+        //    //    autoclose: true,
+        //    //    dateFormat: 'dd/mm/yy',
+        //    //    minDate: $('#FromDate').val(),
+
+        //    //});
+
+        //    //DtPickerChromeFix();
+
+        //});
+
+
+
+
 
         $(document).ready(function () {
             $("#Txt_CountryId").change(function () {

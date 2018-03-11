@@ -15,18 +15,21 @@
         }*@
 
 
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h5 class="panel-title">Add Student</h5>
-            <div class="heading-elements">
-                <ul class="icons-list">
-                    <li><a data-action="collapse"></a></li>
-                    <li><a data-action="reload"></a></li>
-                </ul>
+
+    @using (Html.BeginForm("SaveAndContiune", "Students", FormMethod.Post))
+    {
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h5 class="panel-title">Add Student</h5>
+                <div class="heading-elements">
+                    <ul class="icons-list">
+                        <li><a data-action="collapse"></a></li>
+                        <li><a data-action="reload"></a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
-        @using (Html.BeginForm("SaveAndContiune", "Students", FormMethod.Post))
-        {
+
             <div class="panel-body">
                 <fieldset>
                     <legend class="text-semibold">
@@ -38,14 +41,13 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <input type="text" id="txtStudent" name="StudentName" class="form-control" />
+                                <input type="text" id="txtStudent" name="StudentName" placeholder="Enter Roll No" class="form-control" />
                                 <input type="hidden" id="hdnStudentId" name="StudentId" />
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <button id="btnAdd" class="btn btn-sm btn-danger btn-flat">Add <i class="icon-arrow-right14 position-right"></i></button>
-                                <button type="submit" value="Save" class="btn btn-primary">Add <i class="icon-arrow-right14 position-right"></i></button>
+                                <button id="btnAdd" class="btn btn-primary">Add <i class="icon-arrow-right14 position-right"></i></button>
                             </div>
                         </div>
                     </div>
@@ -66,47 +68,109 @@
                 <div class="text-right">
                 </div>
             </div>
-            @*<div class="panel-body">
-                <fieldset>
-                    <legend class="text-semibold">
-                        <i class="icon-reading position-left"></i>
-                        Previou School Details 
-                    </legend>
-
-                    <div class="row">
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <input type="text" id="txtStudent" name="StudentName" class="form-control" />
-                                <input type="hidden" id="hdnStudentId" name="StudentId" />
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <button id="btnAdd" class="btn btn-sm btn-danger btn-flat">Add <i class="icon-arrow-right14 position-right"></i></button>
-                                <button type="submit" value="Save" class="btn btn-primary">Add <i class="icon-arrow-right14 position-right"></i></button>
-                            </div>
-                        </div>
+        </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h5 class="panel-title">Add Previous School</h5>
+                    <div class="heading-elements">
+                        <ul class="icons-list">
+                            <li><a data-action="collapse"></a></li>
+                            <li><a data-action="reload"></a></li>
+                        </ul>
                     </div>
-                </fieldset>
-                <fieldset>
-                    <legend class="text-semibold">
-                        <i class="icon-reading position-left"></i>
-                        Previou School Details List
-                    </legend>
-                    <div class="box-body">
-                        <table id="jqGrid"></table>
-                        <div id="jqGridPager"></div>
-                    </div>
-                </fieldset>
-
-
-
-                <div class="text-right">
                 </div>
-            </div>*@
-        }
-    </div>
+                <div class="panel-body">
+                    <fieldset>
+                        <legend class="text-semibold">
+                            <i class="icon-reading position-left"></i>
+                            Add Previous School details
+                        </legend>
+
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="text" id="txtSchoolName" name="SchoolName" placeholder="Enter School" class="form-control" />
+                                    <input type="hidden" id="hdnSchoolId" name="SchoolId" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="text" id="txtSchoolAddress" name="SchoolAddress" placeholder="School Address" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="text" id="txtAcademic_Year" name="Academic_Year" placeholder="Academic Year" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="text" id="txtFrom_Year" name="From_Year" placeholder="From Year" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="text" id="txtTo_Year" name="To_Year" placeholder="To Year" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <textarea rows="2" cols="1" class="form-control" id="txtLeaving_Reason" name="Leaving_Reason" placeholder="Leaving Reason"></textarea>
+                                    @* <input type="text" id="txtLeaving_Reason" name="Leaving_Reason" placeholder="Leaving Reason" class="form-control" />*@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="file" id="Photo" class="form-control file-input" name="imageUpload">
+                                    <span class="help-block">Upload Document</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="file" id="Photo" class="form-control file-input" placeholder="From Year" name="imageUpload">
+                                    <span class="help-block">Upload Document</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <textarea rows="2" cols="1" class="form-control" id="txtComments" name="Comments" placeholder="Comments"></textarea>
+                                    @*<input type="text" id="txtComments" name="Comments" placeholder = "Comments" class="form-control" />*@
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <button id="btnAddSchool" class="btn btn-info">Add <i class="icon-arrow-right14 position-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend class="text-semibold">
+                            <i class="icon-reading position-left"></i>
+                            Previous School Details List
+                        </legend>
+                        <div class="box-body">
+                            <table id="jqGridSchool"></table>
+                            <div id="jqGridSchoolPager"></div>
+                        </div>
+                    </fieldset>
+
+
+
+                    <div class="text-right">
+                    </div>
+                </div>
+            </div>
+
+
+
+    }
+
     <!-- /basic layout -->
 </section>
 <link href="~/Content/JqGrid/src/css/ui.jqgrid-bootstrap.css" rel="stylesheet" />
@@ -159,10 +223,9 @@
             }
         });
     });
-    function fnBindList()
-    {
+    function fnBindList() {
         var elementId = '@TempData.Peek("SiblingForStudentId")';
-       // alert(elementId);
+        // alert(elementId);
         $("#jqGrid").trigger('reloadGrid');
         $("#jqGrid").jqGrid({
             url: '/Students/GetSiblings?studentId=' + elementId,
@@ -177,7 +240,8 @@
                         { label: 'Created_By', name: 'Created_By', search: false, stype: false },
                         { label: 'Created_On', name: 'Created_On', search: false, stype: false, formatter: 'date', formatoptions: { srcformat: 'd/m/Y', newformat: 'd/m/Y' } },
                         { label: 'Acadamic Year', name: 'Academic_Year', search: false, stype: false },
-                        { label: 'Actions', name: '', search: false, formatter: $deleteSibling, stype: false }
+                        //{ label: 'Actions', name: '', search: false, formatter: $deleteSibling, stype: false },
+                        { label: 'Actions', name: '', search: false, formatter: $deleteSib, stype: false }
             ],
             page: 1,
             width: 780,
@@ -210,11 +274,165 @@
 
         });
 
-        function $deleteSibling(cellvalue, options, rowObject) {
-            return "<a class='btn btn-danger' href='/Students/DeleteSiblingDetails?studentId=" + rowObject.Student_Id + "&RefSibling_Id=" + elementId + "'>DELETE</a>";
+        //function $deleteSibling(cellvalue, options, rowObject) {
+        //    return "<a class='btn btn-danger' href='/Students/DeleteSiblingDetails?studentId=" + rowObject.Student_Id + "&RefSibling_Id=" + elementId + "'>DELETE</a>";
+        //}
+        function $deleteSib(cellvalue, options, rowObject) {
+            return "<a class='btn btn-danger' href='javascript:deleteSibling(" + rowObject.Student_Id + "," + elementId + ");'>DELETE</a>";
         }
     }
 
     $("#jqGrid").css("right", 150);
+
+    function deleteSibling($student_Id, $sibling_Id) {
+        var $siblingId = $("#hdnStudentId").val();
+        var $studentId = '@TempData.Peek("SiblingForStudentId")';
+        $.ajax({
+            type: "POST",
+            url: "/Core/Students/DeleteSiblingDetails",
+            data: "{'studentId':'" + $studentId + "','RefSibling_Id':'" + $siblingId + "'}",
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function (data) {
+                fnBindList();
+            }
+        });
+    }
+
+
+
+
+
+    //Add Previous School Details
+
+    $(function () {
+        $("#txtSchoolName").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/Core/Students/AutoCompleteSchool/',
+                    data: "{ 'SchoolName': '" + request.term + "'}",
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return item;
+                        }))
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            },
+            select: function (e, i) {
+                $("#hdnSchoolId").val(i.item.val);
+            },
+            minLength: 1
+        });
+    });
+
+
+    $("#btnAddSchool").click(function (evt) {
+        evt.preventDefault();
+        var $schoolId = $("#hdnSchoolId").val();
+        var $studentId = '@TempData.Peek("SiblingForStudentId")';
+        var $Name = $("#txtSchoolName").val();
+        var $Address = $("#txtSchoolAddress").val();
+        var $AcYear = $("#txtAcademic_Year").val();
+        var $FrmYear = $("#txtFrom_Year").val();
+        var $ToYear = $("#txtTo_Year").val();
+        var $ReasonLeave = $("#txtLeaving_Reason").val();
+        var $Comment = $("#txtComments").val();
+        $.ajax({
+            type: "POST",
+            url: "/Core/Students/AddPrevSchools",
+            data: "{'schoolId':'" + $schoolId + "','RefSibling_Id':'" + $studentId + "','Name':'" + $Name + "','Address':'" + $Address + "','AcYear':'" + $AcYear + "','FrmYear':'" + $FrmYear + "','ToYear':'" + $ToYear + "','Leaving':'" + $ReasonLeave + "','Comments':'" + $Comment + "'}",
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function (data) {
+                fnBindSchoolList();
+            }
+        });
+    });
+
+    function fnBindSchoolList() {
+        var studentId = '@TempData.Peek("SiblingForStudentId")';
+        // alert(elementId);
+        $("#jqGridSchool").trigger('reloadGrid');
+        $("#jqGridSchool").jqGrid({
+            url: '/Students/GetPrevSchools?studentId=' + studentId,
+            mtype: "POST",
+            styleUI: 'Bootstrap',
+            datatype: "json",
+            colModel: [
+                        { label: '', name: 'Student_Id', hidden: true, search: false, stype: false },
+                          { label: '', name: 'School_Id', hidden: true, search: false, stype: false },
+                        { label: 'School Name', name: 'Other_School_Name', search: false, stype: false },
+                        { label: 'Academic Year', name: 'Academic_Year', search: false, stype: false },
+                        { label: 'Reason', name: 'Leaving_Reason', search: false, stype: false },
+                        { label: 'Created_By', name: 'Created_By', search: false, stype: false },
+                        { label: 'Created_On', name: 'Created_On', search: false, stype: false, formatter: 'date', formatoptions: { srcformat: 'd/m/Y', newformat: 'd/m/Y' } },
+                        { label: 'Actions', name: '', search: false, formatter: $deleteSib, stype: false }
+            ],
+            page: 1,
+            width: 780,
+            height: 250,
+            rowNum: 20,
+            multiselect: false,
+            scrollPopUp: true,
+            scrollLeftOffset: "83%",
+            viewrecords: true,
+            gridview: true,
+            viewrecords: true,
+            height: '100%',
+            rowNum: 30,
+            rowList: [10, 20, 30, 40],
+            pager: "#jqGridSchoolPager",
+            responsive: true,
+            autowidth: true,
+            shrinkToFit: true,
+            loadonce: false,
+            emptyrecords: 'No records to display',
+            jsonReader: {
+                root: "rows",
+                page: "page",
+                total: "total",
+                records: "records",
+                repeatitems: false
+            },
+            footerrow: false,
+            userDataOnFooter: true
+
+        });
+        function $deleteSib(cellvalue, options, rowObject) {
+            return "<a class='btn btn-danger' href='javascript:deletePrevSchool(" + rowObject.School_Id + "," + studentId + ");'>DELETE</a>";
+        }
+    }
+
+    $("#jqGridSchool").css("right", 150);
+
+    function deletePrevSchool($school_Id, $student_Id) {
+        var $studentId = '@TempData.Peek("SiblingForStudentId")';
+        $.ajax({
+            type: "POST",
+            url: "/Core/Students/DeletePrevSchools",
+            data: "{'schoolId':'" + $school_Id + "','StudentId':'" + $studentId + "'}",
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            success: function (data) {
+                fnBindSchoolList();
+            }
+        });
+    }
+
+
+
+
+
+
+
 </script>
 

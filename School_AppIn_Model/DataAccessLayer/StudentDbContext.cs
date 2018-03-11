@@ -115,7 +115,7 @@ namespace School_AppIn_Model.DataAccessLayer
                 .IsUnicode(false);
 
             modelBuilder.Entity<School>()
-                .Property(e => e.School_Name)
+                .Property(e => e.Name)
                 .IsUnicode(false);
 
             modelBuilder.Entity<spt_fallback_db>()
@@ -300,11 +300,11 @@ namespace School_AppIn_Model.DataAccessLayer
                 .IsFixedLength();
 
             modelBuilder.Entity<Student_Prev_School_Details>()
-                .Property(e => e.School_Name)
+                .Property(e => e.Other_School_Name)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Student_Prev_School_Details>()
-                .Property(e => e.Address_Line1)
+                .Property(e => e.Other_School_Address)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Student_Prev_School_Details>()

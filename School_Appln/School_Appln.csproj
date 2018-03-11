@@ -205,6 +205,8 @@
     <Compile Include="Areas\Core\Controllers\StudentsController.cs" />
     <Compile Include="Areas\Core\CoreAreaRegistration.cs" />
     <Compile Include="Areas\Ext\ExtAreaRegistration.cs" />
+    <Compile Include="Areas\Lab\Controllers\Student_Prev_School_DetailsController.cs" />
+    <Compile Include="Areas\Lab\LabAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -785,6 +787,12 @@
     <Content Include="Areas\Core\Views\Students\Edit.cshtml" />
     <Content Include="Areas\Core\Views\Students\Index.cshtml" />
     <Content Include="Areas\Core\Views\Students\SaveAndContiune.cshtml" />
+    <Content Include="Areas\Lab\Views\web.config" />
+    <Content Include="Areas\Lab\Views\Student_Prev_School_Details\Create.cshtml" />
+    <Content Include="Areas\Lab\Views\Student_Prev_School_Details\Delete.cshtml" />
+    <Content Include="Areas\Lab\Views\Student_Prev_School_Details\Details.cshtml" />
+    <Content Include="Areas\Lab\Views\Student_Prev_School_Details\Edit.cshtml" />
+    <Content Include="Areas\Lab\Views\Student_Prev_School_Details\Index.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1440,6 +1448,8 @@
     <Folder Include="Areas\Ext\Controllers\" />
     <Folder Include="Areas\Ext\Models\" />
     <Folder Include="Areas\Ext\Views\Shared\" />
+    <Folder Include="Areas\Lab\Models\" />
+    <Folder Include="Areas\Lab\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
