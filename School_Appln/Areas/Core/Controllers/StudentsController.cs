@@ -237,12 +237,14 @@ namespace School_Appln.Areas.Core.Controllers
 
         public ActionResult CreateStudentOther()
         {
-            string Student_Id = TempData.Peek("Student_Id").ToString();
+            int Student_Id = Convert.ToInt32(TempData["Student_Id"].ToString());
+            Student_Other_Details student_Other_Details = new Student_Other_Details();
+            student_Other_Details.Student_Id = Student_Id;
             ViewBag.Father_Occupation_Id = new SelectList(db.Father_Occu, "Id", "Occupation");
             ViewBag.Mother_Occupation_Id = new SelectList(db.Mother_Occu, "Id", "Occupation");
             ViewBag.Second_Language_Opted_Id = new SelectList(db.Languag, "Id", "Name");
             ViewBag.Category_Id = new SelectList(db.Categories, "Id", "Name");
-            return View();
+            return View(student_Other_Details);
         }
 
         // POST: Lab/Student_Other_Details/Create
@@ -256,8 +258,8 @@ namespace School_Appln.Areas.Core.Controllers
 
             if (ModelState.IsValid)
             {
-              var studentId =   Request.Form["OtherStudentId"];
-                student_Other_Details.Student_Id = Convert.ToInt32(studentId);
+                int Student_Id = Convert.ToInt32(Request.Form["Student_Id"]);
+                student_Other_Details.Student_Id = Student_Id;
                 student_Other_Details.Created_On = DateTime.Now;
                 student_Other_Details.Created_By = userId;
 
@@ -269,7 +271,7 @@ namespace School_Appln.Areas.Core.Controllers
                      return RedirectToAction("Index");
                     case "Save & Continue":
                         TempData["SiblingForStudentId"] = student_Other_Details.Student_Id;
-                        return RedirectToAction("CreateStudentOther");
+                        return RedirectToAction("SaveAndContiune");
                     default:
                         return RedirectToAction("Index");
                 }
