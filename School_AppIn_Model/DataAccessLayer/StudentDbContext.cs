@@ -55,8 +55,16 @@ namespace School_AppIn_Model.DataAccessLayer
         public virtual DbSet<Subject_Detail> Subject_Detail { get; set; }
         public virtual DbSet<spt_values> spt_values { get; set; }
 
+        public virtual DbSet<Father_Occupation> Father_Occu { get; set; }
+        public virtual DbSet<Mother_Occupation> Mother_Occu { get; set; }
+        public virtual DbSet<Language> Languag { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Language>()
+               .Property(e => e.Name)
+               .IsUnicode(false);
+
             modelBuilder.Entity<Category>()
                 .Property(e => e.Name)
                 .IsUnicode(false);
@@ -117,6 +125,18 @@ namespace School_AppIn_Model.DataAccessLayer
             modelBuilder.Entity<School>()
                 .Property(e => e.Name)
                 .IsUnicode(false);
+
+
+            modelBuilder.Entity<Father_Occupation>()
+             .Property(e => e.Occupation)
+             .IsUnicode(false);
+
+
+            modelBuilder.Entity<Mother_Occupation>()
+             .Property(e => e.Occupation)
+             .IsUnicode(false);
+
+
 
             modelBuilder.Entity<spt_fallback_db>()
                 .Property(e => e.xserver_name)

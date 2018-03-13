@@ -135,11 +135,11 @@ namespace School_Appln.Areas.Core.Controllers
                 //return RedirectToAction("Index");
                 switch (command)
                 {
-                    case "Save & Back To List":
-                        return RedirectToAction("Index");
+                    //case "Save & Back To List":
+                    //    return RedirectToAction("Index");
                     case "Save & Continue":
-                        TempData["SiblingForStudentId"] = student.Student_Id;
-                        return RedirectToAction("SaveAndContiune");
+                        TempData["Student_Id"] = student.Student_Id;
+                        return RedirectToAction("CreateStudentOther");
                     default:
                         return RedirectToAction("Index");
                 }
@@ -233,6 +233,55 @@ namespace School_Appln.Areas.Core.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
+
+        public ActionResult CreateStudentOther()
+        {
+            string Student_Id = TempData.Peek("Student_Id").ToString();
+            ViewBag.Father_Occupation_Id = new SelectList(db.Father_Occu, "Id", "Occupation");
+            ViewBag.Mother_Occupation_Id = new SelectList(db.Mother_Occu, "Id", "Occupation");
+            ViewBag.Second_Language_Opted_Id = new SelectList(db.Languag, "Id", "Name");
+            ViewBag.Category_Id = new SelectList(db.Categories, "Id", "Name");
+            return View();
+        }
+
+        // POST: Lab/Student_Other_Details/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateStudentOther([Bind(Include = "StudentDetail_Id,Identification_Mark1,Identification_Mark2,Is_Allergic,Allergy_Details,Father_Occupation_Id,Father_Annual_Income,Mother_Occupation_Id,Mother_Annual_Income,Caste,Religion,Languages_Known,Second_Language_Opted_Id,Birth_Certificate,Upload_Document1,UpLoad_Document2,Academic_Year,Category_Id")] Student_Other_Details student_Other_Details, string command)
+        {
+            var userId = LoggedInUser.Id;
+
+            if (ModelState.IsValid)
+            {
+              var studentId =   Request.Form["OtherStudentId"];
+                student_Other_Details.Student_Id = Convert.ToInt32(studentId);
+                student_Other_Details.Created_On = DateTime.Now;
+                student_Other_Details.Created_By = userId;
+
+                db.Student_Other_Details.Add(student_Other_Details);
+                await db.SaveChangesAsync();
+                switch (command)
+                {
+                    case "Save & Back To List":
+                     return RedirectToAction("Index");
+                    case "Save & Continue":
+                        TempData["SiblingForStudentId"] = student_Other_Details.Student_Id;
+                        return RedirectToAction("CreateStudentOther");
+                    default:
+                        return RedirectToAction("Index");
+                }
+            }
+            ViewBag.Father_Occupation_Id = new SelectList(db.Father_Occu, "Id", "Occupation");
+            ViewBag.Mother_Occupation_Id = new SelectList(db.Mother_Occu, "Id", "Occupation");
+            ViewBag.Second_Language_Opted_Id = new SelectList(db.Languag, "Id", "Name");
+            ViewBag.Category_Id = new SelectList(db.Categories, "Id", "Name");
+            return View(student_Other_Details);
+        }
+
+
 
         //Save & Continue
         public ActionResult SaveAndContiune()

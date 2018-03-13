@@ -86,6 +86,7 @@
     <Compile Include="Common\Constants.cs" />
     <Compile Include="DataAccessLayer\City.cs" />
     <Compile Include="DataAccessLayer\Country.cs" />
+    <Compile Include="DataAccessLayer\Father_Occupation.cs" />
     <Compile Include="DataAccessLayer\Gender.cs" />
     <Compile Include="DataAccessLayer\Blood_Group.cs" />
     <Compile Include="DataAccessLayer\Category.cs" />
@@ -99,6 +100,8 @@
     <Compile Include="DataAccessLayer\Fees_Component.cs" />
     <Compile Include="DataAccessLayer\Fee_Detail.cs" />
     <Compile Include="DataAccessLayer\Institution.cs" />
+    <Compile Include="DataAccessLayer\Language.cs" />
+    <Compile Include="DataAccessLayer\Mother_Occupation.cs" />
     <Compile Include="DataAccessLayer\MSreplication_options.cs" />
     <Compile Include="DataAccessLayer\Payment_Mode.cs" />
     <Compile Include="DataAccessLayer\Product.cs" />

@@ -10,12 +10,9 @@ namespace School_AppIn_Model.DataAccessLayer
     {
         [Key]
         [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long StudentDetail_Id { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long Student_Id { get; set; }
 
         [StringLength(500)]
@@ -24,17 +21,19 @@ namespace School_AppIn_Model.DataAccessLayer
         [StringLength(500)]
         public string Identification_Mark2 { get; set; }
 
-        public bool? Is_Allergic { get; set; }
+        public bool Is_Allergic { get; set; }
 
         public string Allergy_Details { get; set; }
 
-        public int? Father_Occupation_Id { get; set; }
+        public int Father_Occupation_Id { get; set; }
 
-        public decimal? Father_Annual_Income { get; set; }
+        public decimal Father_Annual_Income { get; set; }
 
-        public int? Mother_Occupation_Id { get; set; }
+        public int Mother_Occupation_Id { get; set; }
 
         public decimal? Mother_Annual_Income { get; set; }
+
+        public int Category_Id { get; set; }
 
         [StringLength(50)]
         public string Caste { get; set; }
@@ -53,18 +52,18 @@ namespace School_AppIn_Model.DataAccessLayer
 
         public byte[] UpLoad_Document2 { get; set; }
 
-        public long? Academic_Year { get; set; }
+        public long Academic_Year { get; set; }
 
-        public bool? Is_Active { get; set; }
+        public bool Is_Active { get; set; }
 
-        public bool? Is_Deleted { get; set; }
+        public bool Is_Deleted { get; set; }
 
-        public DateTime? Created_On { get; set; }
+        public DateTime Created_On { get; set; }
 
-        public int? Created_By { get; set; }
+        public string Created_By { get; set; }
 
-        public DateTime? Deleted_On { get; set; }
+        public DateTime Updated_On { get; set; }
 
-        public int? Deleted_By { get; set; }
+        public string Updated_By { get; set; }
     }
 }

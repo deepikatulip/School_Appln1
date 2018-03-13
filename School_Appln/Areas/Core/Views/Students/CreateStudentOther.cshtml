@@ -1,0 +1,184 @@
+﻿@model School_AppIn_Model.DataAccessLayer.Student_Other_Details
+
+@{
+    ViewBag.Title = "CreateStudentOther";
+    Layout = "~/Views/Shared/_LayoutSuperAdmin.cshtml";
+}
+
+@{
+        if (TempData["Student_Id"] != null)
+        {
+            var OtherStudentId = TempData["Student_Id"];
+        }
+    }
+
+
+
+
+<section class="content">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h5 class="panel-title">Add Student Other Details</h5>
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <li><a data-action="collapse"></a></li>
+                    <li><a data-action="reload"></a></li>
+                </ul>
+            </div>
+        </div>
+        @using (Html.BeginForm())
+        {
+            @*@Html.HiddenFor(model => model.Student_Id)*@
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="panel-body">
+                <fieldset>
+                    <legend class="text-semibold">
+                        <i class="icon-reading position-left"></i>
+                        Add Personal details
+                    </legend>
+                    <div class="row">
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.EditorFor(model => model.Identification_Mark1, new { htmlAttributes = new { @class = "form-control", @placeholder = "Identification Mark1" } })
+                                @Html.ValidationMessageFor(model => model.Identification_Mark1, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.EditorFor(model => model.Identification_Mark2, new { htmlAttributes = new { @class = "form-control", @placeholder = "Identification Mark2" } })
+                                @Html.ValidationMessageFor(model => model.Identification_Mark2, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                Is_Allergic @Html.CheckBox("Is_Allergic", true, new { @class = "flat-red" })
+                                @Html.ValidationMessageFor(model => model.Is_Allergic, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="=row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.EditorFor(model => model.Allergy_Details, new { htmlAttributes = new { @class = "form-control", @placeholder ="Allergy Details" } })
+                                @Html.ValidationMessageFor(model => model.Allergy_Details, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.DropDownList("Father_Occupation_Id", (IEnumerable<SelectListItem>)ViewBag.Father_Occupation_Id, "Select ...", new { @class = "form-control select2", @id = "Txt_CountryId" })
+                                @Html.ValidationMessageFor(model => model.Father_Occupation_Id, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.EditorFor(model => model.Father_Annual_Income, new { htmlAttributes = new { @class = "form-control", @placeholder = "Annual Income" } })
+                                @Html.ValidationMessageFor(model => model.Father_Annual_Income, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                @Html.DropDownList("Mother_Occupation_Id", (IEnumerable<SelectListItem>)ViewBag.Mother_Occupation_Id, "Select ...", new { @class = "form-control select2" })
+                                @Html.ValidationMessageFor(model => model.Mother_Occupation_Id, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.EditorFor(model => model.Mother_Annual_Income, new { htmlAttributes = new { @class = "form-control", @placeholder = "Annual Income" } })
+                                @Html.ValidationMessageFor(model => model.Mother_Annual_Income, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.EditorFor(model => model.Caste, new { htmlAttributes = new { @class = "form-control", @placeholder = "Caste" } })
+                                @Html.ValidationMessageFor(model => model.Caste, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            <div class="form-group">
+                                @Html.EditorFor(model => model.Religion, new { htmlAttributes = new { @class = "form-control", @placeholder = "Religion" } })
+                                @Html.ValidationMessageFor(model => model.Religion, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+
+                            <div class="form-group">
+                                @Html.EditorFor(model => model.Languages_Known, new { htmlAttributes = new { @class = "form-control", @placeholder = "Languages_Known" } })
+                                @Html.ValidationMessageFor(model => model.Languages_Known, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.DropDownList("Second_Language_Opted_Id", (IEnumerable<SelectListItem>)ViewBag.Second_Language_Opted_Id, "Select ...", new { @class = "form-control select2" })
+                                @Html.ValidationMessageFor(model => model.Second_Language_Opted_Id, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input type="file" id="Photo" class="form-control file-input" name="imageUpload">
+                                <span class="help-block">Birth_Certificate</span>
+
+                                @*@Html.EditorFor(model => model.Birth_Certificate, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Birth_Certificate, "", new { @class = "text-danger" })*@
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input type="file" id="Photo2" class="form-control file-input" name="imageUpload">
+                                <span class="help-block">Upload_Document1</span>
+                                @*@Html.EditorFor(model => model.Upload_Document1, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Upload_Document1, "", new { @class = "text-danger" })*@
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+
+                            <div class="form-group">
+                                <input type="file" id="Photo1" class="form-control file-input" name="imageUpload">
+                                <span class="help-block">UpLoad_Document2</span>
+                                @*@Html.EditorFor(model => model.UpLoad_Document2, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.UpLoad_Document2, "", new { @class = "text-danger" })*@
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.EditorFor(model => model.Academic_Year, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Academic_Year, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                @Html.DropDownList("Category_Id", (IEnumerable<SelectListItem>)ViewBag.Category_Id, "Select ...", new { @class = "form-control select2" })
+                                @Html.ValidationMessageFor(model => model.Category_Id, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+                </fieldset>
+                <div class="text-right">
+                    @*<button type="submit" value="Create" class="btn btn-primary">Save & Continue <i class="icon-arrow-right14 position-right"></i></button>*@
+                    <input type="submit" name="command" value="Save & Back To List" class="btn btn-danger  " />
+                    <input type="submit" name="command" value="Save & Continue" class="btn btn-success " />
+                </div>
+            </div>
+        }
+    </div>
+</section>
