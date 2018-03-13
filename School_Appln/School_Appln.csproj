@@ -225,6 +225,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Alter Tables.txt" />
     <Content Include="App_Sprites\README.txt" />
     <Content Include="Content\assets\css\bootstrap.css" />
     <Content Include="Content\assets\css\bootstrap.min.css" />
@@ -1441,7 +1442,6 @@
     <Content Include="Views\Account\CreateUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Areas\Comm\Models\" />
     <Folder Include="Areas\Comm\Views\Shared\" />
     <Folder Include="Areas\Core\Models\" />
