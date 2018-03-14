@@ -5,7 +5,6 @@ namespace School_AppIn_Model.DataAccessLayer
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
-
     public partial class Student_Other_Details
     {
         [Key]

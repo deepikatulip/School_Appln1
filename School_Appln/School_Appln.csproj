@@ -795,6 +795,7 @@
     <Content Include="Areas\Lab\Views\Student_Other_Details\Edit.cshtml" />
     <Content Include="Areas\Lab\Views\Student_Other_Details\Index.cshtml" />
     <Content Include="Areas\Core\Views\Students\CreateStudentOther.cshtml" />
+    <Content Include="Areas\Core\Views\Students\EditOther.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
