@@ -17,16 +17,16 @@ namespace School_AppIn_Model.DataAccessLayer
 
         public long? Academic_Year { get; set; }
 
-        public bool? Is_Active { get; set; }
+        //public bool? Is_Active { get; set; }
 
-        public bool? Is_Deleted { get; set; }
+        //public bool? Is_Deleted { get; set; }
 
-        public DateTime? Created_On { get; set; }
+        //public DateTime? Created_On { get; set; }
 
-        public int? Created_By { get; set; }
+        //public int? Created_By { get; set; }
 
-        public DateTime? Deleted_On { get; set; }
+        //public DateTime? Deleted_On { get; set; }
 
-        public int? Deleted_By { get; set; }
+        //public int? Deleted_By { get; set; }
     }
 }
