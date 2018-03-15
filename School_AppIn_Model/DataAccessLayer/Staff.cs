@@ -10,10 +10,10 @@ namespace School_AppIn_Model.DataAccessLayer
     public partial class Staff
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Staff_Id { get; set; }
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+		public int Staff_Id { get; set; }
 
-        public int? Staff_Type { get; set; }
+        public int? Staff_Type_Id { get; set; }
 
         [StringLength(50)]
         public string First_Name { get; set; }
@@ -60,6 +60,8 @@ namespace School_AppIn_Model.DataAccessLayer
         public int? Country_Id { get; set; }
 
 		public int Experience_in_Years { get; set; }
+
+		public bool Is_Married { get; set; }
 
 		[StringLength(10)]
         public string PinCode { get; set; }
