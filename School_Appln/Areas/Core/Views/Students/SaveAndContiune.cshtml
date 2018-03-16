@@ -177,6 +177,21 @@
         fnBindSchoolList();
     });
 
+    function clear() {
+        $("#hdnSchoolId").val() = "";
+        $("#txtSchoolName").val() = "";
+        $("#txtSchoolAddress").val() = "";
+        $("#txtAcademic_Year").val() = "";
+        $("#txtFrom_Year").val() = "";
+        $("#txtTo_Year").val() = "";
+        $("#txtLeaving_Reason").val() = "";
+        $("#txtComments").val() = "";
+    }
+    function clearStudent() {
+        $("#hdnStudentId").val() = "";
+        $("#txtStudent").val() = "";
+
+    }
     $(function () {
         $("#txtStudent").autocomplete({
             source: function (request, response) {
@@ -219,6 +234,7 @@
             contentType: "application/json; charset=utf-8",
             async: false,
             success: function (data) {
+                clearStudent();
                 fnBindList();
             }
         });
@@ -413,6 +429,7 @@
             contentType: "application/json; charset=utf-8",
             async: false,
             success: function (data) {
+                clear();
                 fnBindSchoolList();
             }
         });

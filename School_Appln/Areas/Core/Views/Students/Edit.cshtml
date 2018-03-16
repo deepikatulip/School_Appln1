@@ -146,7 +146,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 @*@Html.LabelFor(model => model.State_Id, htmlAttributes: new { @class = "control-label" })*@
-                               @Html.DropDownList("State_Id", null, htmlAttributes: new { @class = "form-control select2" })
+                                 @Html.DropDownList("State_Id", null, htmlAttributes: new { @class = "form-control select2" })
                                  @Html.ValidationMessageFor(model => model.State_Id, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -220,7 +220,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 @* @Html.LabelFor(model => model.Class_Id, "Class_Id", htmlAttributes: new { @class = "control-label" })*@
-                                @Html.DropDownList("Class_Id", null, "Select Class...", htmlAttributes: new { @class = "form-control" })
+                                @Html.DropDownList("Class_Id", null, "Select Class...", htmlAttributes: new { @class = "form-control" , @id= "txtClassId" })
                                 @Html.ValidationMessageFor(model => model.Class_Id, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -306,6 +306,21 @@
                     });
                 });
             });
+
+
+
+            //txtClassId
+
+            $("#txtClassId").change(function () {
+                $("#Section_Id").empty();
+                $.post("/Core/Students/GetSection/", { classId: $(this).val() }, function (response) {
+                    $("#Section_Id").append("<option value=''></option>");
+                    $.each(response, function (index, data) {
+                        $("#Section_Id").append("<option value=" + data.Value + ">" + data.Text + "</option>");
+                    });
+                });
+            });
+
 
         });
          

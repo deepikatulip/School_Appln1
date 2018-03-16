@@ -50,7 +50,7 @@ namespace School_Appln.Areas.Core.Controllers
             ViewBag.Country_Id = new SelectList(db.Country, "Id", "Name");
             ViewBag.Blood_Group_Id = new SelectList(db.Blood_Group, "Id", "Name");
             ViewBag.Class_Id = new SelectList(db.Classes, "Class_Id", "Class_Name");
-            ViewBag.Section_Id = new SelectList(db.Sections, "Section_Id", "Section_Name");
+            //ViewBag.Section_Id = new SelectList(db.Sections, "Section_Id", "Section_Name");
             ViewBag.Gender_Id = new SelectList(db.Genders, "Id", "Name");
 			
             return View();
@@ -75,14 +75,17 @@ namespace School_Appln.Areas.Core.Controllers
             {
                 goto Fail;
             }
-
+            if (string.IsNullOrEmpty(Request.Form["Section_Id"]))
+            {
+                goto Fail;
+            }
             if (ModelState.IsValid)
             {
 
                 int cityId = int.Parse(Request.Form["City_Id"]);
                 int countryId = int.Parse(Request.Form["Country_Id"]);
                 int stateId = int.Parse(Request.Form["State_Id"]);
-
+                int sectionId = int.Parse(Request.Form["Section_Id"]);
 
 
                 string bodyHtml = string.Empty;
@@ -126,6 +129,7 @@ namespace School_Appln.Areas.Core.Controllers
                     student.City_Id = cityId;
                     student.State_Id = stateId;
                     student.Country_Id = countryId;
+                    student.Section_Id = sectionId;
                     student.Is_Active = true;
                     student.Created_By = userId;
                     student.Created_On = DateTime.Now;
@@ -148,7 +152,7 @@ namespace School_Appln.Areas.Core.Controllers
             ViewBag.Country_Id = new SelectList(db.Country, "Id", "Name");
             ViewBag.Blood_Group_Id = new SelectList(db.Blood_Group, "Id", "Name", student.Blood_Group_Id);
             ViewBag.Class_Id = new SelectList(db.Classes, "Class_Id", "Class_Name", student.Class_Id);
-            ViewBag.Section_Id = new SelectList(db.Sections, "Section_Id", "Section_Name", student.Section_Id);
+            //ViewBag.Section_Id = new SelectList(db.Sections, "Section_Id", "Section_Name", student.Section_Id);
             ViewBag.Gender_Id = new SelectList(db.Genders, "Id", "Name", student.Gender_Id);
             return View(student);
         }
@@ -184,6 +188,7 @@ namespace School_Appln.Areas.Core.Controllers
             int cityId = int.Parse(Request.Form["City_Id"]);
             int countryId = int.Parse(Request.Form["Country_Id"]);
             int stateId = int.Parse(Request.Form["State_Id"]);
+            int sectionId = int.Parse(Request.Form["Section_Id"]);
             Student existingStudent = db.Students.Find(student.Student_Id);
             if (ModelState.IsValid)
             {
@@ -191,6 +196,7 @@ namespace School_Appln.Areas.Core.Controllers
                 existingStudent.City_Id = cityId;
                 existingStudent.State_Id = stateId;
                 existingStudent.Country_Id = countryId;
+                existingStudent.Section_Id = sectionId;
                 db.Entry(existingStudent).CurrentValues.SetValues(existingStudent);
                 existingStudent.Updated_By = userId;
                 existingStudent.Updated_On = DateTime.Now;
@@ -223,8 +229,6 @@ namespace School_Appln.Areas.Core.Controllers
         // GET: Lab/Student_Other_Details/Edit/5
         public async Task<ActionResult> EditOther()
         {
-
-
             int id = Convert.ToInt32(TempData["Student_Id"].ToString());
             if (id == null)
             {
@@ -243,8 +247,6 @@ namespace School_Appln.Areas.Core.Controllers
         }
 
         // POST: Lab/Student_Other_Details/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EditOther([Bind(Include = "StudentDetail_Id,Identification_Mark1,Identification_Mark2,Is_Allergic,Allergy_Details,Father_Occupation_Id,Father_Annual_Income,Mother_Occupation_Id,Mother_Annual_Income,Caste,Religion,Languages_Known,Second_Language_Opted_Id,Birth_Certificate,Upload_Document1,UpLoad_Document2,Academic_Year,Category_Id,Created_By,Created_On,Updated_On,Updated_By,Is_Active")] Student_Other_Details student_Other_Details, string command)
@@ -623,6 +625,21 @@ namespace School_Appln.Areas.Core.Controllers
             return result;
 
         }
+
+
+        public JsonResult GetSection(int classId)
+        {
+            JsonResult result = new JsonResult();
+            var sectionList = (from s in db.Sections
+                             where s.Class_Id == classId
+                               select s).ToList();
+            var selectlist = new SelectList(sectionList, "Section_Id", "Section_Name");
+            result.Data = selectlist;
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
+
+
         public string PopoulateWelcomeEmailTemplate(string bodyHtml, School_AppIn_Model.User user, string username, string pw)
         {
             var wBodyHtml = bodyHtml.Replace("{{USER-NAME}}", user.NickName)
