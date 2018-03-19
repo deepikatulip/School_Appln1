@@ -1,0 +1,96 @@
+﻿USE [StudentDB]
+GO
+
+ALTER TABLE [dbo].[Student_Other_Details] DROP CONSTRAINT [StudentOtherDetails_User_Id_fk2]
+GO
+
+ALTER TABLE [dbo].[Student_Other_Details] DROP CONSTRAINT [StudentOtherDetails_User_Id_fk]
+GO
+
+ALTER TABLE [dbo].[Student_Other_Details] DROP CONSTRAINT [StudentOtherDetails_Id_fk]
+GO
+
+ALTER TABLE [dbo].[Student_Other_Details] DROP CONSTRAINT [Category_Id_fk1]
+GO
+
+/****** Object:  Table [dbo].[Student_Other_Details]    Script Date: 3/14/2018 5:15:38 AM ******/
+DROP TABLE [dbo].[Student_Other_Details]
+GO
+
+/****** Object:  Table [dbo].[Student_Other_Details]    Script Date: 3/14/2018 5:15:38 AM ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[Student_Other_Details](
+	[StudentDetail_Id] [bigint] IDENTITY(1,1) NOT NULL,
+	[Student_Id] [bigint] NOT NULL,
+	[Identification_Mark1] [varchar](500) NULL,
+	[Identification_Mark2] [varchar](500) NULL,
+	[Is_Allergic] [bit] NOT NULL,
+	[Allergy_Details] [varchar](max) NULL,
+	[Father_Occupation_Id] [int] NOT NULL,
+	[Father_Annual_Income] [decimal](18, 2) NULL,
+	[Mother_Occupation_Id] [int] NOT NULL,
+	[Mother_Annual_Income] [decimal](18, 2) NULL,
+	[Category_Id] [int] NULL,
+	[Caste] [varchar](50) NULL,
+	[Religion] [varchar](50) NULL,
+	[Languages_Known] [nchar](10) NULL,
+	[Second_Language_Opted_Id] [int] NULL,
+	[Birth_Certificate] [varbinary](max) NULL,
+	[ID_Card] [varbinary](max) NULL,
+	[Upload_Document1] [varbinary](max) NULL,
+	[UpLoad_Document2] [varbinary](max) NULL,
+	[Academic_Year] [bigint] NOT NULL,
+	[Is_Active] [bit] NULL,
+	[Is_Deleted] [bit] NULL,
+	[Created_On] [datetime] NOT NULL,
+	[Created_By] [nvarchar](128) NOT NULL,
+	[Updated_On] [datetime] NULL,
+	[Updated_By] [nvarchar](128) NULL,
+ CONSTRAINT [PK__Student___0C27D82D2EB537A8] PRIMARY KEY CLUSTERED 
+(
+	[StudentDetail_Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE [dbo].[Student_Other_Details]  WITH CHECK ADD  CONSTRAINT [Category_Id_fk1] FOREIGN KEY([Category_Id])
+REFERENCES [dbo].[Category] ([Id])
+GO
+
+ALTER TABLE [dbo].[Student_Other_Details] CHECK CONSTRAINT [Category_Id_fk1]
+GO
+
+ALTER TABLE [dbo].[Student_Other_Details]  WITH CHECK ADD  CONSTRAINT [StudentOtherDetails_Id_fk] FOREIGN KEY([Student_Id])
+REFERENCES [dbo].[Student] ([Student_Id])
+GO
+
+ALTER TABLE [dbo].[Student_Other_Details] CHECK CONSTRAINT [StudentOtherDetails_Id_fk]
+GO
+
+ALTER TABLE [dbo].[Student_Other_Details]  WITH CHECK ADD  CONSTRAINT [StudentOtherDetails_User_Id_fk] FOREIGN KEY([Created_By])
+REFERENCES [dbo].[User] ([Id])
+GO
+
+ALTER TABLE [dbo].[Student_Other_Details] CHECK CONSTRAINT [StudentOtherDetails_User_Id_fk]
+GO
+
+ALTER TABLE [dbo].[Student_Other_Details]  WITH CHECK ADD  CONSTRAINT [StudentOtherDetails_User_Id_fk2] FOREIGN KEY([Updated_By])
+REFERENCES [dbo].[User] ([Id])
+GO
+
+ALTER TABLE [dbo].[Student_Other_Details] CHECK CONSTRAINT [StudentOtherDetails_User_Id_fk2]
+GO
+
+

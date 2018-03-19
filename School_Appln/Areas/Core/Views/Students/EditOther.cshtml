@@ -1,16 +1,10 @@
 ﻿@model School_AppIn_Model.DataAccessLayer.Student_Other_Details
 
 @{
-    ViewBag.Title = "CreateStudentOther";
+    ViewBag.Title = "EditOther";
     Layout = "~/Views/Shared/_LayoutSuperAdmin.cshtml";
 }
 
-@{
-        if (TempData["Student_Id"] != null)
-        {
-            var OtherStudentId = TempData["Student_Id"];
-        }
-    }
 <section class="content">
     <div class="panel panel-primary">
         <div class="panel-heading">
@@ -24,9 +18,12 @@
         </div>
         @using (Html.BeginForm())
         {
-            @Html.HiddenFor(model => model.Student_Id)
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Created_By)
+            @Html.HiddenFor(model => model.Created_On)
+            @Html.HiddenFor(model => model.Student_Id)
+            @Html.HiddenFor(model => model.StudentDetail_Id)
             <div class="panel-body">
                 <fieldset>
                     <legend class="text-semibold">
@@ -34,6 +31,7 @@
                         Add Personal details
                     </legend>
                     <div class="row">
+
                         <div class="col-md-4">
                             <div class="form-group">
                                 @Html.EditorFor(model => model.Identification_Mark1, new { htmlAttributes = new { @class = "form-control", @placeholder = "Identification Mark1" } })
@@ -48,7 +46,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                Is_Allergic @Html.CheckBox("Is_Allergic", true, new { @class = "form-control" })
+                                Is_Allergic @Html.CheckBox("Is_Allergic", true, new { @class = "flat-red" })
                                 @Html.ValidationMessageFor(model => model.Is_Allergic, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -57,14 +55,14 @@
                     <div class="=row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                @Html.EditorFor(model => model.Allergy_Details, new { htmlAttributes = new { @class = "form-control", @placeholder ="Allergy Details" } })
+                                @Html.EditorFor(model => model.Allergy_Details, new { htmlAttributes = new { @class = "form-control", @placeholder = "Allergy Details" } })
                                 @Html.ValidationMessageFor(model => model.Allergy_Details, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                @Html.DropDownList("Father_Occupation_Id", (IEnumerable<SelectListItem>)ViewBag.Father_Occupation_Id, "Select ...", new { @class = "form-control select2", @id = "Txt_CountryId" })
+                                @Html.DropDownList("Father_Occupation_Id", null, "Select Father Occupation...", new { @class = "form-control select2", @id = "Txt_CountryId" })
                                 @Html.ValidationMessageFor(model => model.Father_Occupation_Id, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -81,7 +79,7 @@
                     <div class="row">
                         <div class="form-group">
                             <div class="col-md-4">
-                                @Html.DropDownList("Mother_Occupation_Id", (IEnumerable<SelectListItem>)ViewBag.Mother_Occupation_Id, "Select ...", new { @class = "form-control select2" })
+                                @Html.DropDownList("Mother_Occupation_Id",null, "Select Mother Occupation ...", new { @class = "form-control select2" })
                                 @Html.ValidationMessageFor(model => model.Mother_Occupation_Id, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -116,7 +114,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                @Html.DropDownList("Second_Language_Opted_Id", (IEnumerable<SelectListItem>)ViewBag.Second_Language_Opted_Id, "Select ...", new { @class = "form-control select2" })
+                                @Html.DropDownList("Second_Language_Opted_Id",null, "Select Language Optional...", new { @class = "form-control select2" })
                                 @Html.ValidationMessageFor(model => model.Second_Language_Opted_Id, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -155,13 +153,13 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                @Html.EditorFor(model => model.Academic_Year, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.Academic_Year, new { htmlAttributes = new { @class = "form-control", @placeholder = "Academic Year" } })
                                 @Html.ValidationMessageFor(model => model.Academic_Year, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-4">
-                                @Html.DropDownList("Category_Id", (IEnumerable<SelectListItem>)ViewBag.Category_Id, "Select ...", new { @class = "form-control select2" })
+                                @Html.DropDownList("Category_Id", null, "Select Category ...", new { @class = "form-control select2" })
                                 @Html.ValidationMessageFor(model => model.Category_Id, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -175,5 +173,4 @@
                 </div>
             </div>
         }
-    </div>
-</section>
+        </div>

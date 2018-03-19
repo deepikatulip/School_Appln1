@@ -160,15 +160,10 @@
                         </div>
                     </fieldset>
 
-
-
                     <div class="text-right">
                     </div>
                 </div>
             </div>
-
-
-
     }
 
     <!-- /basic layout -->
@@ -177,6 +172,26 @@
 <script src="~/Content/JqGrid/js/i18n/grid.locale-en.js"></script>
 <script src="~/Content/JqGrid/src/jquery.jqGrid.js"></script>
 <script type="text/javascript">
+    $(document).ready(function () {
+        fnBindList();
+        fnBindSchoolList();
+    });
+
+    function clear() {
+        $("#hdnSchoolId").val() = "";
+        $("#txtSchoolName").val() = "";
+        $("#txtSchoolAddress").val() = "";
+        $("#txtAcademic_Year").val() = "";
+        $("#txtFrom_Year").val() = "";
+        $("#txtTo_Year").val() = "";
+        $("#txtLeaving_Reason").val() = "";
+        $("#txtComments").val() = "";
+    }
+    function clearStudent() {
+        $("#hdnStudentId").val() = "";
+        $("#txtStudent").val() = "";
+
+    }
     $(function () {
         $("#txtStudent").autocomplete({
             source: function (request, response) {
@@ -219,6 +234,7 @@
             contentType: "application/json; charset=utf-8",
             async: false,
             success: function (data) {
+                clearStudent();
                 fnBindList();
             }
         });
@@ -273,10 +289,6 @@
             userDataOnFooter: true
 
         });
-
-        //function $deleteSibling(cellvalue, options, rowObject) {
-        //    return "<a class='btn btn-danger' href='/Students/DeleteSiblingDetails?studentId=" + rowObject.Student_Id + "&RefSibling_Id=" + elementId + "'>DELETE</a>";
-        //}
         function $deleteSib(cellvalue, options, rowObject) {
             return "<a class='btn btn-danger' href='javascript:deleteSibling(" + rowObject.Student_Id + "," + elementId + ");'>DELETE</a>";
         }
@@ -298,13 +310,7 @@
             }
         });
     }
-
-
-
-
-
     //Add Previous School Details
-
     $(function () {
         $("#txtSchoolName").autocomplete({
             source: function (request, response) {
@@ -423,16 +429,11 @@
             contentType: "application/json; charset=utf-8",
             async: false,
             success: function (data) {
+                clear();
                 fnBindSchoolList();
             }
         });
     }
-
-
-
-
-
-
 
 </script>
 
