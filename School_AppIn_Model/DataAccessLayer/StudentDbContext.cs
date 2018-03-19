@@ -33,11 +33,13 @@ namespace School_AppIn_Model.DataAccessLayer
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<Blood_Group> Blood_Group { get; set; }
         public virtual DbSet<Designation> Designations { get; set; }
-        public virtual DbSet<Fee_Detail> Fee_Detail { get; set; }
+		public virtual DbSet<Qualification> Qualifications { get; set; }
+		public virtual DbSet<Fee_Detail> Fee_Detail { get; set; }
         public virtual DbSet<FeePayment_Detail> FeePayment_Detail { get; set; }
         public virtual DbSet<Fees_Component> Fees_Component { get; set; }
         public virtual DbSet<Institution> Institutions { get; set; }
-        public virtual DbSet<MSreplication_options> MSreplication_options { get; set; }
+		public virtual DbSet<Specialization> Specializations { get; set; }
+		public virtual DbSet<MSreplication_options> MSreplication_options { get; set; }
         public virtual DbSet<Payment_Mode> Payment_Mode { get; set; }
         public virtual DbSet<School> Schools { get; set; }
         public virtual DbSet<spt_fallback_db> spt_fallback_db { get; set; }
@@ -65,7 +67,15 @@ namespace School_AppIn_Model.DataAccessLayer
                .Property(e => e.Name)
                .IsUnicode(false);
 
-            modelBuilder.Entity<Category>()
+			modelBuilder.Entity<Qualification>()
+			  .Property(e => e.Qualification_Name)
+			  .IsUnicode(false);
+
+			modelBuilder.Entity<Specialization>()
+			  .Property(e => e.Specialization_Name)
+			  .IsUnicode(false);
+
+			modelBuilder.Entity<Category>()
                 .Property(e => e.Name)
                 .IsUnicode(false);
              
@@ -224,7 +234,7 @@ namespace School_AppIn_Model.DataAccessLayer
             //    .IsUnicode(false);
 
             modelBuilder.Entity<Staff_Educational_Details>()
-                .Property(e => e.Institution_Name)
+                .Property(e => e.Medium_Of_Instruction)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Staff_Educational_Details>()
@@ -232,7 +242,7 @@ namespace School_AppIn_Model.DataAccessLayer
                 .IsUnicode(false);
 
             modelBuilder.Entity<Staff_Exp_Details>()
-                .Property(e => e.Designation)
+                .Property(e => e.Subject_Id)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Staff_Exp_Details>()

@@ -202,6 +202,7 @@
     <Compile Include="Areas\Comm\CommAreaRegistration.cs" />
     <Compile Include="Areas\Comm\Controllers\ClassesController.cs" />
     <Compile Include="Areas\Comm\Controllers\SectionsController.cs" />
+    <Compile Include="Areas\Core\Controllers\StaffsController.cs" />
     <Compile Include="Areas\Core\Controllers\StudentsController.cs" />
     <Compile Include="Areas\Core\CoreAreaRegistration.cs" />
     <Compile Include="Areas\Ext\ExtAreaRegistration.cs" />
@@ -794,6 +795,9 @@
     <Content Include="Areas\Lab\Views\Student_Other_Details\Edit.cshtml" />
     <Content Include="Areas\Lab\Views\Student_Other_Details\Index.cshtml" />
     <Content Include="Areas\Core\Views\Students\CreateStudentOther.cshtml" />
+    <Content Include="Areas\Core\Views\Staffs\Create.cshtml" />
+    <Content Include="Areas\Core\Views\Staffs\Index.cshtml" />
+    <Content Include="Areas\Core\Views\Staffs\CreateStaffOtherDetails.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>

@@ -9,17 +9,17 @@ namespace School_AppIn_Model.DataAccessLayer
     public partial class Staff_Educational_Details
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long StaffDetail_Id { get; set; }
 
-        public long? Staff_Id { get; set; }
+        public int Staff_Id { get; set; }
 
         public int? Qualification_Id { get; set; }
 
         public int? Specialization_Id { get; set; }
 
-        [StringLength(500)]
-        public string Institution_Name { get; set; }
+     
+        public int Institution_Id { get; set; }
 
         public long? Year_Of_Passing { get; set; }
 
@@ -34,7 +34,7 @@ namespace School_AppIn_Model.DataAccessLayer
 
         public DateTime? Created_On { get; set; }
 
-        public int? Created_By { get; set; }
+        public string Created_By { get; set; }
 
         public DateTime? Updated_On { get; set; }
 

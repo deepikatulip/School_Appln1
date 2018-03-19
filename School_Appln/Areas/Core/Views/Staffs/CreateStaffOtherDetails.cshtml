@@ -1,0 +1,577 @@
+﻿
+@{
+    ViewBag.Title = "CreateStaffOtherDetails";
+    Layout = "~/Views/Shared/_LayoutSuperAdmin.cshtml";
+}
+
+<html>
+<body>
+	@using (Html.BeginForm("CreateStaffOtherDetails", "Staffs", FormMethod.Post))
+	{
+
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h5 class="panel-title">Add Student</h5>
+				<div class="heading-elements">
+					<ul class="icons-list">
+						<li><a data-action="collapse"></a></li>
+						<li><a data-action="reload"></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="panel-body">
+				<fieldset>
+					<legend class="text-semibold">
+						<i class="icon-reading position-left"></i>
+						Add Eductaional Qualification Details
+					</legend>
+
+					<div class="row">
+
+						<div class="col-md-4">
+							<div class="form-group">
+								<input type="text" id="txtQualification" name="QualificationName" placeholder="Enter Qulification" class="form-control" />
+								<input type="hidden" id="hdnQualificationId" name="QualificationId" />
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<input type="text" id="txtSpecilization" name="Specialization" placeholder="Specialization" class="form-control" />
+								<input type="hidden" id="hdnSpecilizationId" name="SpecilizationId" />
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<input type="text" id="txtInstitution" name="Institution" placeholder="Institution" class="form-control" />
+								<input type="hidden" id="hdnInstitutionId" name="InstitutionId" />
+							</div>
+						</div>
+					</div>
+					<div class="row">
+
+						<div class="col-md-4">
+							<div class="form-group">
+								<input type="text" id="txtYearOfPassing" name="YearOfPassing" placeholder="Enter Year Of Passing" class="form-control" />
+
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<input type="text" id="txtMediumOfInstruction" name="MediumOfInstruction" placeholder="Medium Of Instruction" class="form-control" />
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<button id="btnAddEducationalQualification" class="btn btn-info">Add <i class="icon-arrow-right14 position-right"></i></button>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend class="text-semibold">
+						<i class="icon-reading position-left"></i>
+						Sibling Details List
+					</legend>
+					<div class="box-body">
+						<table id="jqGridEducationalQualification"></table>
+						<div id="jqGridEducationalQualificationPager"></div>
+					</div>
+				</fieldset>
+
+
+
+				<div class="text-right">
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<h5 class="panel-title">Add Previous School</h5>
+				<div class="heading-elements">
+					<ul class="icons-list">
+						<li><a data-action="collapse"></a></li>
+						<li><a data-action="reload"></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="panel-body">
+				<fieldset>
+					<legend class="text-semibold">
+						<i class="icon-reading position-left"></i>
+						Add Previous Work Experience details
+					</legend>
+
+					<div class="row">
+
+						<div class="col-md-4">
+							<div class="form-group">
+								<input type="text" id="txtSchoolName" name="SchoolName" placeholder="Enter School" class="form-control" />
+								<input type="hidden" id="hdnSchoolId" name="SchoolId" />
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<input type="text" id="txtSchoolAddress" name="SchoolAddress" placeholder="School Address" class="form-control" />
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<input type="text" id="txtDesignation" name="Designation" placeholder="Designation" class="form-control" />
+								<input type="hidden" id="hdnDesignationId" name="DesignationId" />
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<input type="text" id="txtFrom_Year" name="From_Year" placeholder="From Year" class="form-control" />
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<input type="text" id="txtTo_Year" name="To_Year" placeholder="To Year" class="form-control" />
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<textarea rows="2" cols="1" class="form-control" id="txtSubject_Handled" name="Subjects_Handled" placeholder="Major Subjects Handled"></textarea>
+
+								@* <input type="text" id="txtLeaving_Reason" name="Leaving_Reason" placeholder="Leaving Reason" class="form-control" />*@
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<input type="file" id="Photo" class="form-control file-input" name="imageUpload">
+								<span class="help-block">Upload Document</span>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<input type="file" id="Photo" class="form-control file-input" placeholder="From Year" name="imageUpload">
+								<span class="help-block">Upload Document</span>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<textarea rows="2" cols="1" class="form-control" id="txtComments" name="Comments" placeholder="Comments"></textarea>
+								@*<input type="text" id="txtComments" name="Comments" placeholder = "Comments" class="form-control" />*@
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<button id="btnAddPrevWorkExperience" class="btn btn-info">Add <i class="icon-arrow-right14 position-right"></i></button>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend class="text-semibold">
+						<i class="icon-reading position-left"></i>
+						Work Experience Details List
+					</legend>
+					<div class="box-body">
+						<table id="jqGridPrevWorkExp"></table>
+						<div id="jqGridPrevWorkExpPager"></div>
+					</div>
+				</fieldset>
+
+
+
+				<div class="text-right">
+				</div>
+			</div>
+		</div>
+
+
+
+	}
+</body>
+<head>
+	<link href="~/Content/JqGrid/src/css/ui.jqgrid-bootstrap.css" rel="stylesheet" />
+	<script src="~/Content/JqGrid/js/i18n/grid.locale-en.js"></script>
+	<script src="~/Content/JqGrid/src/jquery.jqGrid.js"></script>
+	<script type="text/javascript">
+		$(function () {
+			$("#txtQualification").autocomplete({
+				source: function (request, response) {
+					$.ajax({
+						url: '/Core/Staffs/AutoCompleteQualification/',
+						data: "{ 'qual_Name': '" + request.term + "'}",
+						dataType: "json",
+						type: "POST",
+						contentType: "application/json; charset=utf-8",
+						success: function (data) {
+							response($.map(data, function (item) {
+								return item;
+							}))
+						},
+						error: function (response) {
+							alert(response.responseText);
+						},
+						failure: function (response) {
+							alert(response.responseText);
+						}
+					});
+				},
+				select: function (e, i) {
+					$("#hdnQualificationId").val(i.item.val);
+				},
+				minLength: 1
+			});
+
+			$("#txtSpecilization").autocomplete({
+				source: function (request, response) {
+					$.ajax({
+						url: '/Core/Staffs/AutoCompleteSpecialization/',
+						data: "{ 'specialization_Name': '" + request.term + "'}",
+						dataType: "json",
+						type: "POST",
+						contentType: "application/json; charset=utf-8",
+						success: function (data) {
+							response($.map(data, function (item) {
+								return item;
+							}))
+						},
+						error: function (response) {
+							alert(response.responseText);
+						},
+						failure: function (response) {
+							alert(response.responseText);
+						}
+					});
+				},
+				select: function (e, i) {
+					$("#hdnSpecilizationId").val(i.item.val);
+				},
+				minLength: 1
+			});
+			$("#txtInstitution").autocomplete({
+				source: function (request, response) {
+					$.ajax({
+						url: '/Core/Staffs/AutoCompleteInstitution/',
+						data: "{ 'institution_Name': '" + request.term + "'}",
+						dataType: "json",
+						type: "POST",
+						contentType: "application/json; charset=utf-8",
+						success: function (data) {
+							response($.map(data, function (item) {
+								return item;
+							}))
+						},
+						error: function (response) {
+							alert(response.responseText);
+						},
+						failure: function (response) {
+							alert(response.responseText);
+						}
+					});
+				},
+				select: function (e, i) {
+					$("#hdnInstitutionId").val(i.item.val);
+				},
+				minLength: 1
+			});
+		});
+
+
+		$("#btnAddEducationalQualification").click(function (evt) {
+			//debugger
+			evt.preventDefault();
+			// var $schoolId = $("#hdnSchoolId").val();
+			var $staffId = '@TempData.Peek("Staff_Id")';
+			var $qualification_Id = $("#hdnQualificationId").val();
+			var $specialization_Id = $("#hdnSpecilizationId").val();
+			var $institution_Id = $("#hdnInstitutionId").val();
+			var $passingYear = $("#txtYearOfPassing").val();
+			var $MediumOfInstruction = $("#txtMediumOfInstruction").val();
+			//var $AcademicYear = $("#txtTo_Year").val();
+			//var $SubjectsHandled = $("#txtSubject_Handled").val();
+			//var $Comment = $("#txtComments").val();
+			$.ajax({
+				type: "POST",
+				url: "/Core/Staffs/AddEducationalQualificationDetails",
+				data: "{'staffId':'" + $staffId + "','qualification_Id':'" + $qualification_Id + "','specialization_Id':'" + $specialization_Id + "','institution_Id':'" + $institution_Id + "','passingYear':'" + $passingYear + "','MediumOfInstruction':'" + $MediumOfInstruction + "'}",
+				contentType: "application/json; charset=utf-8",
+				async: false,
+				success: function (data) {
+					debugger
+					$("#txtQualification").val("");
+					$("#txtSpecilization").val("");
+					$("#txtInstitution").val("");
+					$("#txtYearOfPassing").val("");
+					$("#txtMediumOfInstruction").val("");
+					fnBindEduQualList();
+				}
+			});
+		});
+		function fnBindEduQualList() {
+			//debugger
+			var elementId = '@TempData.Peek("Staff_Id")';
+			// alert(elementId);
+			$("#jqGridEducationalQualification").trigger('reloadGrid');
+			$("#jqGridEducationalQualification").jqGrid({
+				url: '/Staffs/GetEducationalQualificationDetails?staffId=' + elementId,
+				mtype: "POST",
+				styleUI: 'Bootstrap',
+				datatype: "json",
+				colModel: [
+							{ label: '', name: 'Staff_Id', hidden: true, search: false, stype: false },
+							 { label: '', name: 'Qualification_Id', hidden: true, search: false, stype: false },
+							{ label: 'Qualification_Name', name: 'Qualification_Name', search: false, stype: false },
+							{ label: 'Specialization_Name', name: 'Specialization_Name', search: false, stype: false },
+							{ label: 'Institution_Name', name: 'Institution_Name', search: false, stype: false },
+							{ label: 'Year_Of_Passing', name: 'Year_Of_Passing', search: false, stype: false },
+							 { label: 'Medium_Of_Instruction', name: 'Medium_Of_Instruction', search: false, stype: false },
+							{ label: 'Medium_Of_Instruction', name: 'Medium_Of_Instruction', search: false, stype: false, formatter: 'date', formatoptions: { srcformat: 'd/m/Y', newformat: 'd/m/Y' } },
+							{ label: 'Academic Year', name: 'Academic_Year', search: false, stype: false },
+							//{ label: 'Actions', name: '', search: false, formatter: $deleteSibling, stype: false },
+							{ label: 'Actions', name: '', search: false, formatter: $delEduQual, stype: false }
+				],
+				page: 1,
+				width: 780,
+				height: 250,
+				rowNum: 20,
+				multiselect: false,
+				scrollPopUp: true,
+				scrollLeftOffset: "83%",
+				viewrecords: true,
+				gridview: true,
+				viewrecords: true,
+				height: '100%',
+				rowNum: 30,
+				rowList: [10, 20, 30, 40],
+				pager: "#jqGridEducationalQualificationPager",
+				responsive: true,
+				autowidth: true,
+				shrinkToFit: true,
+				loadonce: false,
+				emptyrecords: 'No records to display',
+				jsonReader: {
+					root: "rows",
+					page: "page",
+					total: "total",
+					records: "records",
+					repeatitems: false
+				},
+				footerrow: false,
+				userDataOnFooter: true,
+			
+
+			});
+
+			//function $deleteSibling(cellvalue, options, rowObject) {
+			//    return "<a class='btn btn-danger' href='/Students/DeleteSiblingDetails?studentId=" + rowObject.Student_Id + "&RefSibling_Id=" + elementId + "'>DELETE</a>";
+			//}
+			function $delEduQual(cellvalue, options, rowObject) {
+				//debugger
+				return "<a class='btn btn-danger' href='javascript:deleteEduQual(" + rowObject.Staff_Id + "," + rowObject.Qualification_Id + ");'>DELETE</a>";
+			}
+		}
+
+		$("#jqGridEducationalQualification").css("right", 150);
+
+		function deleteEduQual($staffId, $qual_Id) {
+			//debugger
+			// var $siblingId = $("#hdnStudentId").val();
+			// var $studentId = '@TempData.Peek("SiblingForStudentId")';
+			$.ajax({
+				type: "POST",
+				url: "/Core/Staffs/DeleteEduQualDetails",
+				data: "{'staffId':'" + $staffId + "','qual_Id':'" + $qual_Id + "'}",
+				contentType: "application/json; charset=utf-8",
+				async: false,
+				success: function (data) {
+					fnBindEduQualList();
+				}
+			});
+		}
+
+
+
+
+
+		//Add Previous School Details
+
+		$(function () {
+			$("#txtSchoolName").autocomplete({
+				source: function (request, response) {
+					$.ajax({
+						url: '/Core/Students/AutoCompleteSchool/',
+						data: "{ 'SchoolName': '" + request.term + "'}",
+						dataType: "json",
+						type: "POST",
+						contentType: "application/json; charset=utf-8",
+						success: function (data) {
+							response($.map(data, function (item) {
+								return item;
+							}))
+						},
+						error: function (response) {
+							alert(response.responseText);
+						},
+						failure: function (response) {
+							alert(response.responseText);
+						}
+					});
+				},
+				select: function (e, i) {
+					$("#hdnSchoolId").val(i.item.val);
+				},
+				minLength: 1
+			});
+
+			$("#txtDesignation").autocomplete({
+				source: function (request, response) {
+					$.ajax({
+						url: '/Core/Staffs/AutoCompleteDesignation/',
+						data: "{ 'DesignationName': '" + request.term + "'}",
+						dataType: "json",
+						type: "POST",
+						contentType: "application/json; charset=utf-8",
+						success: function (data) {
+							response($.map(data, function (item) {
+								return item;
+							}))
+						},
+						error: function (response) {
+							alert(response.responseText);
+						},
+						failure: function (response) {
+							alert(response.responseText);
+						}
+					});
+				},
+				select: function (e, i) {
+					$("#hdnDesignationId").val(i.item.val);
+				},
+				minLength: 1
+			});
+		});
+
+
+		$("#btnAddPrevWorkExperience").click(function (evt) {
+			evt.preventDefault();
+			var $schoolId = $("#hdnSchoolId").val();
+			var $staffId = '@TempData.Peek("Staff_Id")';
+			var $Name = $("#txtSchoolName").val();
+			var $Address = $("#txtSchoolAddress").val();
+			var $Designation = $("#txtDesignation").val();
+			var $designationId = $("#hdnDesignationId").val();
+			var $FrmYear = $("#txtFrom_Year").val();
+			var $ToYear = $("#txtTo_Year").val();
+			var $SubjectsHandled = $("#txtSubject_Handled").val();
+			var $Comment = $("#txtComments").val();
+			$.ajax({
+				type: "POST",
+				url: "/Core/Staffs/AddPrevWorkExpDetails",
+				data: "{'schoolId':'" + $schoolId + "','Staff_Id':'" + $staffId + "','Name':'" + $Name + "','Address':'" + $Address + "','Designation':'" + $Designation + "','FrmYear':'" + $FrmYear + "','ToYear':'" + $ToYear + "','Subjects_Handled':'" + $SubjectsHandled + "','Designation_Id':'" + $designationId + "'}",
+				contentType: "application/json; charset=utf-8",
+				async: false,
+				success: function (data) {
+					$("#txtSchoolName").val("");
+					$("#txtSchoolAddress").val("");
+					$("#txtDesignation").val("");
+					$("#txtFrom_Year").val("");
+					$("#txtTo_Year").val("");
+					$("#txtSubject_Handled").val("");
+					$("#txtComments").val("");
+					fnBindSchoolList();
+				}
+			});
+		});
+
+		function fnBindSchoolList() {
+			//debugger
+			var staffId = '@TempData.Peek("Staff_Id")';
+			// alert(elementId);
+			$("#jqGridPrevWorkExp").trigger('reloadGrid');
+			$("#jqGridPrevWorkExp").jqGrid({
+				url: '/Staffs/GetPrevWorkExpDetails?staffId=' + staffId,
+				mtype: "POST",
+				styleUI: 'Bootstrap',
+				datatype: "json",
+				colModel: [
+							{ label: 'Staff_Id', name: 'Staff_Id', hidden: true, search: false, stype: false },
+							  { label: 'School_Id', name: 'School_Id', hidden: true, search: false, stype: false },
+							//{ label: 'School Name', name: 'Other_School_Name', search: false, stype: false },
+							{ label: 'School Name', name: 'Name', search: false, stype: false },
+							{ label: 'Subjects', name: 'Subject_Id', search: false, stype: false },
+							{ label: 'Designation', name: 'Designation_Name', search: false, stype: false },
+							 { label: 'Period', name: 'From_Year', search: false, stype: false },
+							  { label: 'Period', name: 'To_Year', search: false, stype: false },
+							//{ label: 'Period', name: 'From_Year' , search: false, stype: false, formatter: 'date', formatoptions: { srcformat: 'd/m/Y', newformat: 'd/m/Y' } },
+							{ label: 'Actions', name: '', search: false, formatter: $deleteSib, stype: false }
+				],
+				page: 1,
+				width: 780,
+				height: 250,
+				rowNum: 20,
+				multiselect: false,
+				scrollPopUp: true,
+				scrollLeftOffset: "83%",
+				viewrecords: true,
+				gridview: true,
+				viewrecords: true,
+				height: '100%',
+				rowNum: 30,
+				rowList: [10, 20, 30, 40],
+				pager: "#jqGridPrevWorkExpPager",
+				responsive: true,
+				autowidth: true,
+				shrinkToFit: true,
+				loadonce: false,
+				emptyrecords: 'No records to display',
+				jsonReader: {
+					root: "rows",
+					page: "page",
+					total: "total",
+					records: "records",
+					repeatitems: false
+				},
+				footerrow: false,
+				userDataOnFooter: true
+
+			});
+			function $deleteSib(cellvalue, options, rowObject) {
+				//debugger
+				return "<a class='btn btn-danger' href='javascript:deletePrevSchool(" + rowObject.School_Id + "," + rowObject.Staff_Id + ");'>DELETE</a>";
+			}
+		}
+
+		$("#jqGridPrevWorkExp").css("right", 150);
+
+
+
+		function deletePrevSchool($school_Id, $staff_Id) {
+			//debugger
+			var $staffId = '@TempData.Peek("Staff_Id")';
+			$.ajax({
+				type: "POST",
+				url: "/Core/Staffs/DeleteWorkExpDetails",
+				data: "{'schoolId':'" + $school_Id + "','StaffId':'" + $staffId + "'}",
+				contentType: "application/json; charset=utf-8",
+				async: false,
+				success: function (data) {
+					fnBindSchoolList();
+				}
+			});
+		}
+
+
+
+
+
+
+
+	</script>
+</head>
+
+</html>
+
+
+
+
+
