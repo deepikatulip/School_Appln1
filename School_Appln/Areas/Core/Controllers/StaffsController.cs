@@ -17,7 +17,7 @@ using School_AppIn_Model;
 
 namespace School_Appln.Areas.Core.Controllers
 {
-    public class StaffsController : BaseController
+    public class StaffsController : BaseController 
 	{
 		ApplicationDbContext appDbContext = new ApplicationDbContext();
 		private StudentDbContext db = new StudentDbContext();
