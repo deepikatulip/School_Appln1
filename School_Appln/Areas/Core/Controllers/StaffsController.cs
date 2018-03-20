@@ -17,7 +17,7 @@ using School_AppIn_Model;
 
 namespace School_Appln.Areas.Core.Controllers
 {
-    public class StaffsController : BaseController 
+	public class StaffsController : BaseController
 	{
 		ApplicationDbContext appDbContext = new ApplicationDbContext();
 		private StudentDbContext db = new StudentDbContext();
@@ -28,6 +28,13 @@ namespace School_Appln.Areas.Core.Controllers
 			return View(await staffs.ToListAsync());
 		}
 
+		// GET: Core/Staffs
+		public ActionResult RedirectToAddStaff()
+		{
+			return RedirectToAction("Create");
+		}
+
+
 		// GET: Core/Students/Create
 		public ActionResult Create()
 		{
@@ -37,7 +44,7 @@ namespace School_Appln.Areas.Core.Controllers
 			ViewBag.Section_Id = new SelectList(db.Sections, "Section_Id", "Section_Name");
 			ViewBag.Gender_Id = new SelectList(db.Genders, "Id", "Name");
 			ViewBag.Staff_Id = new SelectList(db.Staff_Type, "Staff_Type_Id", "Staff_Type_Name");
-				return View();
+			return View();
 		}
 
 		// POST: Core/Students/Create
@@ -144,7 +151,7 @@ namespace School_Appln.Areas.Core.Controllers
 		}
 
 
-	    //Save & Continue
+		//Save & Continue
 		public ActionResult CreateStaffOtherDetails()
 		{
 			//string ForOtherDetailStaffId = TempData.Peek("Staff_Id").ToString();
@@ -157,12 +164,12 @@ namespace School_Appln.Areas.Core.Controllers
 		{
 
 			var qualificationList = (from qual in db.Qualifications
-								   where qual.Qualification_Name.StartsWith(qual_Name)
-								   select new
-								   {
-									   label = qual.Qualification_Name,
-									   val = qual.Qualification_Id
-								   }).ToList();
+									 where qual.Qualification_Name.StartsWith(qual_Name)
+									 select new
+									 {
+										 label = qual.Qualification_Name,
+										 val = qual.Qualification_Id
+									 }).ToList();
 
 			return Json(qualificationList, JsonRequestBehavior.AllowGet);
 		}
@@ -171,12 +178,12 @@ namespace School_Appln.Areas.Core.Controllers
 		public JsonResult AutoCompleteSpecialization(string specialization_Name)
 		{
 			var specializationList = (from specialization in db.Specializations
-									 where specialization.Specialization_Name.StartsWith(specialization_Name)
-									 select new
-									 {
-										 label = specialization.Specialization_Name,
-										 val = specialization.Specialization_Id
-									 }).ToList();
+									  where specialization.Specialization_Name.StartsWith(specialization_Name)
+									  select new
+									  {
+										  label = specialization.Specialization_Name,
+										  val = specialization.Specialization_Id
+									  }).ToList();
 
 			return Json(specializationList, JsonRequestBehavior.AllowGet);
 		}
@@ -185,12 +192,12 @@ namespace School_Appln.Areas.Core.Controllers
 		public JsonResult AutoCompleteInstitution(string institution_Name)
 		{
 			var institutionList = (from institution in db.Institutions
-									  where institution.Institution_Name.StartsWith(institution_Name)
-									  select new
-									  {
-										  label = institution.Institution_Name,
-										  val = institution.Institution_Id
-									  }).ToList();
+								   where institution.Institution_Name.StartsWith(institution_Name)
+								   select new
+								   {
+									   label = institution.Institution_Name,
+									   val = institution.Institution_Id
+								   }).ToList();
 
 			return Json(institutionList, JsonRequestBehavior.AllowGet);
 		}
@@ -208,10 +215,10 @@ namespace School_Appln.Areas.Core.Controllers
 				var specializationId = Convert.ToInt32(specialization_Id);
 				var institutionId = Convert.ToInt32(institution_Id);
 				var passing_Year = Convert.ToInt64(passingYear);
-				var Medium_Of_Instruction =MediumOfInstruction;
+				var Medium_Of_Instruction = MediumOfInstruction;
 				//   , string FrmYear, string ToYear, string Leaving, string Comments
 
-				var CheckStaffQualDetails = db.Staff_Educational_Details.Where(a => a.Staff_Id == staff_Id  && a.Qualification_Id == qualificationId).Count();
+				var CheckStaffQualDetails = db.Staff_Educational_Details.Where(a => a.Staff_Id == staff_Id && a.Qualification_Id == qualificationId).Count();
 
 				if (CheckStaffQualDetails == 0)
 				{
@@ -251,12 +258,12 @@ namespace School_Appln.Areas.Core.Controllers
 			int pageIndex = Convert.ToInt32(page) - 1;
 			int pageSize = rows;
 			var EduQualList = (from stEduQualDetail in db.Staff_Educational_Details
-								   join st in db.Staffs on stEduQualDetail.Staff_Id equals st.Staff_Id
-								   join institution in db.Institutions on stEduQualDetail.Institution_Id equals institution.Institution_Id
-								   join specialization in db.Specializations on stEduQualDetail.Specialization_Id equals specialization.Specialization_Id
-								   join qualification in db.Qualifications on stEduQualDetail.Qualification_Id equals qualification.Qualification_Id
+							   join st in db.Staffs on stEduQualDetail.Staff_Id equals st.Staff_Id
+							   join institution in db.Institutions on stEduQualDetail.Institution_Id equals institution.Institution_Id
+							   join specialization in db.Specializations on stEduQualDetail.Specialization_Id equals specialization.Specialization_Id
+							   join qualification in db.Qualifications on stEduQualDetail.Qualification_Id equals qualification.Qualification_Id
 							   where stEduQualDetail.Staff_Id == refStaffId && stEduQualDetail.Is_Deleted != true
-								   select new { stEduQualDetail.Staff_Id, stEduQualDetail.Qualification_Id, stEduQualDetail.Specialization_Id , stEduQualDetail.Institution_Id,stEduQualDetail.Academic_Year, qualification.Qualification_Name ,specialization.Specialization_Name,institution.Institution_Name, stEduQualDetail.Year_Of_Passing, stEduQualDetail.Medium_Of_Instruction, stEduQualDetail.Created_By, stEduQualDetail.Created_On }
+							   select new { stEduQualDetail.Staff_Id, stEduQualDetail.Qualification_Id, stEduQualDetail.Specialization_Id, stEduQualDetail.Institution_Id, stEduQualDetail.Academic_Year, qualification.Qualification_Name, specialization.Specialization_Name, institution.Institution_Name, stEduQualDetail.Year_Of_Passing, stEduQualDetail.Medium_Of_Instruction, stEduQualDetail.Created_By, stEduQualDetail.Created_On }
 							  ).ToList();
 			int totalRecords = EduQualList.Count();
 			var totalPages = (int)Math.Ceiling((float)totalRecords / (float)rows);
@@ -310,18 +317,18 @@ namespace School_Appln.Areas.Core.Controllers
 		public JsonResult AutoCompleteDesignation(string DesignationName)
 		{
 			var designationList = (from designation in db.Designations
-							  where designation.Designation_Name.StartsWith(DesignationName)
-							  select new
-							  {
-								  label = designation.Designation_Name,
-								  val = designation.Designation_Id
-							  }).ToList();
+								   where designation.Designation_Name.StartsWith(DesignationName)
+								   select new
+								   {
+									   label = designation.Designation_Name,
+									   val = designation.Designation_Id
+								   }).ToList();
 
 			return Json(designationList, JsonRequestBehavior.AllowGet);
 		}
 
 		[HttpPost]
-		public async Task<ActionResult> AddPrevWorkExpDetails(string schoolId, string Staff_Id, string Name, string Address,string Designation, string FrmYear, string ToYear, string Subjects_Handled, string Designation_Id)
+		public async Task<ActionResult> AddPrevWorkExpDetails(string schoolId, string Staff_Id, string Name, string Address, string Designation, string FrmYear, string ToYear, string Subjects_Handled, string Designation_Id)
 		{
 			var userId = LoggedInUser.Id;
 			JsonResult result = new JsonResult();
@@ -341,12 +348,12 @@ namespace School_Appln.Areas.Core.Controllers
 					Staff_Exp_Details addStaffWorkExpDetails = new Staff_Exp_Details();
 					addStaffWorkExpDetails.Staff_Id = staffId;
 					addStaffWorkExpDetails.School_Id = schoolid;
-					addStaffWorkExpDetails.Designation_Id = Convert.ToInt32(Designation_Id);					
+					addStaffWorkExpDetails.Designation_Id = Convert.ToInt32(Designation_Id);
 					addStaffWorkExpDetails.From_Year = frmYear;
 					addStaffWorkExpDetails.Is_Deleted = false;
 					addStaffWorkExpDetails.To_Year = toYear;
 					addStaffWorkExpDetails.Subject_Id = Subjects_Handled;
-					addStaffWorkExpDetails.Academic_Year =(DateTime.Now.Month < 3 )? DateTime.Now.Year - 1 : DateTime.Now.Year;
+					addStaffWorkExpDetails.Academic_Year = (DateTime.Now.Month < 3) ? DateTime.Now.Year - 1 : DateTime.Now.Year;
 					//addStaffWorkExpDetails.Comments = Comments;
 					addStaffWorkExpDetails.Created_On = DateTime.Now;
 					addStaffWorkExpDetails.Created_By = userId;
@@ -374,11 +381,11 @@ namespace School_Appln.Areas.Core.Controllers
 			int pageIndex = Convert.ToInt32(page) - 1;
 			int pageSize = rows;
 			var PrevWorkExpList = (from stexpdetail in db.Staff_Exp_Details
-							  join st in db.Staffs on stexpdetail.Staff_Id equals st.Staff_Id
-							  join schl in db.Schools on stexpdetail.School_Id equals schl.Id
-							  join desg in db.Designations on stexpdetail.Designation_Id equals desg.Designation_Id
-							  where stexpdetail.Staff_Id == refStaffId && stexpdetail.Is_Deleted != true
-							  select new { stexpdetail.Staff_Id, stexpdetail.School_Id, stexpdetail.Academic_Year,schl.Name, desg.Designation_Name ,stexpdetail.From_Year, stexpdetail.To_Year, stexpdetail.Subject_Id, stexpdetail.Created_By, stexpdetail.Created_On }
+								   join st in db.Staffs on stexpdetail.Staff_Id equals st.Staff_Id
+								   join schl in db.Schools on stexpdetail.School_Id equals schl.Id
+								   join desg in db.Designations on stexpdetail.Designation_Id equals desg.Designation_Id
+								   where stexpdetail.Staff_Id == refStaffId && stexpdetail.Is_Deleted != true
+								   select new { stexpdetail.Staff_Id, stexpdetail.School_Id, stexpdetail.Academic_Year, schl.Name, desg.Designation_Name, stexpdetail.From_Year, stexpdetail.To_Year, stexpdetail.Subject_Id, stexpdetail.Created_By, stexpdetail.Created_On }
 							  ).ToList();
 			int totalRecords = PrevWorkExpList.Count();
 			var totalPages = (int)Math.Ceiling((float)totalRecords / (float)rows);
@@ -425,6 +432,80 @@ namespace School_Appln.Areas.Core.Controllers
 
 			return RedirectToAction("CreateStaffOtherDetails");
 		}
+		#endregion
+
+		#region Edit Staff Details 
+		// GET: Core/Staffs/Edit/5
+		public async Task<ActionResult> Edit(long? id)
+
+		{
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			Staff staff = await db.Staffs.FindAsync(id);
+			if (staff == null)
+			{
+				return HttpNotFound();
+			}
+			ViewBag.Selected_Country = new SelectList(db.Country, "Id", "Name", staff.Country_Id);
+			ViewBag.Selected_State = new SelectList(db.States.Where(s => s.Country_Id == staff.Country_Id), "Id", "Name", staff.State_Id);
+			ViewBag.Selected_City = new SelectList(db.Cities.Where(c => c.State_Id == staff.State_Id), "Id", "Name", staff.City_Id);
+			ViewBag.Blood_Grp_Id = new SelectList(db.Blood_Group, "Id", "Name", staff.Blood_Group_Id);
+			ViewBag.Staff_Id = new SelectList(db.Staff_Type, "Staff_Type_Id", "Staff_Type_Name", staff.Staff_Type_Id);
+			ViewBag.Gender_Selected = new SelectList(db.Genders, "Id", "Name", staff.Gender_Id);
+
+			return View(staff);
+		}
+
+		// POST: Core/Students/Edit
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<ActionResult> Edit([Bind(Include = "Staff_Id,Employee_Id,Staff_Type_Id,First_Name,Middle_Name,Last_Name,Gender_Id,DOB,Date_Of_Joining,Aadhar_Number,Father_Name,Mother_Name,Blood_Group_Id,Address_Line1,Address_Line2,City_Id,State_Id,Country_Id,Mobile_No,Alt_Mobile_No,LandLine,Email_Id,Academic_Year,Created_By,Created_On,Updated_On,Updated_By,Is_Active,Is_Deleted,Pincode,Photo,City_Id,State_Id,Country_Id,Experience_in_Years,Is_Married")] Staff staff, HttpPostedFileBase imageUpload, string command)
+		{
+			var userId = LoggedInUser.Id;
+
+			int cityId = int.Parse(Request.Form["City_Id"]);
+			int countryId = int.Parse(Request.Form["Country_Id"]);
+			int stateId = int.Parse(Request.Form["State_Id"]);
+			int staffTypeId = int.Parse(Request.Form["Staff_Type_Id"]);
+			Staff existingStaff = db.Staffs.Find(staff.Staff_Id);
+			if (ModelState.IsValid)
+			{
+				existingStaff.City_Id = cityId;
+				existingStaff.State_Id = stateId;
+				existingStaff.Country_Id = countryId;
+				existingStaff.Staff_Type_Id = staffTypeId;
+				db.Entry(existingStaff).CurrentValues.SetValues(existingStaff);
+				existingStaff.Updated_By = userId;
+				existingStaff.Updated_On = DateTime.Now;
+				existingStaff.Is_Active = true;
+				existingStaff.Is_Deleted = false;
+				db.Entry(existingStaff).State = EntityState.Modified;
+				await db.SaveChangesAsync();
+				//return RedirectToAction("Index");
+				switch (command)
+				{
+					case "Edit & Back To List":
+						return RedirectToAction("Index");
+					case "Edit & Continue":
+						TempData["Staff_Id"] = staff.Staff_Id;
+						return RedirectToAction("EditStaffOtherDetails");
+					default:
+						return RedirectToAction("Index");
+				}
+			}
+
+			ViewBag.Selected_Country = new SelectList(db.Country, "Id", "Name", staff.Country_Id);
+			ViewBag.Selected_State = new SelectList(db.States.Where(s => s.Country_Id == staff.Country_Id), "Id", "Name", staff.State_Id);
+			ViewBag.Selected_City = new SelectList(db.Cities.Where(c => c.State_Id == staff.State_Id), "Id", "Name", staff.City_Id);
+			ViewBag.Blood_Grp_Id = new SelectList(db.Blood_Group, "Id", "Name", staff.Blood_Group_Id);
+			ViewBag.Staff_Id = new SelectList(db.Staff_Type, "Staff_Type_Id", "Staff_Type_Name", staff.Staff_Type_Id);
+			ViewBag.Gender_Selected = new SelectList(db.Genders, "Id", "Name", staff.Gender_Id);
+			return View(staff);
+
+		}
+
 		#endregion
 	}
 
