@@ -798,6 +798,9 @@
     <Content Include="Areas\Core\Views\Staffs\Create.cshtml" />
     <Content Include="Areas\Core\Views\Staffs\Index.cshtml" />
     <Content Include="Areas\Core\Views\Staffs\CreateStaffOtherDetails.cshtml" />
+    <Content Include="Areas\Core\Views\Staffs\Edit.cshtml" />
+    <Content Include="Areas\Core\Views\Staffs\EditStaffOtherDetails.cshtml" />
+    <Content Include="Areas\Core\Views\Staffs\StaffSalaryDetails.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>

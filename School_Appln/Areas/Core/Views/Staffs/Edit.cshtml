@@ -1,9 +1,10 @@
 ﻿@model School_AppIn_Model.DataAccessLayer.Staff
 
 @{
-	ViewBag.Title = "Create";
-	Layout = "~/Views/Shared/_LayoutSuperAdmin.cshtml";
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutSuperAdmin.cshtml";
 }
+
 <section class="content">
 	<!-- Basic layout-->
 
@@ -36,6 +37,7 @@
 						<div class="col-md-4">
 							<div class="form-group">
 								@Html.EditorFor(model => model.First_Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "First Name" } })
+								@Html.HiddenFor(model => model.Staff_Id, new { htmlAttributes = new { @class = "form-control" } })
 								@Html.ValidationMessageFor(model => model.First_Name, "", new { @class = "text-danger" })
 							</div>
 						</div>
@@ -60,10 +62,9 @@
 						<div class="col-md-4">
 							<div class="form-group">
 
-								@* @Html.LabelFor(model => model.Gender_Id, "Gender_Id", htmlAttributes: new { @class = "control-label" })*@
-								@Html.DropDownListFor(model => model.Gender_Id, (IEnumerable<SelectListItem>)ViewBag.Gender_Id, "Select Gender ...", new { @class = "form-control select2", style = "width: 100%;" })
-								@*@Html.DropDownList("Gender_Id", null, htmlAttributes: new { @class = "form-control" })*@
+								
 								@Html.ValidationMessageFor(model => model.Gender_Id, "", new { @class = "text-danger" })
+								@Html.DropDownListFor(model => model.Gender_Id, (IEnumerable<SelectListItem>)ViewBag.Gender_Selected, "Select Gender...", new { @class = "form-control select2", style = "width: 100%;" })
 							</div>
 						</div>
 						<div class="col-md-4">
@@ -102,10 +103,9 @@
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
-								@* @Html.LabelFor(model => model.Blood_Group_Id, "Blood_Group_Id", htmlAttributes: new { @class = "control-label" })*@
-								@Html.DropDownListFor(model => model.Blood_Group_Id, (IEnumerable<SelectListItem>)ViewBag.Blood_Group_Id, "Select Blood Group...", new { @class = "form-control select2", style = "width: 100%;" })
-								@*@Html.DropDownList("Blood_Group_Id", null, htmlAttributes: new { @class = "form-control", @placeholder = "DOB" })*@
+								@Html.DropDownListFor(model => model.Blood_Group_Id, (IEnumerable<SelectListItem>)ViewBag.Blood_Grp_Id, "Select  Blood Group...", new { @class = "form-control select2", style = "width: 100%;" })
 								@Html.ValidationMessageFor(model => model.Blood_Group_Id, "", new { @class = "text-danger" })
+								
 							</div>
 						</div>
 
@@ -163,10 +163,8 @@
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
-								@*@Html.EditorFor(model => model.Pincode, new { htmlAttributes = new { @class = "form-control", @placeholder = "Pincode" } })
-									@Html.ValidationMessageFor(model => model.Pincode, "", new { @class = "text-danger" })*@
-								@*@Html.LabelFor(model => model.Country_Id, htmlAttributes: new { @class = "control-label" })*@
-								@Html.DropDownList("Country_Id", (IEnumerable<SelectListItem>)ViewBag.Country_Id, "Select Country...", new { @class = "form-control select2", @id = "Txt_CountryId" })
+								
+								@Html.DropDownListFor(model => model.Country_Id, (IEnumerable<SelectListItem>)ViewBag.Selected_Country, "Select Country...", new { @class = "form-control select2", @id = "Txt_CountryId" })
 								@Html.ValidationMessageFor(model => model.Country_Id, "", new { @class = "text-danger" })
 
 							</div>
@@ -177,13 +175,15 @@
 						<div class="col-md-4">
 							<div class="form-group">
 								@*@Html.LabelFor(model => model.State_Id, htmlAttributes: new { @class = "control-label" })*@
-								<select id="State_Id" name="State_Id" class="form-control"></select>
+								@Html.DropDownListFor(model => model.State_Id, (IEnumerable<SelectListItem>)ViewBag.Selected_State, "Select State...", new { @class = "form-control select2", @id = "State_Id" })
+								@*<select id="State_Id" name="State_Id" class="form-control"></select>*@
 								@Html.ValidationMessageFor(model => model.State_Id, "", new { @class = "text-danger" })
 							</div>
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
-								<select id="City_Id" name="City_Id" class="form-control"></select>
+								@Html.DropDownListFor(model => model.City_Id, (IEnumerable<SelectListItem>)ViewBag.Selected_City, "Select City...", new { @class = "form-control select2", @id = "City_Id" })
+								@*<select id="City_Id" name="City_Id" class="form-control"></select>*@
 								@Html.ValidationMessageFor(model => model.City_Id, "", new { @class = "text-danger" })
 							</div>
 						</div>
@@ -312,8 +312,8 @@
 				</fieldset>
 				<div class="text-right">
 					@*<button type="submit" value="Create" class="btn btn-primary">Save & Continue <i class="icon-arrow-right14 position-right"></i></button>*@
-					<input type="submit" name="command" value="Save & Back To List" class="btn btn-danger  " />
-					<input type="submit" name="command" value="Save & Continue" class="btn btn-success " />
+					<input type="submit" name="command" value="Edit & Back To List" class="btn btn-danger  " />
+					<input type="submit" name="command" value="Edit & Continue" class="btn btn-success " />
 				</div>
 			</div>
 
@@ -323,14 +323,14 @@
 	<!-- /basic layout -->
 </section>
 
-
-
 @section Scripts {
 
 	<script>
 
 
-        $(document).ready(function () {
+		$(document).ready(function () {
+
+
 
             $("#Txt_CountryId").change(function () {
 
@@ -374,16 +374,16 @@
             }
 
 
-            var selStateId = $("#State_Id").val();
-            if (selStateId != '' && selStateId != null) {
-                $("#City_Id").empty();
-                $.post("/Core/Students/GetCity/", { id: selStateId }, function (response) {
-                    $("#City_Id").append("<option value=''></option>");
-                    $.each(response, function (index, data) {
-                        $("#City_Id").append("<option value=" + data.Value + ">" + data.Text + "</option>");
-                    });
-                });
-            }
+            //var selStateId = $("#State_Id").val();
+            //if (selStateId != '' && selStateId != null) {
+            //    $("#City_Id").empty();
+            //    $.post("/Core/Students/GetCity/", { id: selStateId }, function (response) {
+            //        $("#City_Id").append("<option value=''></option>");
+            //        $.each(response, function (index, data) {
+            //            $("#City_Id").append("<option value=" + data.Value + ">" + data.Text + "</option>");
+            //        });
+            //    });
+            //}
 
 
 
@@ -395,6 +395,7 @@
 	</script>
 	@Scripts.Render("~/bundles/jqueryval")
 }
+
 
 
 

@@ -476,11 +476,30 @@ namespace School_Appln.Areas.Core.Controllers
 				existingStaff.State_Id = stateId;
 				existingStaff.Country_Id = countryId;
 				existingStaff.Staff_Type_Id = staffTypeId;
-				db.Entry(existingStaff).CurrentValues.SetValues(existingStaff);
+				existingStaff.Aadhar_Number = staff.Aadhar_Number;
+				existingStaff.Address_Line1 = staff.Address_Line1;
+				existingStaff.Address_Line2 = staff.Address_Line2;
+				existingStaff.Alt_Mobile_No = staff.Alt_Mobile_No;
+				existingStaff.Blood_Group_Id = staff.Blood_Group_Id;
+				existingStaff.Date_Of_Joining = staff.Date_Of_Joining;
+				existingStaff.DOB = staff.DOB;
+				existingStaff.Email_Id = staff.Email_Id;
+				existingStaff.Employee_Id = staff.Employee_Id;
+				existingStaff.Experience_in_Years = staff.Experience_in_Years;
+				existingStaff.Father_Name = staff.Father_Name;
+				existingStaff.First_Name = staff.First_Name;
+				existingStaff.Gender_Id = staff.Gender_Id;
+				existingStaff.Last_Name = staff.Last_Name;
+				existingStaff.Middle_Name = staff.Middle_Name;
+				existingStaff.Mobile_No = staff.Mobile_No;
+				existingStaff.PinCode = staff.PinCode;
+				existingStaff.Staff_Type_Id = staff.Staff_Type_Id;
+				existingStaff.Is_Married = staff.Is_Married;			
 				existingStaff.Updated_By = userId;
 				existingStaff.Updated_On = DateTime.Now;
 				existingStaff.Is_Active = true;
 				existingStaff.Is_Deleted = false;
+				db.Entry(existingStaff).CurrentValues.SetValues(existingStaff);
 				db.Entry(existingStaff).State = EntityState.Modified;
 				await db.SaveChangesAsync();
 				//return RedirectToAction("Index");
@@ -506,6 +525,21 @@ namespace School_Appln.Areas.Core.Controllers
 
 		}
 
+		//GET : Core/Staffs/EditStaffOtherDetails
+		public ActionResult EditStaffOtherDetails()
+		{
+			//string ForOtherDetailStaffId = TempData.Peek("Staff_Id").ToString();
+			return View();
+		}
+		#endregion
+
+		#region Staff Salary Details
+		//GET : Core/Staffs/StaffSalaryDetails
+		public ActionResult StaffSalaryDetails()
+		{
+			//string ForOtherDetailStaffId = TempData.Peek("Staff_Id").ToString();
+			return View();
+		}
 		#endregion
 	}
 

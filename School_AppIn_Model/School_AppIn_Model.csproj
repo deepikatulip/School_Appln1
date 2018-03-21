@@ -125,6 +125,7 @@
     <Compile Include="DataAccessLayer\Staff.cs" />
     <Compile Include="DataAccessLayer\Staff_Educational_Details.cs" />
     <Compile Include="DataAccessLayer\Staff_Exp_Details.cs" />
+    <Compile Include="DataAccessLayer\Staff_Salary_Detail.cs" />
     <Compile Include="DataAccessLayer\Staff_Type.cs" />
     <Compile Include="DataAccessLayer\State.cs" />
     <Compile Include="DataAccessLayer\Student.cs" />
