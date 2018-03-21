@@ -205,6 +205,7 @@
     <Compile Include="Areas\Core\Controllers\StaffsController.cs" />
     <Compile Include="Areas\Core\Controllers\StudentsController.cs" />
     <Compile Include="Areas\Core\CoreAreaRegistration.cs" />
+    <Compile Include="Areas\Ext\Controllers\Fees_ConfigurationController.cs" />
     <Compile Include="Areas\Ext\ExtAreaRegistration.cs" />
     <Compile Include="Areas\Lab\LabAreaRegistration.cs" />
     <Compile Include="Areas\Lab\Student_Other_DetailsController.cs" />
@@ -801,6 +802,11 @@
     <Content Include="Areas\Core\Views\Staffs\Edit.cshtml" />
     <Content Include="Areas\Core\Views\Staffs\EditStaffOtherDetails.cshtml" />
     <Content Include="Areas\Core\Views\Staffs\StaffSalaryDetails.cshtml" />
+    <Content Include="Areas\Ext\Views\Fees_Configuration\Create.cshtml" />
+    <Content Include="Areas\Ext\Views\Fees_Configuration\Delete.cshtml" />
+    <Content Include="Areas\Ext\Views\Fees_Configuration\Details.cshtml" />
+    <Content Include="Areas\Ext\Views\Fees_Configuration\Edit.cshtml" />
+    <Content Include="Areas\Ext\Views\Fees_Configuration\Index.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -1453,7 +1459,6 @@
     <Folder Include="Areas\Comm\Views\Shared\" />
     <Folder Include="Areas\Core\Models\" />
     <Folder Include="Areas\Core\Views\Shared\" />
-    <Folder Include="Areas\Ext\Controllers\" />
     <Folder Include="Areas\Ext\Models\" />
     <Folder Include="Areas\Ext\Views\Shared\" />
     <Folder Include="Areas\Lab\Controllers\" />

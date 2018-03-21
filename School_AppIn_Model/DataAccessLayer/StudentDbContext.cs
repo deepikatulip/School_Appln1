@@ -17,7 +17,7 @@ namespace School_AppIn_Model.DataAccessLayer
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Country> Country { get; set; }
         public virtual DbSet<City> Cities { get; set; }
-
+        public virtual DbSet<Fees_Configuration> Fees_Config { get; set; }
         public virtual DbSet<State> States { get; set; }
         
         public virtual DbSet<DeletedCustomer> DeletedCustomers { get; set; }
@@ -57,12 +57,44 @@ namespace School_AppIn_Model.DataAccessLayer
         public virtual DbSet<Subject_Detail> Subject_Detail { get; set; }
         public virtual DbSet<spt_values> spt_values { get; set; }
 
+        public virtual DbSet<InvFrequencyCategory> InvFrequencyCategories { get; set; }
+        public virtual DbSet<InvoiceFrequency> InvoiceFrequencies { get; set; }
+
+
+
+
+
         public virtual DbSet<Father_Occupation> Father_Occu { get; set; }
         public virtual DbSet<Mother_Occupation> Mother_Occu { get; set; }
         public virtual DbSet<Language> Languag { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<InvoiceFrequency>()
+                .HasMany(e => e.Fees_Details)
+                .WithRequired(e => e.InvoiceFrequency)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<InvoiceFrequency>()
+                .HasMany(e => e.InvFrequencyCategories)
+                .WithRequired(e => e.InvoiceFrequency)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Properties<DateTime>()
+.Configure(c => c.HasColumnType("datetime2"));
+
+            modelBuilder.Entity<Fees_Configuration>()
+                .Property(e => e.FeesDescription)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Fees_Configuration>()
+                .HasMany(e => e.Fees_Details)
+                .WithOptional(e => e.Fees_Configuration)
+                .HasForeignKey(e => e.Fees_Id);
+
+
+
             modelBuilder.Entity<Language>()
                .Property(e => e.Name)
                .IsUnicode(false);

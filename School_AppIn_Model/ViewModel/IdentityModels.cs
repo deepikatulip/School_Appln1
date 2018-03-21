@@ -41,6 +41,7 @@ namespace School_AppIn_Model
         }
 
         public static ApplicationDbContext Create()
+
         {
             return new ApplicationDbContext();
         }

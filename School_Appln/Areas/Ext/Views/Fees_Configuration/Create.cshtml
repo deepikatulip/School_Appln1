@@ -1,0 +1,129 @@
+﻿@model School_AppIn_Model.DataAccessLayer.Fees_Configuration
+
+@{
+    ViewBag.Title = "Configure Fees";
+    Layout = "~/Views/Shared/_LayoutSuperAdmin.cshtml";
+}
+
+<section class="content">
+    <!-- Basic layout-->
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h5 class="panel-title">Fees Configuration</h5>
+            <div class="heading-elements">
+                <ul class="icons-list">
+                    <li><a data-action="collapse"></a></li>
+                    <li><a data-action="reload"></a></li>
+                </ul>
+            </div>
+        </div>
+
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="panel-body">
+                <fieldset>
+                    <legend class="text-semibold">
+                        <i class="icon-coin-dollar position-left"></i>
+                        Configure Fees Details
+                    </legend>
+
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.DropDownListFor(model => model.Class_Id, (IEnumerable<SelectListItem>)ViewBag.Class_Id, "Select Class ...", new { @class = "form-control select", style = "width: 100%;" })
+                                @*@Html.DropDownList("Class_Id", null, htmlAttributes: new { @class = "form-control select" })*@
+                                @Html.ValidationMessageFor(model => model.Class_Id, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.DropDownListFor(model => model.InvFrequencyId, (IEnumerable<SelectListItem>)ViewBag.InvFrequencyId, "Select Freqency ...", new { @class = "form-control select", @id = "Txt_InvFrequencyId", style = "width: 100%;" })
+                                @*@Html.DropDownList("InvFrequencyId", null, htmlAttributes: new { @class = "form-control select" })*@
+                                @Html.ValidationMessageFor(model => model.InvFrequencyId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <select id="FrequencyCategoryId" name="FrequencyCategoryId" class="form-control select"></select>
+                               @* @Html.DropDownListFor(model => model.FrequencyCategoryId, (IEnumerable<SelectListItem>)ViewBag.Gender_Id, "Select Period ...", new { @class = "form-control select", style = "width: 100%;" })*@
+                               @* @Html.DropDownList("FrequencyCategoryId", null, htmlAttributes: new { @class = "form-control select" })*@
+                                @Html.ValidationMessageFor(model => model.FrequencyCategoryId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            <div class="form-group">
+                                @Html.EditorFor(model => model.FeesDescription, new { htmlAttributes = new { @class = "form-control", @placeholder = "Fees Description" } })
+                                @Html.ValidationMessageFor(model => model.FeesDescription, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.EditorFor(model => model.Fees, new { htmlAttributes = new { @class = "form-control", @placeholder = "Fees" } })
+                                @Html.ValidationMessageFor(model => model.Fees, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                   
+                    <div class="form-group">
+                            <input type="submit" value="Create"  class="btn btn-success " /> ||
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-danger" })
+                    </div>
+                </fieldset>
+            </div>
+        }
+    </div>
+    <!-- /basic layout -->
+</section>
+
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#Txt_InvFrequencyId").change(function () {
+                $("#FrequencyCategoryId").empty();
+                $.post("/Ext/Fees_Configuration/GetPeriod/", { InvFrequencyId: $(this).val() }, function (response) {
+                    $("#FrequencyCategoryId").append("<option value=''>Select Period</option>");
+                    $.each(response, function (index, data) {
+                        $("#FrequencyCategoryId").append("<option value=" + data.Value + ">" + data.Text + "</option>");
+                    });
+                });
+            });
+
+
+            // Fix for JQuery Reinitialization issue
+
+            var selcontryId = $("#Txt_InvFrequencyId").val();
+            if (selcontryId != '' && selcontryId != null) {
+                $.post("/Ext/Fees_Configuration/GetPeriod/", { InvFrequencyId: selcontryId }, function (response) {
+                    $("#FrequencyCategoryId").append("<option value=''></option>");
+                    $.each(response, function (index, data) {
+
+                        $("#FrequencyCategoryId").append("<option value=" + data.Value + ">" + data.Text + "</option>");
+
+                    });
+                });
+            }
+
+        });
+
+
+
+
+    </script>
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+}
+

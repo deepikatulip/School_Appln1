@@ -1,0 +1,95 @@
+﻿@model IEnumerable<School_AppIn_Model.DataAccessLayer.Fees_Configuration>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutSuperAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Class.Class_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InvFrequencyCategory.FrequencyCategoryCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InvoiceFrequency.InvFrequencyValue)
+        </th>
+        
+        <th>
+            @Html.DisplayNameFor(model => model.FeesDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fees)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Created_By)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Created_On)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Updated_On)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Updated_By)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Is_Active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Is_Deleted)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Class.Class_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InvFrequencyCategory.FrequencyCategoryCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.InvoiceFrequency.InvFrequencyValue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FeesDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fees)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Created_By)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Created_On)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Updated_On)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Updated_By)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Is_Active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Is_Deleted)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.FeesId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.FeesId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.FeesId })
+        </td>
+    </tr>
+}
+
+</table>

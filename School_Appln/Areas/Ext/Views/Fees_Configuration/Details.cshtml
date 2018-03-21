@@ -1,0 +1,108 @@
+﻿@model School_AppIn_Model.DataAccessLayer.Fees_Configuration
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutSuperAdmin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Fees_Configuration</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Class.Class_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Class.Class_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InvFrequencyCategory.FrequencyCategoryCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InvFrequencyCategory.FrequencyCategoryCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiceFrequency.InvFrequencyValue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InvoiceFrequency.InvFrequencyValue)
+        </dd>
+
+      
+        <dt>
+            @Html.DisplayNameFor(model => model.FeesDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FeesDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fees)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fees)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Created_By)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Created_By)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Created_On)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Created_On)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Updated_On)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Updated_On)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Updated_By)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Updated_By)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Is_Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Is_Active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Is_Deleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Is_Deleted)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.FeesId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

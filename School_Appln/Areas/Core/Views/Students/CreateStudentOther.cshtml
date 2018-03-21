@@ -64,7 +64,7 @@
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                @Html.DropDownList("Father_Occupation_Id", (IEnumerable<SelectListItem>)ViewBag.Father_Occupation_Id, "Select ...", new { @class = "form-control select2", @id = "Txt_CountryId" })
+                                @Html.DropDownList("Father_Occupation_Id", (IEnumerable<SelectListItem>)ViewBag.Father_Occupation_Id, "Select ...", new { @class = "form-control select", @id = "Txt_CountryId" })
                                 @Html.ValidationMessageFor(model => model.Father_Occupation_Id, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -81,7 +81,7 @@
                     <div class="row">
                         <div class="form-group">
                             <div class="col-md-4">
-                                @Html.DropDownList("Mother_Occupation_Id", (IEnumerable<SelectListItem>)ViewBag.Mother_Occupation_Id, "Select ...", new { @class = "form-control select2" })
+                                @Html.DropDownList("Mother_Occupation_Id", (IEnumerable<SelectListItem>)ViewBag.Mother_Occupation_Id, "Select ...", new { @class = "form-control select" })
                                 @Html.ValidationMessageFor(model => model.Mother_Occupation_Id, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -116,7 +116,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                @Html.DropDownList("Second_Language_Opted_Id", (IEnumerable<SelectListItem>)ViewBag.Second_Language_Opted_Id, "Select ...", new { @class = "form-control select2" })
+                                @Html.DropDownList("Second_Language_Opted_Id", (IEnumerable<SelectListItem>)ViewBag.Second_Language_Opted_Id, "Select ...", new { @class = "form-control select" })
                                 @Html.ValidationMessageFor(model => model.Second_Language_Opted_Id, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -161,7 +161,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-4">
-                                @Html.DropDownList("Category_Id", (IEnumerable<SelectListItem>)ViewBag.Category_Id, "Select ...", new { @class = "form-control select2" })
+                                @Html.DropDownList("Category_Id", (IEnumerable<SelectListItem>)ViewBag.Category_Id, "Select ...", new { @class = "form-control select" })
                                 @Html.ValidationMessageFor(model => model.Category_Id, "", new { @class = "text-danger" })
                             </div>
                         </div>

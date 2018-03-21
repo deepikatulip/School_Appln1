@@ -102,7 +102,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 @* @Html.LabelFor(model => model.Blood_Group_Id, "Blood_Group_Id", htmlAttributes: new { @class = "control-label" })*@
-                                @Html.DropDownList("Blood_Group_Id",null, "Select Blood Group...", new { @class = "form-control select2", style = "width: 100%;" })
+                                @Html.DropDownList("Blood_Group_Id",null, "Select Blood Group...", new { @class = "form-control select", style = "width: 100%;" })
                                 @*@Html.DropDownList("Blood_Group_Id", null, htmlAttributes: new { @class = "form-control", @placeholder = "DOB" })*@
                                 @Html.ValidationMessageFor(model => model.Blood_Group_Id, "", new { @class = "text-danger" })
                             </div>
@@ -139,20 +139,20 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 @*@Html.LabelFor(model => model.Country_Id, htmlAttributes: new { @class = "control-label" })*@
-                               @Html.DropDownList("Country_Id", null, htmlAttributes: new { @class = "form-control select2" })
+                               @Html.DropDownList("Country_Id", null, htmlAttributes: new { @class = "form-control select" })
                                  @Html.ValidationMessageFor(model => model.Country_Id, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 @*@Html.LabelFor(model => model.State_Id, htmlAttributes: new { @class = "control-label" })*@
-                                 @Html.DropDownList("State_Id", null, htmlAttributes: new { @class = "form-control select2" })
+                                 @Html.DropDownList("State_Id", null, htmlAttributes: new { @class = "form-control select" })
                                  @Html.ValidationMessageFor(model => model.State_Id, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                 @Html.DropDownList("City_Id", null, htmlAttributes: new { @class = "form-control select2" })
+                                 @Html.DropDownList("City_Id", null, htmlAttributes: new { @class = "form-control select" })
                                  @Html.ValidationMessageFor(model => model.City_Id, "", new { @class = "text-danger" })
                             </div>
                         </div>

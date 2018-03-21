@@ -58,7 +58,7 @@
                             <div class="form-group">
 
                                @* @Html.LabelFor(model => model.Gender_Id, "Gender_Id", htmlAttributes: new { @class = "control-label" })*@
-                                @Html.DropDownListFor(model => model.Gender_Id, (IEnumerable<SelectListItem>)ViewBag.Gender_Id, "Select Gender ...", new { @class = "form-control select2", style = "width: 100%;" })
+                                @Html.DropDownListFor(model => model.Gender_Id, (IEnumerable<SelectListItem>)ViewBag.Gender_Id, "Select Gender ...", new { @class = "form-control select", style = "width: 100%;" })
                                  @*@Html.DropDownList("Gender_Id", null, htmlAttributes: new { @class = "form-control" })*@
                                 @Html.ValidationMessageFor(model => model.Gender_Id, "", new { @class = "text-danger" })
                             </div>
@@ -98,7 +98,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                @* @Html.LabelFor(model => model.Blood_Group_Id, "Blood_Group_Id", htmlAttributes: new { @class = "control-label" })*@
-                               @Html.DropDownListFor(model => model.Blood_Group_Id, (IEnumerable<SelectListItem>)ViewBag.Blood_Group_Id, "Select Blood Group...", new { @class = "form-control select2", style = "width: 100%;" })
+                               @Html.DropDownListFor(model => model.Blood_Group_Id, (IEnumerable<SelectListItem>)ViewBag.Blood_Group_Id, "Select Blood Group...", new { @class = "form-control select", style = "width: 100%;" })
                                  @*@Html.DropDownList("Blood_Group_Id", null, htmlAttributes: new { @class = "form-control", @placeholder = "DOB" })*@
                                 @Html.ValidationMessageFor(model => model.Blood_Group_Id, "", new { @class = "text-danger" })
                             </div>
@@ -135,20 +135,20 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 @*@Html.LabelFor(model => model.Country_Id, htmlAttributes: new { @class = "control-label" })*@
-                                 @Html.DropDownList("Country_Id", (IEnumerable<SelectListItem>)ViewBag.Country_Id, "Select Country ...", new { @class = "form-control select2", @id = "Txt_CountryId" })
+                                 @Html.DropDownList("Country_Id", (IEnumerable<SelectListItem>)ViewBag.Country_Id, "Select Country ...", new { @class = "form-control select", @id = "Txt_CountryId" })
                                  @Html.ValidationMessageFor(model => model.Country_Id, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 @*@Html.LabelFor(model => model.State_Id, htmlAttributes: new { @class = "control-label" })*@
-                                <select id="State_Id" name="State_Id" class="form-control"></select>
+                                <select id="State_Id" name="State_Id" class="form-control select"></select>
                                 @Html.ValidationMessageFor(model => model.State_Id, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <select id="City_Id" name="City_Id" class="form-control"></select>
+                                <select id="City_Id" name="City_Id" class="form-control select"></select>
                                 @Html.ValidationMessageFor(model => model.City_Id, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -215,7 +215,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                @Html.DropDownListFor(model => model.Class_Id, (IEnumerable<SelectListItem>)ViewBag.Class_Id, "Select Class...", new { @class = "form-control select2", @id = "txtClassId", style = "width: 100%;" })
+                                @Html.DropDownListFor(model => model.Class_Id, (IEnumerable<SelectListItem>)ViewBag.Class_Id, "Select Class...", new { @class = "form-control select", @id = "txtClassId", style = "width: 100%;" })
                                 @Html.ValidationMessageFor(model => model.Class_Id, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -223,8 +223,8 @@
                             <div class="form-group">
                                 @*@Html.LabelFor(model => model.Section_Id, "Section_Id", htmlAttributes: new { @class = "control-label" })*@
                                @* @Html.DropDownList("Section_Id", null, htmlAttributes: new { @class = "form-control"})*@
-                                @*@Html.DropDownListFor(model => model.Section_Id, (IEnumerable<SelectListItem>)ViewBag.Section_Id, "Select Section...", new { @class = "form-control select2", style = "width: 100%;" })*@
-                                <select id="Section_Id" name="Section_Id" class="form-control" placeholder = "Select Section..." ></select>
+                                @*@Html.DropDownListFor(model => model.Section_Id, (IEnumerable<SelectListItem>)ViewBag.Section_Id, "Select Section...", new { @class = "form-control select", style = "width: 100%;" })*@
+                                <select id="Section_Id" name="Section_Id" class="form-control select" placeholder = "Select Section..." ></select>
                                  @Html.ValidationMessageFor(model => model.Section_Id, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -294,7 +294,7 @@
             $("#Txt_CountryId").change(function () {
                 $("#State_Id").empty();
                 $.post("/Core/Students/GetState/", { id: $(this).val() }, function (response) {
-                    $("#State_Id").append("<option value=''></option>");
+                    $("#State_Id").append("<option value=''>Select State</option>");
                     $.each(response, function (index, data) {
                         $("#State_Id").append("<option value=" + data.Value + ">" + data.Text + "</option>");
                     });
@@ -306,7 +306,7 @@
 
                 $("#City_Id").empty();
                 $.post("/Core/Students/GetCity/", { id: $(this).val() }, function (response) {
-                    $("#City_Id").append("<option value=''></option>");
+                    $("#City_Id").append("<option value=''>Select City</option>");
                     $.each(response, function (index, data) {
                         $("#City_Id").append("<option value=" + data.Value + ">" + data.Text + "</option>");
                     });
@@ -319,7 +319,7 @@
             $("#txtClassId").change(function () {
                 $("#Section_Id").empty();
                 $.post("/Core/Students/GetSection/", { classId: $(this).val() }, function (response) {
-                    $("#Section_Id").append("<option value=''></option>");
+                    $("#Section_Id").append("<option value=''>Select Section</option>");
                     $.each(response, function (index, data) {
                         $("#Section_Id").append("<option value=" + data.Value + ">" + data.Text + "</option>");
                     });
