@@ -36,6 +36,8 @@ namespace School_AppIn_Model.DataAccessLayer
 		public virtual DbSet<Qualification> Qualifications { get; set; }
 		public virtual DbSet<Fee_Detail> Fee_Detail { get; set; }
         public virtual DbSet<FeePayment_Detail> FeePayment_Detail { get; set; }
+        public virtual DbSet<InvFrequencyCategory> InvFrequencyCategories { get; set; }
+        public virtual DbSet<InvoiceFrequency> InvoiceFrequencies { get; set; }
         public virtual DbSet<Fees_Component> Fees_Component { get; set; }
         public virtual DbSet<Institution> Institutions { get; set; }
 		public virtual DbSet<Specialization> Specializations { get; set; }
@@ -61,6 +63,8 @@ namespace School_AppIn_Model.DataAccessLayer
         public virtual DbSet<Father_Occupation> Father_Occu { get; set; }
         public virtual DbSet<Mother_Occupation> Mother_Occu { get; set; }
         public virtual DbSet<Language> Languag { get; set; }
+        public virtual DbSet<Fees_Configuration> Fees_Config { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -353,6 +357,18 @@ namespace School_AppIn_Model.DataAccessLayer
             modelBuilder.Entity<spt_values>()
                 .Property(e => e.type)
                 .IsFixedLength();
+
+            modelBuilder.Entity<InvFrequencyCategory>()
+               .Property(e => e.FrequencyCategoryCode)
+               .IsUnicode(false);
+            modelBuilder.Entity<InvoiceFrequency>()
+              .Property(e => e.InvFrequencyCode)
+              .IsUnicode(false);
+
+            modelBuilder.Entity<Fees_Configuration>()
+              .Property(e => e.FeesDescription)
+              .IsUnicode(false);
+
         }
     }
 }

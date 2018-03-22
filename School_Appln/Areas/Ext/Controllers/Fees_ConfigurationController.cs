@@ -55,25 +55,15 @@ namespace School_Appln.Areas.Ext.Controllers
         public async Task<ActionResult> Create([Bind(Include = "FeesId,Class_Id,FrequencyCategoryId,InvFrequencyId,FeesDescription,Fees,Created_By,Created_On,Updated_On,Updated_By,Is_Active,Is_Deleted")] Fees_Configuration fees_Configuration)
         {
             var userId = LoggedInUser.Id;
-            if (string.IsNullOrEmpty(Request.Form["FrequencyCategoryId"]))
-            {
-                goto Fail;
-            }
-            if (string.IsNullOrEmpty(Request.Form["InvFrequencyId"]))
-            {
-                goto Fail;
-            }
             if (ModelState.IsValid)
             {
-                int cityId = int.Parse(Request.Form["InvFrequencyId"]);
-                fees_Configuration.Is_Active = true;
                 fees_Configuration.Created_By = userId;
-                fees_Configuration.Created_On = DateTime.Now.Date;
+                fees_Configuration.Created_On = DateTime.Now;
                 db.Fees_Config.Add(fees_Configuration);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            Fail:
+
             ViewBag.Class_Id = new SelectList(db.Classes, "Class_Id", "Class_Name", fees_Configuration.Class_Id);
             ViewBag.FrequencyCategoryId = new SelectList(db.InvFrequencyCategories, "FrequencyCategoryId", "FrequencyCategoryCode", fees_Configuration.FrequencyCategoryId);
             ViewBag.InvFrequencyId = new SelectList(db.InvoiceFrequencies, "InvFrequencyId", "InvFrequencyValue", fees_Configuration.InvFrequencyId);
@@ -93,7 +83,7 @@ namespace School_Appln.Areas.Ext.Controllers
                 return HttpNotFound();
             }
             ViewBag.Class_Id = new SelectList(db.Classes, "Class_Id", "Class_Name", fees_Configuration.Class_Id);
-            ViewBag.FrequencyCategoryId = new SelectList(db.InvFrequencyCategories, "FrequencyCategoryId", "FrequencyCategoryCode", fees_Configuration.FrequencyCategoryId);
+            ViewBag.FrequencyCategoryId = new SelectList(db.InvFrequencyCategories, "FrequencyCategoryId", "FrequencyForPeriod", fees_Configuration.FrequencyCategoryId);
             ViewBag.InvFrequencyId = new SelectList(db.InvoiceFrequencies, "InvFrequencyId", "InvFrequencyValue", fees_Configuration.InvFrequencyId);
             return View(fees_Configuration);
         }
@@ -105,14 +95,19 @@ namespace School_Appln.Areas.Ext.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "FeesId,Class_Id,Class_Name,FrequencyCategoryId,InvFrequencyId,FeesDescription,Fees,Created_By,Created_On,Updated_On,Updated_By,Is_Active,Is_Deleted")] Fees_Configuration fees_Configuration)
         {
+            var userId = LoggedInUser.Id;
+            Fees_Configuration existingFeesConfig = db.Fees_Config.Find(fees_Configuration.FeesId);
             if (ModelState.IsValid)
             {
+                db.Entry(existingFeesConfig).CurrentValues.SetValues(existingFeesConfig);
+                fees_Configuration.Updated_By = userId;
+                fees_Configuration.Updated_On = DateTime.Now;
                 db.Entry(fees_Configuration).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             ViewBag.Class_Id = new SelectList(db.Classes, "Class_Id", "Class_Name", fees_Configuration.Class_Id);
-            ViewBag.FrequencyCategoryId = new SelectList(db.InvFrequencyCategories, "FrequencyCategoryId", "FrequencyCategoryCode", fees_Configuration.FrequencyCategoryId);
+            ViewBag.FrequencyCategoryId = new SelectList(db.InvFrequencyCategories, "FrequencyCategoryId", "FrequencyForPeriod", fees_Configuration.FrequencyCategoryId);
             ViewBag.InvFrequencyId = new SelectList(db.InvoiceFrequencies, "InvFrequencyId", "InvFrequencyValue", fees_Configuration.InvFrequencyId);
             return View(fees_Configuration);
         }

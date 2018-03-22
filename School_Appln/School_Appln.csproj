@@ -790,11 +790,6 @@
     <Content Include="Areas\Core\Views\Students\Index.cshtml" />
     <Content Include="Areas\Core\Views\Students\SaveAndContiune.cshtml" />
     <Content Include="Areas\Lab\Views\web.config" />
-    <Content Include="Areas\Lab\Views\Student_Other_Details\Create.cshtml" />
-    <Content Include="Areas\Lab\Views\Student_Other_Details\Delete.cshtml" />
-    <Content Include="Areas\Lab\Views\Student_Other_Details\Details.cshtml" />
-    <Content Include="Areas\Lab\Views\Student_Other_Details\Edit.cshtml" />
-    <Content Include="Areas\Lab\Views\Student_Other_Details\Index.cshtml" />
     <Content Include="Areas\Core\Views\Students\CreateStudentOther.cshtml" />
     <Content Include="Areas\Core\Views\Staffs\Create.cshtml" />
     <Content Include="Areas\Core\Views\Staffs\Index.cshtml" />

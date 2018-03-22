@@ -25,9 +25,11 @@ namespace School_AppIn_Model.DataAccessLayer
         public int? Class_Id { get; set; }
 
         [Required(ErrorMessage = "Select Frequency")]
+        [Display(Name = "Frequency")]
         public int? FrequencyCategoryId { get; set; }
 
         [Required(ErrorMessage = "Select Period")]
+        [Display(Name = "Period")]
         public int? InvFrequencyId { get; set; }
 
 
@@ -40,17 +42,17 @@ namespace School_AppIn_Model.DataAccessLayer
         [Display(Name = "Fees")]
         public decimal? Fees { get; set; }
 
-       
+        [Display(Name = "Created")]
         public string Created_By { get; set; }
 
-        [Column(TypeName = "DateTime2")]
-
+        //   [Column(TypeName = "DateTime2")]
+        [Display(Name = "Created Dt")]
         public Nullable<DateTime> Created_On { get; set; }
-        [Column(TypeName = "DateTime2")]
+        // [Column(TypeName = "DateTime2")]
+        [Display(Name = "Updated")]
+        public Nullable<DateTime> Updated_On { get; set; }
 
-        public DateTime Updated_On { get; set; }
-
-        [StringLength(128)]
+        [Display(Name = "Updated Dt")]
         public string Updated_By { get; set; }
 
         public bool Is_Active { get; set; }
@@ -62,6 +64,12 @@ namespace School_AppIn_Model.DataAccessLayer
         public virtual InvFrequencyCategory InvFrequencyCategory { get; set; }
 
         public virtual InvoiceFrequency InvoiceFrequency { get; set; }
+
+        [ForeignKey("Created_By")]
+        public virtual User Created { get; set; }
+
+        [ForeignKey("Updated_By")]
+        public virtual User Updated { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Fees_Details> Fees_Details { get; set; }
