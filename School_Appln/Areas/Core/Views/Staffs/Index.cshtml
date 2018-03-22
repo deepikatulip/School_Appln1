@@ -103,18 +103,18 @@
 
 					</div>
 					<div class="text-left">
-						<input type="button" class="btn btn-primary" id="btnAddStaff" value="ADD STAFF" onclick="btnAddStaff_Click()" />
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" class="btn btn-primary" id="btnAddStaff" value="ADD STAFF" onclick="btnAddStaff_Click()" />
 
 					</div>
 					<table class="table datatable-button-html5-basic">
 						<thead>
 							<tr>
 								<th>First Name</th>
-								<th>Last Name</th>
-								<th>Job Title</th>
-								<th>DOB</th>
-								<th>Status</th>
-								<th>Salary</th>
+								<th>Email Id</th>
+								<th>Staff Type</th>
+								<th>Contact No</th>
+								<th>Last Update</th>
+								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -122,9 +122,19 @@
 							{
 								<tr>
 									<td>@item.First_Name</td>
-									<td>@item.DOB</td>
-									<td>@item.Address_Line1</td>
-									<td>@item.Updated_By</td>
+									<td>@item.Email_Id</td>
+									<td>
+									@if (@item.Staff_Type_Id == 1)
+									{
+										@Html.Label("Teaching Staff", "Teaching Staff")
+										//string.Format("Teaching Staff");
+									}
+									else
+									{
+										@Html.Label("Non-Teaching Staff", "Teaching Staff")
+									}
+									</td>
+									<td>@item.Mobile_No</td>
 									<td>@item.Updated_On</td>
 									<td>
 										@Html.ActionLink("Edit", "Edit", new { id = item.Staff_Id }) |

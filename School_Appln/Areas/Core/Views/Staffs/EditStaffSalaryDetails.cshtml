@@ -1,0 +1,348 @@
+﻿@model School_AppIn_Model.DataAccessLayer.Staff_Salary_Detail
+
+@{
+      Layout = "~/Views/Shared/_LayoutSuperAdmin.cshtml";
+}
+
+<html>
+<body>
+	<section class="content">
+
+		@using (Html.BeginForm())
+		{
+			@Html.AntiForgeryToken()
+
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h5 class="panel-title">Staff Salary Details</h5>
+					<div class="heading-elements">
+						<ul class="icons-list">
+							<li><a data-action="collapse"></a></li>
+							<li><a data-action="reload"></a></li>
+						</ul>
+					</div>
+				</div>
+				@*<div class="panel-body">
+					<fieldset>
+						<legend class="text-semibold">
+							<i class="icon-reading position-left"></i>
+							Salary Details
+						</legend>
+						<div class="col-xs-offset-1">
+
+							<div class="row">
+								</div>
+							</div>
+						</fieldset>
+					</div>*@
+
+				<div class="panel-body">
+					<fieldset>
+						<legend class="text-semibold">
+							<i class="icon-reading position-left"></i>
+							Basic Salary Details
+						</legend>
+						<div class="col-xs-offset-1">
+
+							<div class="row">
+
+								@Html.LabelFor(model => model.Basic, htmlAttributes: new { @class = "control-label col-md-2" })
+								<div class="col-md-2">
+									<div class="form-group">
+										@Html.EditorFor(model => model.Basic, new { htmlAttributes = new { @class = "form-control" } })
+										@Html.HiddenFor(model => model.Staff_Salary_Id, new { htmlAttributes = new { @class = "form-control" } })
+										@Html.HiddenFor(model => model.Staff_Id, new { htmlAttributes = new { @class = "form-control" } })
+										@Html.ValidationMessageFor(model => model.Basic, "", new { @class = "text-danger" })
+									</div>
+								</div>
+								@Html.LabelFor(model => model.DA, htmlAttributes: new { @class = "control-label col-md-2 col-xs-offset-1" })
+								<div class="col-md-2">
+									<div class="form-group">
+										@Html.EditorFor(model => model.DA, new { htmlAttributes = new { @class = "form-control" } })
+										@Html.ValidationMessageFor(model => model.DA, "", new { @class = "text-danger" })
+									</div>
+								</div>
+							</div>
+							<div class="row">
+
+								@Html.LabelFor(model => model.Medical, htmlAttributes: new { @class = "control-label col-md-2" })
+								<div class="col-md-2">
+									<div class="form-group">
+										@Html.EditorFor(model => model.Medical, new { htmlAttributes = new { @class = "form-control" } })
+										@Html.ValidationMessageFor(model => model.Medical, "", new { @class = "text-danger" })
+									</div>
+								</div>
+								@Html.LabelFor(model => model.Conveyance, htmlAttributes: new { @class = "control-label col-md-2 col-xs-offset-1" })
+								<div class="col-md-2">
+									<div class="form-group">
+										@Html.EditorFor(model => model.Conveyance, new { htmlAttributes = new { @class = "form-control" } })
+										@Html.ValidationMessageFor(model => model.Conveyance, "", new { @class = "text-danger" })
+									</div>
+								</div>
+							</div>
+							<div class="row">
+
+								@Html.LabelFor(model => model.HRA, htmlAttributes: new { @class = "control-label col-md-2" })
+								<div class="col-md-2">
+									<div class="form-group">
+										@Html.EditorFor(model => model.HRA, new { htmlAttributes = new { @class = "form-control" } })
+										@Html.ValidationMessageFor(model => model.HRA, "", new { @class = "text-danger" })
+									</div>
+								</div>
+								@Html.LabelFor(model => model.LTA, htmlAttributes: new { @class = "control-label col-md-2 col-xs-offset-1" })
+								<div class="col-md-2">
+									<div class="form-group">
+										@Html.EditorFor(model => model.LTA, new { htmlAttributes = new { @class = "form-control" } })
+										@Html.ValidationMessageFor(model => model.LTA, "", new { @class = "text-danger" })
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+
+								@Html.LabelFor(model => model.Other, htmlAttributes: new { @class = "control-label col-md-2" })
+								<div class="col-md-2">
+									<div class="form-group">
+										@Html.EditorFor(model => model.Other, new { htmlAttributes = new { @class = "form-control" } })
+										@Html.ValidationMessageFor(model => model.Other, "", new { @class = "text-danger" })
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+					</fieldset>
+					<fieldset>
+						<legend class="text-semibold">
+							<i class="icon-reading position-left"></i>
+							Salary DEDUCTION Details
+						</legend>
+						<div class="col-xs-offset-1">
+
+							<div class="row">
+
+								@Html.LabelFor(model => model.Provident_Fund, htmlAttributes: new { @class = "control-label col-md-2" })
+								<div class="col-md-2">
+									<div class="form-group">
+										@Html.EditorFor(model => model.Provident_Fund, new { htmlAttributes = new { @class = "form-control" } })
+										@Html.ValidationMessageFor(model => model.Provident_Fund, "", new { @class = "text-danger" })
+									</div>
+								</div>
+								@Html.LabelFor(model => model.ESIC, htmlAttributes: new { @class = "control-label col-md-2 col-xs-offset-1" })
+								<div class="col-md-2">
+									<div class="form-group">
+										@Html.EditorFor(model => model.ESIC, new { htmlAttributes = new { @class = "form-control" } })
+										@Html.ValidationMessageFor(model => model.ESIC, "", new { @class = "text-danger" })
+									</div>
+								</div>
+							</div>
+							<div class="row">
+
+								@Html.LabelFor(model => model.Professional_Tax, htmlAttributes: new { @class = "control-label col-md-2" })
+								<div class="col-md-2">
+									<div class="form-group">
+										@Html.EditorFor(model => model.Professional_Tax, new { htmlAttributes = new { @class = "form-control" } })
+										@Html.ValidationMessageFor(model => model.Professional_Tax, "", new { @class = "text-danger" })
+									</div>
+								</div>
+								@Html.LabelFor(model => model.Other_Deductions, htmlAttributes: new { @class = "control-label col-md-2 col-xs-offset-1" })
+								<div class="col-md-2">
+									<div class="form-group">
+										@Html.EditorFor(model => model.Other_Deductions, new { htmlAttributes = new { @class = "form-control" } })
+										@Html.ValidationMessageFor(model => model.Other_Deductions, "", new { @class = "text-danger" })
+									</div>
+								</div>
+							</div>
+							<hr />
+							<div class="row">
+
+								@Html.LabelFor(model => model.Gross_Salary, htmlAttributes: new { @class = "control-label col-md-2", @id = "GROSS SALARY" })
+								<div class="col-md-2">
+									<div class="form-group">
+										@Html.EditorFor(model => model.Gross_Salary, new { htmlAttributes = new { @class = "form-control" } })
+										@Html.ValidationMessageFor(model => model.Gross_Salary, "", new { @class = "text-danger" })
+									</div>
+								</div>
+								@Html.LabelFor(model => model.Net_Salary, htmlAttributes: new { @class = "control-label col-md-2 col-xs-offset-1", @id = "NET SALARY" })
+								<div class="col-md-2">
+									<div class="form-group">
+										@Html.EditorFor(model => model.Net_Salary, new { htmlAttributes = new { @class = "form-control" } })
+										@Html.ValidationMessageFor(model => model.Net_Salary, "", new { @class = "text-danger" })
+									</div>
+								</div>
+							</div>
+						</div>
+					</fieldset>
+					<div class="text-right">
+						@*<button type="submit" value="Create" class="btn btn-primary">Save & Continue <i class="icon-arrow-right14 position-right"></i></button>*@
+						<input type="submit" name="command" value="Edit & Back To List" class="btn btn-danger  " />
+						<input type="submit" name="command" value="Edit & Continue" class="btn btn-success " />
+					</div>
+				</div>
+			</div>
+					<div class="form-horizontal">
+
+						@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+					</div>
+
+		}
+
+	</section>
+</body>
+<head>
+	<script type="text/javascript">
+		$(function () {
+			$("#Basic").on('input', function () {
+			//	debugger
+
+				CalculateGrossSalary();
+			});
+
+			$("#DA").on('input', function () {
+				CalculateGrossSalary();
+			});
+
+			$("#Medical").on('input', function () {
+				CalculateGrossSalary();
+			});
+
+			$("#Conveyance").on('input', function () {
+				CalculateGrossSalary();
+			});
+
+			$("#HRA").on('input', function () {
+				CalculateGrossSalary();
+			});
+
+			$("#LTA").on('input', function () {
+				CalculateGrossSalary();
+			});
+
+			$("#Other").on('input', function () {
+				CalculateGrossSalary();
+			});
+
+			$("#Provident_Fund").on('input', function () {
+				CalculateGrossSalary();
+			});
+
+			$("#ESIC").on('input', function () {
+				CalculateGrossSalary();
+			});
+
+			$("#Professional_Tax").on('input', function () {
+				//debugger
+				CalculateGrossSalary();
+			});
+
+			function CalculateGrossSalary()
+			{
+				//debugger
+				var tmp = 0;
+				var basic = 0 ;
+				var DA = 0;
+				var Medical = 0;
+				var Conveyance = 0;
+				var HRA = 0;
+				var LTA = 0;
+				var Other = 0;
+				var Provident_Fund = 0;
+				var ESIC = 0;
+				var Professional_Tax = 0;
+				var Other_Deductions = 0;
+				var Net_Salary;
+				if ($("#Basic").val() == "") {
+					$("#Basic").val("")
+				}
+				else {
+
+					basic = $("#Basic").val();
+				}
+
+				if ($("#DA").val() == "") {
+					$("#DA").val("");
+				}
+				else {
+					DA = $("#DA").val();
+				}
+				if ($("#Medical").val() == "") {
+					$("#Medical").val();
+				}
+				else {
+					Medical = $("#Medical").val();
+				}
+				if ($("#Conveyance").val() == "") {
+					$("#Conveyance").val("");
+
+				}
+				else {
+					Conveyance = $("#Conveyance").val();
+				}
+				if ($("#HRA").val() == "") {
+					$("#HRA").val("");
+				}
+				else {
+					HRA = $("#HRA").val();
+				}
+				if ($("#LTA").val() == "") {
+					$("#LTA").val("")
+				}
+				else {
+					LTA = $("#LTA").val();
+				}
+				if ($("#Other").val() == "") {
+					$("#Other").val("");
+				}
+				else {
+					Other = $("#Other").val();
+
+				}
+				if ($("#Provident_Fund").val() == "") {
+					$("#Provident_Fund").val("")
+				}
+				else {
+					Provident_Fund = $("#Provident_Fund").val();
+				}
+				if ($("#ESIC").val() == "") {
+					$("#ESIC").val("")
+				}
+				else {
+					ESIC = $("#ESIC").val();
+				}
+
+				if ($("#Professional_Tax").val() == "") {
+					$("#Professional_Tax").val("");
+				}
+				else {
+					Professional_Tax = $("#Professional_Tax").val();
+				}
+
+				if ($("#Other_Deductions").val() == "") {
+					$("#Other_Deductions").val("");
+				}
+				else {
+					Other_Deductions = $("#Other_Deductions").val();
+				}
+
+				if ($("#Net_Salary").val() == "") {
+					$("#Net_Salary").val("")
+				}
+				else {
+					Net_Salary = $("#Net_Salary").val();
+				}
+
+				var grossSalary = parseFloat(basic) + parseFloat(DA) + parseFloat(Medical)
+								  + parseFloat(Conveyance) + parseFloat(HRA) + parseFloat(LTA) +
+								  parseFloat(Other) + parseFloat(Provident_Fund) + parseFloat(ESIC) + parseFloat(Professional_Tax) + parseFloat(Other_Deductions);
+				$("#Gross_Salary").val(grossSalary);
+
+				//Calculate the Net Salary
+				var netSalary = parseFloat($("#Gross_Salary").val()) - parseFloat(Provident_Fund) - parseFloat(ESIC) - parseFloat(Professional_Tax) - parseFloat(Other_Deductions);
+
+				$("#Net_Salary").val(netSalary);
+			}
+
+			})
+	</script>
+</head>
+</html>
