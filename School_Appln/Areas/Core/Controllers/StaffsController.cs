@@ -24,7 +24,7 @@ namespace School_Appln.Areas.Core.Controllers
 		// GET: Core/Staffs
 		public async Task<ActionResult> Index()
 		{
-			var staffs = db.Staffs.Include(s => s.BloodGroup).Include(s => s.Gender); ;
+			var staffs = db.Staffs.Include(s => s.BloodGroup).Include(s => s.Gender).Where(s => s.Is_Deleted == false);
 			return View(await staffs.ToListAsync());
 		}
 
@@ -137,7 +137,8 @@ namespace School_Appln.Areas.Core.Controllers
 					//    return RedirectToAction("Index");
 					case "Save & Continue":
 						TempData["Staff_Id"] = staff.Staff_Id;
-						return RedirectToAction("CreateStaffOtherDetails");
+						return RedirectToAction("StaffSalaryDetails");
+					//return RedirectToAction("CreateStaffOtherDetails");
 					default:
 						return RedirectToAction("Index");
 				}
@@ -149,6 +150,74 @@ namespace School_Appln.Areas.Core.Controllers
 			ViewBag.Staff_Id = new SelectList(db.Staff_Type, "Staff_Type_Id", "Staff_Type_Name");
 			return View(staff);
 		}
+
+		// GET: Core/Staffs/Delete/5
+		public async Task<ActionResult> Delete(long? id)
+		{
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+
+			//if (staff == null)
+			//{
+			//	return HttpNotFound();
+			//}
+
+			
+			
+				using (StudentDbContext db = new StudentDbContext())
+				{
+					Staff staff = await db.Staffs.FindAsync(id);
+					if (staff != null)
+					{
+						staff.Is_Deleted = true;
+						db.Entry(staff).CurrentValues.SetValues(staff);
+						db.Entry(staff).State = EntityState.Modified;
+						await db.SaveChangesAsync();
+					}
+				}			
+			
+				using (StudentDbContext db = new StudentDbContext())
+				{
+					Staff_Educational_Details staffEducationalDetails = await db.Staff_Educational_Details.FindAsync(id);
+					if (staffEducationalDetails != null)
+					{
+						staffEducationalDetails.Is_Deleted = true;
+						db.Entry(staffEducationalDetails).CurrentValues.SetValues(staffEducationalDetails);
+						db.Entry(staffEducationalDetails).State = EntityState.Modified;
+						await db.SaveChangesAsync();
+					}
+				}
+			
+			
+				using (StudentDbContext db = new StudentDbContext())
+				{
+					Staff_Salary_Detail staffSalaryDetail = await db.Staff_Salary_Details.FindAsync(id);
+					if (staffSalaryDetail != null)
+					{
+						staffSalaryDetail.Is_Deleted = true;
+						db.Entry(staffSalaryDetail).CurrentValues.SetValues(staffSalaryDetail);
+						db.Entry(staffSalaryDetail).State = EntityState.Modified;
+						await db.SaveChangesAsync();
+					}
+				}			
+			
+				using (StudentDbContext db = new StudentDbContext())
+				{
+					Staff_Exp_Details stafExpDetails = await db.Staff_Exp_Details.FindAsync(id);
+					if (stafExpDetails != null)
+					{
+						stafExpDetails.Is_Deleted = true;
+						db.Entry(stafExpDetails).CurrentValues.SetValues(stafExpDetails);
+						db.Entry(stafExpDetails).State = EntityState.Modified;
+						await db.SaveChangesAsync();
+					}
+				}
+
+			return RedirectToAction("Index"); 
+		}
+
 
 
 		//Save & Continue
@@ -296,8 +365,8 @@ namespace School_Appln.Areas.Core.Controllers
 			try
 			{
 				var staff_Id = Convert.ToInt32(staffId);
-				var qualId = Convert.ToInt32(qual_Id);
-				Staff_Educational_Details deleteEduQualDetails = db.Staff_Educational_Details.Where(a => a.Staff_Id == staff_Id && a.Qualification_Id == Convert.ToInt32(qual_Id)).FirstOrDefault();
+				var qualId = int.Parse(qual_Id);
+				Staff_Educational_Details deleteEduQualDetails = db.Staff_Educational_Details.Where(a => a.Staff_Id == staff_Id && a.Qualification_Id == qualId).FirstOrDefault();
 				db.Entry(deleteEduQualDetails).CurrentValues.SetValues(deleteEduQualDetails);
 				deleteEduQualDetails.Is_Deleted = true;
 				db.Entry(deleteEduQualDetails).State = EntityState.Modified;
@@ -458,7 +527,7 @@ namespace School_Appln.Areas.Core.Controllers
 			return View(staff);
 		}
 
-		// POST: Core/Students/Edit
+		// POST: Core/Staffs/Edit
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> Edit([Bind(Include = "Staff_Id,Employee_Id,Staff_Type_Id,First_Name,Middle_Name,Last_Name,Gender_Id,DOB,Date_Of_Joining,Aadhar_Number,Father_Name,Mother_Name,Blood_Group_Id,Address_Line1,Address_Line2,City_Id,State_Id,Country_Id,Mobile_No,Alt_Mobile_No,LandLine,Email_Id,Academic_Year,Created_By,Created_On,Updated_On,Updated_By,Is_Active,Is_Deleted,Pincode,Photo,City_Id,State_Id,Country_Id,Experience_in_Years,Is_Married")] Staff staff, HttpPostedFileBase imageUpload, string command)
@@ -509,7 +578,8 @@ namespace School_Appln.Areas.Core.Controllers
 						return RedirectToAction("Index");
 					case "Edit & Continue":
 						TempData["Staff_Id"] = staff.Staff_Id;
-						return RedirectToAction("EditStaffOtherDetails");
+						return RedirectToAction("EditStaffSalaryDetails");
+						//return RedirectToAction("EditStaffOtherDetails");
 					default:
 						return RedirectToAction("Index");
 				}
@@ -540,6 +610,125 @@ namespace School_Appln.Areas.Core.Controllers
 			//string ForOtherDetailStaffId = TempData.Peek("Staff_Id").ToString();
 			return View();
 		}
+
+		// POST: Core/Staffs/StaffSalaryDetails
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<ActionResult> StaffSalaryDetails([Bind(Include = "Basic,DA,Medical,Conveyance,HRA,LTA,Other,Provident_Fund,ESIC,Professional_Tax,Academic_Year,Created_By,Created_On,Updated_On,Updated_By,Is_Active,Is_Deleted,Gross_Salary,Net_Salary")] Staff_Salary_Detail staff_Salary_Detail, HttpPostedFileBase imageUpload, string command)
+		{
+			var userId = LoggedInUser.Id;
+
+
+			if (ModelState.IsValid)
+			{
+
+				//Staff_Salary_Detail staffSalaryDetail = new Staff_Salary_Detail();
+
+				staff_Salary_Detail.Staff_Id =Convert.ToInt32(TempData.Peek("Staff_Id").ToString());
+				//staffSalaryDetail.Staff_Type_Id = staff_Salary_Detail.Staff_Type_Id;
+				staff_Salary_Detail.Basic = staff_Salary_Detail.Basic;
+				staff_Salary_Detail.DA = staff_Salary_Detail.DA;
+				staff_Salary_Detail.Medical = staff_Salary_Detail.Medical;
+				staff_Salary_Detail.Conveyance = staff_Salary_Detail.Conveyance;
+				staff_Salary_Detail.HRA = staff_Salary_Detail.HRA;
+				staff_Salary_Detail.LTA = staff_Salary_Detail.LTA;
+				staff_Salary_Detail.Other = staff_Salary_Detail.Other;
+				staff_Salary_Detail.Provident_Fund = staff_Salary_Detail.Provident_Fund;
+				staff_Salary_Detail.ESIC = staff_Salary_Detail.ESIC;
+				staff_Salary_Detail.Professional_Tax = staff_Salary_Detail.Professional_Tax;
+				staff_Salary_Detail.Is_Active = true;
+				staff_Salary_Detail.Is_Deleted = false;
+				staff_Salary_Detail.Created_By = userId;
+				staff_Salary_Detail.Created_On = DateTime.Now;
+
+				db.Staff_Salary_Details.Add(staff_Salary_Detail);
+				await db.SaveChangesAsync();
+			}
+			//return RedirectToAction("Index");
+			switch (command)
+			{
+				//case "Save & Back To List":
+				//    return RedirectToAction("Index");
+				case "Save & Continue":
+					TempData["Staff_Id"] = staff_Salary_Detail.Staff_Id;
+					//return RedirectToAction("StaffSalaryDetails");
+					return RedirectToAction("CreateStaffOtherDetails");
+				default:
+					return RedirectToAction("Index");
+			}
+
+
+			//return View(staff_Salary_Detail);
+		}
+
+		// GET: Core/Staffs/EditStaffSalaryDetails/5
+		public async Task<ActionResult> EditStaffSalaryDetails()
+		{
+			int staff_Id = Convert.ToInt32(TempData["Staff_Id"]);
+			//var Staff_Salary_Id = Convert.ToInt32(db.Staff_Salary_Details.fi);
+
+			if (staff_Id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+			Staff_Salary_Detail staffSalaryDetails = await db.Staff_Salary_Details.Where(x => x.Staff_Id == staff_Id).FirstOrDefaultAsync();
+			//Staff_Salary_Detail staffSalaryDetails = await db.Staff_Salary_Details.FindAsync(Staff_Salary_Id);
+			if (staffSalaryDetails == null)
+			{
+				return HttpNotFound();
+			}
+			
+			return View(staffSalaryDetails);
+		}
+
+		// POST: Core/Staffs/EditStaffSalaryDetails
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<ActionResult> EditStaffSalaryDetails([Bind(Include = "Staff_Salary_Id,Staff_Id,Basic,DA,Medical,Conveyance,HRA,LTA,Other,Provident_Fund,ESIC,Professional_Tax,Academic_Year,Created_By,Created_On,Updated_On,Updated_By,Is_Active,Is_Deleted,Gross_Salary,Net_Salary")] Staff_Salary_Detail staff_Salary_Detail, HttpPostedFileBase imageUpload, string command)
+		{
+			var userId = LoggedInUser.Id;
+
+			Staff_Salary_Detail existingStaffSalaryDetail = db.Staff_Salary_Details.Find(staff_Salary_Detail.Staff_Salary_Id);
+			if (ModelState.IsValid)
+			{
+
+				existingStaffSalaryDetail.Basic = staff_Salary_Detail.Basic;
+				existingStaffSalaryDetail.Conveyance = staff_Salary_Detail.Conveyance;
+				existingStaffSalaryDetail.DA = staff_Salary_Detail.DA;
+				existingStaffSalaryDetail.HRA = staff_Salary_Detail.HRA;
+				existingStaffSalaryDetail.LTA = staff_Salary_Detail.LTA;
+				existingStaffSalaryDetail.Medical = staff_Salary_Detail.Medical;
+				existingStaffSalaryDetail.Other = staff_Salary_Detail.Other;
+				existingStaffSalaryDetail.Professional_Tax = staff_Salary_Detail.Professional_Tax;
+				existingStaffSalaryDetail.Provident_Fund = staff_Salary_Detail.Provident_Fund;
+				existingStaffSalaryDetail.ESIC = staff_Salary_Detail.ESIC;
+				existingStaffSalaryDetail.Updated_By = userId;
+				existingStaffSalaryDetail.Updated_On = DateTime.Now;
+				existingStaffSalaryDetail.Is_Active = true;
+				existingStaffSalaryDetail.Is_Deleted = false;
+				db.Entry(existingStaffSalaryDetail).CurrentValues.SetValues(existingStaffSalaryDetail);
+				db.Entry(existingStaffSalaryDetail).State = EntityState.Modified;
+				await db.SaveChangesAsync();
+				//return RedirectToAction("Index");
+				switch (command)
+				{
+					case "Edit & Back To List":
+						return RedirectToAction("Index");
+					case "Edit & Continue":
+						TempData["Staff_Id"] = staff_Salary_Detail.Staff_Id;
+						//return RedirectToAction("EditStaffSalaryDetails");
+					   return RedirectToAction("EditStaffOtherDetails");
+					default:
+						return RedirectToAction("Index");
+				}
+			}
+
+			return View(existingStaffSalaryDetail);
+
+			
+		}
+
+
 		#endregion
 	}
 
