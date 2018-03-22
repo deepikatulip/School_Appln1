@@ -21,7 +21,8 @@ namespace School_AppIn_Model.DataAccessLayer
      
         public int Institution_Id { get; set; }
 
-        public long? Year_Of_Passing { get; set; }
+		[Display(Name = "Passing Year")]
+		public long? Year_Of_Passing { get; set; }
 
         [StringLength(50)]
         public string Medium_Of_Instruction { get; set; }
