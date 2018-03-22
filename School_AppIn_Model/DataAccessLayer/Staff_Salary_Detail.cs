@@ -14,27 +14,27 @@ namespace School_AppIn_Model.DataAccessLayer
 
 		public int Staff_Id { get; set; }
 
-		public int  Staff_Type_Id { get; set; }
+		//public int  Staff_Type_Id { get; set; }
 
 		public decimal Basic { get; set; }
 
-		public decimal DA { get; set; }
+		public decimal? DA { get; set; }
 
-		public decimal Medical { get; set; }
+		public decimal? Medical { get; set; }
 
-		public decimal Conveyance { get; set; }
+		public decimal? Conveyance { get; set; }
 
-		public decimal HRA { get; set; }
+		public decimal? HRA { get; set; }
 
-		public decimal LTA { get; set; }
+		public decimal? LTA { get; set; }
 
-		public decimal Other { get; set; }
+		public decimal? Other { get; set; }
 
-		public decimal Provident_Fund { get; set; }
+		public decimal? Provident_Fund { get; set; }
 
-		public decimal ESIC { get; set; }
+		public decimal? ESIC { get; set; }
 
-		public decimal Professional_Tax { get; set; }
+		public decimal? Professional_Tax { get; set; }
 
 		public long Academic_Year { get; set; }
 
@@ -53,5 +53,9 @@ namespace School_AppIn_Model.DataAccessLayer
 		public decimal Gross_Salary { get; set; }
 
 		public decimal Net_Salary { get; set; }
+
+		public decimal Other_Deductions { get; set; }
+
+		
 	}
 }
