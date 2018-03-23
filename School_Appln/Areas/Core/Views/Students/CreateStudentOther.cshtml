@@ -125,7 +125,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <input type="file" id="Photo" class="form-control file-input" name="imageUpload">
+                                <input type="file" id="Photo" class="form-control file-input" name="BirthImgUpload">
                                 <span class="help-block">Birth_Certificate</span>
 
                                 @*@Html.EditorFor(model => model.Birth_Certificate, new { htmlAttributes = new { @class = "form-control" } })
@@ -134,8 +134,8 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <input type="file" id="Photo2" class="form-control file-input" name="imageUpload">
-                                <span class="help-block">Upload_Document1</span>
+                                <input type="file" id="Photo2" class="form-control file-input" name="IDCardImgUpload">
+                                <span class="help-block">ID Card</span>
                                 @*@Html.EditorFor(model => model.Upload_Document1, new { htmlAttributes = new { @class = "form-control" } })
                                     @Html.ValidationMessageFor(model => model.Upload_Document1, "", new { @class = "text-danger" })*@
                             </div>
@@ -143,10 +143,18 @@
                         <div class="col-md-4">
 
                             <div class="form-group">
-                                <input type="file" id="Photo1" class="form-control file-input" name="imageUpload">
+                                <input type="file" id="Photo1" class="form-control file-input" name="DocImgUpload1">
                                 <span class="help-block">UpLoad_Document2</span>
                                 @*@Html.EditorFor(model => model.UpLoad_Document2, new { htmlAttributes = new { @class = "form-control" } })
                                     @Html.ValidationMessageFor(model => model.UpLoad_Document2, "", new { @class = "text-danger" })*@
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <input type="file" id="Photo1" class="form-control file-input" name="DocImgUpload2">
+                                <span class="help-block">UpLoad_Document2</span>
+                                @*@Html.EditorFor(model => model.UpLoad_Document2, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.UpLoad_Document2, "", new { @class = "text-danger" })*@
                             </div>
                         </div>
                     </div>

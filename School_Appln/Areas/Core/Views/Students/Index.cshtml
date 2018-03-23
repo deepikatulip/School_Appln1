@@ -31,6 +31,9 @@
         <thead>
             <tr>
                 <th>
+                    @Html.DisplayName("Student Image")
+                </th>
+                <th>
                     @Html.DisplayName("Name")
                 </th>
                 <th>
@@ -66,6 +69,19 @@
             @foreach (var item in Model)
             {
                 <tr>
+
+                    @if (@item.Photo != null)
+                    {
+                        <td>
+                            <img height="50" width="50" id="1" data-toggle="modal" data-target="#myModal" src="data:image;base64,@System.Convert.ToBase64String(@item.Photo)" alt='Text dollar code part one.' />
+
+                        </td>
+                    }
+                    else
+                    {
+                        <td>No image</td>
+                    }
+
                     <td>
                         @Html.DisplayFor(modelItem => item.First_Name)
                         @Html.DisplayFor(modelItem => item.Middle_Name)
@@ -107,13 +123,34 @@
         </tbody>
 </table>
 </div>
-    @section Scripts{
-        <script>
-            $('#tblStudents').dataTable({
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <img class="img-responsive" src="" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $('#tblStudents').dataTable({
+        });
+
+
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('img').on('click', function () {
+                var image = $(this).attr('src');
+                $('#myModal').on('show.bs.modal', function () {
+                    $(".img-responsive").attr("src", image);
+                });
             });
-
-          
-
-        </script>
-
-    }
+        });
+    </script>
+}

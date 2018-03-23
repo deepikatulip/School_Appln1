@@ -17,7 +17,7 @@
                 </ul>
             </div>
         </div>
-        @using (Html.BeginForm())
+       @using (Html.BeginForm("Create", "Students", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -266,7 +266,8 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <input type="file" id="Photo" class="form-control file-input" name="imageUpload"  >
+                                <input type="file" id="Photo" class="form-control file-input" name="imageUpload" data-show-caption="false" data-show-upload="false"  >
+                                @*<input type="file" class="file-input" data-show-caption="false" data-show-upload="false" data-browse-class="btn btn-primary btn-lg" data-remove-class="btn btn-default btn-lg">*@
                                 <span class="help-block">Upload Image</span>
                             </div>
                         </div>
