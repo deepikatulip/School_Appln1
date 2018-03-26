@@ -4,7 +4,6 @@
     ViewBag.Title = "Configure Fees";
     Layout = "~/Views/Shared/_LayoutSuperAdmin.cshtml";
 }
-
 <section class="content">
     <!-- Basic layout-->
     <div class="panel panel-primary">
@@ -17,8 +16,6 @@
                 </ul>
             </div>
         </div>
-
-
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
@@ -29,8 +26,6 @@
                         <i class="icon-coin-dollar position-left"></i>
                         Configure Fees Details
                     </legend>
-
-
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
@@ -49,18 +44,20 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <select id="FrequencyCategoryId" name="FrequencyCategoryId" class="form-control select"></select>
-                               @* @Html.DropDownListFor(model => model.FrequencyCategoryId, (IEnumerable<SelectListItem>)ViewBag.Gender_Id, "Select Period ...", new { @class = "form-control select", style = "width: 100%;" })*@
-                               @* @Html.DropDownList("FrequencyCategoryId", null, htmlAttributes: new { @class = "form-control select" })*@
+                                @* @Html.DropDownListFor(model => model.FrequencyCategoryId, (IEnumerable<SelectListItem>)ViewBag.Gender_Id, "Select Period ...", new { @class = "form-control select", style = "width: 100%;" })*@
+                                @* @Html.DropDownList("FrequencyCategoryId", null, htmlAttributes: new { @class = "form-control select" })*@
                                 @Html.ValidationMessageFor(model => model.FrequencyCategoryId, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
-
                     </div>
-
                     <div class="row">
                         <div class="col-md-4">
-
+                            <div class="form-group">
+                                @Html.EditorFor(model => model.Academic_Year, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Academic_Year, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group">
                                 @Html.EditorFor(model => model.FeesDescription, new { htmlAttributes = new { @class = "form-control", @placeholder = "Fees Description" } })
                                 @Html.ValidationMessageFor(model => model.FeesDescription, "", new { @class = "text-danger" })
@@ -73,24 +70,35 @@
                             </div>
                         </div>
                     </div>
-
-
-
-                   
                     <div class="form-group">
-                            <input type="submit" value="Create"  class="btn btn-success " /> ||
-                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-danger" })
+                        <input type="submit" id="btnSave" value="Create" class="btn btn-success " /> ||
+                        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-danger" })
                     </div>
                 </fieldset>
             </div>
         }
+        <div class="panel-body">
+            <fieldset>
+                <legend class="text-semibold">
+                    <i class="icon-coin-dollar"></i>
+                    Fees Details List
+                </legend>
+                <div class="box-body">
+                    <table id="jqGrid"></table>
+                    <div id="jqGridPager"></div>
+                </div>
+            </fieldset>
+            <div class="text-right">
+            </div>
+        </div>
     </div>
     <!-- /basic layout -->
 </section>
 
-
-
 @section Scripts {
+    <link href="~/Content/JqGrid/src/css/ui.jqgrid-bootstrap.css" rel="stylesheet" />
+    <script src="~/Content/JqGrid/js/i18n/grid.locale-en.js"></script>
+    <script src="~/Content/JqGrid/src/jquery.jqGrid.js"></script>
     <script>
         $(document).ready(function () {
             $("#Txt_InvFrequencyId").change(function () {
@@ -102,7 +110,6 @@
                     });
                 });
             });
-
 
             // Fix for JQuery Reinitialization issue
 
@@ -117,13 +124,59 @@
                     });
                 });
             }
-
+            fnFeesList();
         });
-
-
-
+        function fnFeesList() {
+            $("#jqGrid").trigger('reloadGrid');
+            $("#jqGrid").jqGrid({
+                url: '/Ext/Fees_Configuration/FeesList',
+                mtype: "POST",
+                styleUI: 'Bootstrap',
+                datatype: "json",
+                colModel: [
+                            { label: '', name: 'FeesId', hidden: true, search: false, stype: false },
+                            { label: '', name: 'Class_Id', hidden: true, search: false, stype: false },
+                            { label: '', name: 'FrequencyCategoryId', hidden: true, search: false, stype: false },
+                            { label: '', name: 'InvFrequencyId', hidden: true, search: false, stype: false },
+                            { label: 'Class', name: 'Class', search: false, stype: false },
+                            { label: 'Frequency', name: 'Frequency', search: false, stype: false },
+                            { label: 'Period', name: 'Period', search: false, stype: false },
+                            { label: 'Fees Description', name: 'FeesDescription', search: false, stype: false },
+                            { label: 'Fees', name: 'Fees', search: false, stype: false },
+                            { label: 'Acadamic Year', name: 'Academic_Year', search: false, stype: false }
+                ],
+                page: 1,
+                width: 780,
+                height: 250,
+                rowNum: 20,
+                multiselect: false,
+                scrollPopUp: true,
+                scrollLeftOffset: "83%",
+                viewrecords: true,
+                gridview: true,
+                viewrecords: true,
+                height: '100%',
+                rowNum: 30,
+                rowList: [10, 20, 30, 40],
+                pager: "#jqGridPager",
+                responsive: true,
+                autowidth: true,
+                shrinkToFit: true,
+                loadonce: false,
+                emptyrecords: 'No records to display',
+                jsonReader: {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: false
+                },
+                footerrow: false,
+                userDataOnFooter: true
+            });
+        }
+        $("#jqGrid").css("right", 150);
 
     </script>
-    @*@Scripts.Render("~/bundles/jqueryval")*@
 }
 

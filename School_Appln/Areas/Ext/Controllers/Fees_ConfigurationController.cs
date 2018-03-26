@@ -52,7 +52,7 @@ namespace School_Appln.Areas.Ext.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "FeesId,Class_Id,FrequencyCategoryId,InvFrequencyId,FeesDescription,Fees,Created_By,Created_On,Updated_On,Updated_By,Is_Active,Is_Deleted")] Fees_Configuration fees_Configuration)
+        public async Task<ActionResult> Create([Bind(Include = "FeesId,Class_Id,FrequencyCategoryId,InvFrequencyId,Academic_Year,FeesDescription,Fees,Created_By,Created_On,Updated_On,Updated_By,Is_Active,Is_Deleted")] Fees_Configuration fees_Configuration)
         {
             var userId = LoggedInUser.Id;
             if (ModelState.IsValid)
@@ -61,7 +61,7 @@ namespace School_Appln.Areas.Ext.Controllers
                 fees_Configuration.Created_On = DateTime.Now;
                 db.Fees_Config.Add(fees_Configuration);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create");
             }
 
             ViewBag.Class_Id = new SelectList(db.Classes, "Class_Id", "Class_Name", fees_Configuration.Class_Id);
@@ -93,7 +93,7 @@ namespace School_Appln.Areas.Ext.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "FeesId,Class_Id,Class_Name,FrequencyCategoryId,InvFrequencyId,FeesDescription,Fees,Created_By,Created_On,Updated_On,Updated_By,Is_Active,Is_Deleted")] Fees_Configuration fees_Configuration)
+        public async Task<ActionResult> Edit([Bind(Include = "FeesId,Class_Id,Class_Name,FrequencyCategoryId,InvFrequencyId,Academic_Year,FeesDescription,Fees,Created_By,Created_On,Updated_On,Updated_By,Is_Active,Is_Deleted")] Fees_Configuration fees_Configuration)
         {
             var userId = LoggedInUser.Id;
             Fees_Configuration existingFeesConfig = db.Fees_Config.Find(fees_Configuration.FeesId);
@@ -152,8 +152,44 @@ namespace School_Appln.Areas.Ext.Controllers
         }
 
 
+        public JsonResult FeesList(string sidx, string sord, int page, int rows, string studentId)
+        {
+            var refStudentId = Convert.ToInt64(studentId);
+            int pageIndex = Convert.ToInt32(page) - 1;
+            int pageSize = rows;
+            var feesList = (from fe in db.Fees_Config
+                            join fr in db.InvoiceFrequencies on fe.InvFrequencyId equals fr.InvFrequencyId
+                            join pr in db.InvFrequencyCategories on fe.FrequencyCategoryId equals pr.FrequencyCategoryId
+                            join cls in db.Classes on fe.Class_Id equals cls.Class_Id
+                            select new { FeesId = fe.FeesId, Class_Id = fe.Class_Id, FrequencyCategoryId = fe.FrequencyCategoryId, InvFrequencyId = fe.InvFrequencyId, Class=cls.Class_Name,Frequency = fr.InvFrequencyValue, Period=pr.FrequencyForPeriod, FeesDescription = fe.FeesDescription, Fees = fe.Fees }).ToList();
+
+            int totalRecords = feesList.Count();
+            var totalPages = (int)Math.Ceiling((float)totalRecords / (float)rows);
+            if (sord.ToUpper() == "DESC")
+            {
+                feesList = feesList.OrderByDescending(s => s.FeesId).ToList();
+                feesList = feesList.Skip(pageIndex * pageSize).Take(pageSize).ToList();
+            }
+            else
+            {
+                feesList = feesList.OrderBy(s => s.FeesId).ToList();
+                feesList = feesList.Skip(pageIndex * pageSize).Take(pageSize).ToList();
+            }
+            var jsonData = new
+            {
+                total = totalPages,
+                page,
+                records = totalRecords,
+                rows = feesList
+            };
+
+            return Json(jsonData, JsonRequestBehavior.AllowGet);
+
+        }
 
 
+
+      
 
         protected override void Dispose(bool disposing)
         {

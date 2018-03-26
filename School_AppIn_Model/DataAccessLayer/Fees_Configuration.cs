@@ -32,6 +32,7 @@ namespace School_AppIn_Model.DataAccessLayer
         [Display(Name = "Period")]
         public int? InvFrequencyId { get; set; }
 
+        public long? Academic_Year { get; set; }
 
         [Required(ErrorMessage = "Fees Description Required")]
         [Display(Name = "Fees Desc")]
