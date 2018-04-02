@@ -1,0 +1,141 @@
+﻿
+@{
+	ViewBag.Title = "Index1";
+	Layout = "~/Views/Shared/_LayoutSuperAdmin.cshtml";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Limitless - Responsive Web Application Kit by Eugene Kopyov</title>
+	<!-- Global stylesheets -->
+	@*<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+	<link href="~/Content/assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+	<link href="~/Content/assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+	<link href="~/Content/assets/css/core.css" rel="stylesheet" type="text/css">
+	<link href="~/Content/assets/css/components.css" rel="stylesheet" type="text/css">
+	<link href="~/Content/assets/css/colors.css" rel="stylesheet" type="text/css">*@
+	<!-- /global stylesheets -->
+	<!-- Core JS files -->
+	@*<script type="text/javascript" src="~/Content/assets/js/plugins/loaders/pace.min.js"></script>
+	<script type="text/javascript" src="~/Content/assets/js/core/libraries/jquery.min.js"></script>
+	<script type="text/javascript" src="~/Content/assets/js/core/libraries/bootstrap.min.js"></script>
+	<script type="text/javascript" src="~/Content/assets/js/plugins/loaders/blockui.min.js"></script>*@
+	<!-- /core JS files -->
+	<!-- Theme JS files -->
+	<script type="text/javascript" src="~/Content/assets/js/plugins/tables/handsontable/handsontable.min.js"></script>
+	<link href="~/Content/assets/css/handsontable.css" rel="stylesheet" type="text/css" /> 
+	<script type="text/javascript" src="~/Content/assets/js/core/app.js"></script>
+
+	@*<script type="text/javascript" src="~/Content/assets/js/core/app.js"></script>
+	<script type="text/javascript" src="~/Content/assets/js/pages/handsontable_advanced.js"></script>*@
+	<!-- /theme JS files -->
+
+	
+
+	<script type="text/javascript">
+$(function () {
+var $container = $("#myHandsonTable");
+$container.handsontable({
+startRows: 15,
+startCols: 16,
+rowHeaders: true,
+colHeaders: true,
+useFormula: true,
+minSpareCols: 1,
+minSpareRows: 1,
+contextMenu: true,
+outsideClickDeselects: false,
+removeRowPlugin: true,
+useFormula: true
+});
+//var data = [
+//["", "Kia", "Nissan", "Toyota", "Honda"],
+//["2008", 10, 11, 12, 13],
+//["2009", 20, 11, 14, 13],
+//["2010", 30, 15, 12, 13]
+//];
+jQuery.ajax({
+	url: '/Core/Marks/GetCar/', //Controller to Get the 
+	//JsonResult From -- Json(jsonData, JsonRequestBehavior.AllowGet);
+	type: "GET",
+	dataType: "json",
+	contentType: 'application/json;charset=utf-8',
+	async: true,
+	processData: false,
+	cache: false,
+	success: function (data) {      // on Success send the Json data 
+		// to the table by using loaddata function""
+		//alert(data);
+		debugger
+		$container.handsontable("loadData", data);
+	//hot.loadData(data);
+	exampleConsole.innerHTML = 'Data loaded';
+},
+	error: function (xhr) {
+	alert('error');
+}
+});
+//$container.handsontable("loadData", data);
+var handsontable = $container.data('handsontable');
+$("#save").click(function () {
+	debugger
+console.log(handsontable.getData());
+var myData = handsontable.getData();
+myData = JSON.stringify(myData);
+//$.ajax({
+//	url: "/Core/Marks/tableData",
+//type: "POST",
+//contentType: 'application/json',
+//data: { "data": handsontable.getData() },
+//dataType: 'json',
+//success: function (data) {
+//alert(data);
+//}
+//});
+
+//$.ajax({
+//	type: "POST",
+//	url: '/Core/Marks/tableData/',
+//	data: { "data": handsontable.getData() },
+//	contentType: "application/json; charset=utf-8",
+//	dataType: 'json',	
+//	success: function (data) {
+//		alert(data);
+//	}
+//});
+
+jQuery.ajax({
+	url: '/Core/Marks/tableData/',
+	type: "POST",
+	dataType: "json",
+	contentType: 'application/json; charset=utf-8',
+	//data: { "data": JSON.stringify(myData) },
+	data: myData,
+	async: true,
+	processData: false,
+	cache: false,
+	success: function (data) {
+		//exampleConsole.innerHTML = 'Data saved';
+		alert(data);
+	},
+	error: function (xhr) {
+		//exampleConsole.innerHTML = 'Save error';
+		alert('error');
+	}
+});
+});
+});
+	</script>
+	
+</head>
+<body>
+	<button id="save">Save</button>
+	<div id="myHandsonTable"></div>
+	</body>
+</html>
+

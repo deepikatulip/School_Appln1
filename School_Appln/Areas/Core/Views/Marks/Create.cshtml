@@ -1,0 +1,58 @@
+﻿
+@{
+
+}
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css"
+	  rel="stylesheet" type="text/css" />
+<script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js"></script>
+<link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css"
+	  rel="stylesheet" type="text/css" />
+<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(function () {
+            $('#mySkills').multiselect({
+                includeSelectAllOption: true
+            });
+        });
+        $("#btnGetSkills").click(function () {
+            alert($("#mySkills").val());
+        });
+    });
+</script>
+
+<h2>Multiselect Dropdown with Checkbox</h2>
+<div>
+	<select id="mySkills" multiple="multiple" required name="mySkillsName">
+		@if (ViewBag.mySkills != null)
+		{
+			foreach (var item in ViewBag.mySkills)
+			{
+				if (item.Text != null)
+				{
+
+					<option value="@item.Value">
+						@item.Text
+					</option>
+				}
+			}
+		}
+	</select>
+</div>
+@{
+	var MyList = new List<SelectListItem>(){
+		new SelectListItem(){Value="1",Text="item1"},
+		new SelectListItem(){Value="2",Text="item2"},
+		new SelectListItem(){Value="3",Text="item3"}
+	};
+
+
+}
+@Html.ListBox("Huurperiode", MyList, new { size = "15", Multiple = "multiple" });
+<br />
+<br />
+<input type="button" id="btnGetSkills" value="Click me to Get Selected Skill(s)" />
+
+@Html.DropDownList("DDLTest", (List<SelectListItem>)ViewBag.ddlitemlist, new { multiple = "multiple" })
