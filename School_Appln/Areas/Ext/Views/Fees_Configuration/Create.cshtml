@@ -29,7 +29,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                @Html.DropDownListFor(model => model.Class_Id, (IEnumerable<SelectListItem>)ViewBag.Class_Id, "Select Class ...", new { @class = "form-control select", style = "width: 100%;" })
+                                @Html.DropDownListFor(model => model.Class_Id, (IEnumerable<SelectListItem>)ViewBag.Class_Id, "Select Class ...", new { @class = "form-control select", multiple = "multiple", style = "width: 100%;" })
                                 @*@Html.DropDownList("Class_Id", null, htmlAttributes: new { @class = "form-control select" })*@
                                 @Html.ValidationMessageFor(model => model.Class_Id, "", new { @class = "text-danger" })
                             </div>
@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <select id="FrequencyCategoryId" name="FrequencyCategoryId" class="form-control select"></select>
+                                <select id="FrequencyCategoryId" name="FrequencyCategoryId" class="form-control select" multiple="multiple"></select>
                                 @* @Html.DropDownListFor(model => model.FrequencyCategoryId, (IEnumerable<SelectListItem>)ViewBag.Gender_Id, "Select Period ...", new { @class = "form-control select", style = "width: 100%;" })*@
                                 @* @Html.DropDownList("FrequencyCategoryId", null, htmlAttributes: new { @class = "form-control select" })*@
                                 @Html.ValidationMessageFor(model => model.FrequencyCategoryId, "", new { @class = "text-danger" })
@@ -53,7 +53,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                @Html.EditorFor(model => model.Academic_Year, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.Academic_Year, new { htmlAttributes = new { @class = "form-control", @placeholder = "Academic Year" } })
                                 @Html.ValidationMessageFor(model => model.Academic_Year, "", new { @class = "text-danger" })
                             </div>
                         </div>

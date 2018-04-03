@@ -22,40 +22,41 @@
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.FeesId)
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.FeesId)
 
-                <div class="row">
-                    <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-4">
 
-                        <div class="form-group">
-                            @Html.DropDownList("Class_Id", null, htmlAttributes: new { @class = "form-control select" })
-                            @Html.ValidationMessageFor(model => model.Class_Id, "", new { @class = "text-danger" })
-                        </div>
+                    <div class="form-group">
+                        @Html.DropDownList("Class_Id", null, htmlAttributes: new { @class = "form-control select" })
+                        @Html.ValidationMessageFor(model => model.Class_Id, "", new { @class = "text-danger" })
                     </div>
-                    <div class="col-md-4">
-
-                        <div class="form-group">
-                            @Html.DropDownList("InvFrequencyId", null, htmlAttributes: new { @class = "form-control select" })
-                            @Html.ValidationMessageFor(model => model.InvFrequencyId, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            @Html.DropDownList("FrequencyCategoryId", null, htmlAttributes: new { @class = "form-control select" })
-                            @Html.ValidationMessageFor(model => model.FrequencyCategoryId, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                  
                 </div>
-                <div class="row">
-                    <div class="col-md-4">
+                <div class="col-md-4">
 
-                        <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.DropDownList("InvFrequencyId", null, htmlAttributes: new { @class = "form-control select" })
+                        @Html.ValidationMessageFor(model => model.InvFrequencyId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.DropDownList("FrequencyCategoryId", null, htmlAttributes: new { @class = "form-control select" })
+                        @Html.ValidationMessageFor(model => model.FrequencyCategoryId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            </div>
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <div class="form-group">
                             @Html.EditorFor(model => model.Academic_Year, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Academic_Year, "", new { @class = "text-danger" })
                         </div>
-
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             @Html.EditorFor(model => model.FeesDescription, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.FeesDescription, "", new { @class = "text-danger" })
@@ -70,7 +71,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <div class="checkbox">
-                                @Html.EditorFor(model => model.Is_Active)
+                                @Html.EditorFor(model => model.Is_Active)@Html.Label("Is Active")
                                 @Html.ValidationMessageFor(model => model.Is_Active, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -84,7 +85,94 @@
                         </div>
                     </div>
                 </div>
- 
+
         }
     </div>
+    <div class="panel-body">
+        <fieldset>
+            <legend class="text-semibold">
+                <i class="icon-coin-dollar"></i>
+                Fees Details List
+            </legend>
+            <div class="box-body">
+                <table id="jqGrid"></table>
+                <div id="jqGridPager"></div>
+            </div>
+        </fieldset>
+        <div class="text-right">
+        </div>
+    </div>
 </div>
+
+@section Scripts {
+    <link href="~/Content/JqGrid/src/css/ui.jqgrid-bootstrap.css" rel="stylesheet" />
+    <script src="~/Content/JqGrid/js/i18n/grid.locale-en.js"></script>
+    <script src="~/Content/JqGrid/src/jquery.jqGrid.js"></script>
+    <script>
+        $(document).ready(function () {
+            fnFeesList();
+        });
+        function fnFeesList() {
+         //   var classId = @Html.Raw(Json.Encode(Model.Class_Id));
+            $("#jqGrid").trigger('reloadGrid');
+            $("#jqGrid").jqGrid({
+                url: '/Ext/Fees_Configuration/EditFeesList/' + @Model.Class_Id,
+                mtype: "POST",
+                styleUI: 'Bootstrap',
+                datatype: "json",
+                colModel: [
+                            { label: '', name: 'FeesId', hidden: true, search: false, stype: false },
+                            { label: '', name: 'Class_Id', hidden: true, search: false, stype: false },
+                            { label: '', name: 'FrequencyCategoryId', hidden: true, search: false, stype: false },
+                            { label: '', name: 'InvFrequencyId', hidden: true, search: false, stype: false },
+                            { label: 'Class', name: 'Class', search: true, stype: true },
+                            { label: 'Frequency', name: 'Frequency', search: true, stype: true },
+                            { label: 'Period', name: 'Period', search: false, stype: false },
+                            { label: 'Fees Description', name: 'FeesDescription', search: true, stype: true },
+                            { label: 'Fees', name: 'Fees', search: true, stype: true },
+                            { label: 'Acadamic Year', name: 'Academic_Year', search: true, stype: true },
+                            { label: 'Actions', name: '', search: false, formatter: $EditFees, stype: false }
+                            //{ label: 'Actions', name: '', search: false, formatter: $DelFees, stype: false }
+
+                ],
+                page: 1,
+                width: 780,
+                height: 250,
+                rowNum: 20,
+                multiselect: false,
+                scrollPopUp: true,
+                scrollLeftOffset: "83%",
+                viewrecords: true,
+                gridview: true,
+                viewrecords: true,
+                height: '100%',
+                rowNum: 30,
+                rowList: [10, 20, 30, 40],
+                pager: "#jqGridPager",
+                responsive: true,
+                autowidth: true,
+                shrinkToFit: true,
+                loadonce: false,
+                emptyrecords: 'No records to display',
+                jsonReader: {
+                    root: "rows",
+                    page: "page",
+                    total: "total",
+                    records: "records",
+                    repeatitems: false
+                },
+                footerrow: false,
+                userDataOnFooter: true
+            });
+            function $EditFees(cellvalue, options, rowObject) {
+                var feesId = rowObject.FeesId;
+                return "<a class='btn btn-warning' href='/Ext/Fees_Configuration/Edit/" + feesId + "'>EDIT</a>";
+            }
+            //function $DelFees(cellvalue, options, rowObject) {
+            //    return "<a class='btn btn-danger' href='javascript:deleteSibling(" + rowObject.Student_Id + "," + elementId + ");'>DELETE</a>";
+            //}
+        }
+        $("#jqGrid").css("right", 150);
+    </script>
+}
+
